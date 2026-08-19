@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const articles = (await getCollection('articles'))
+  .filter(a => !a.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="ACTA FRAGILIA" description="Независимая авторская площадка для долгих текстов, анализа документов, расследований и объяснения сложных тем.">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-grid" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--line-strong)" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+        <line x1="100%" y1="0" x2="0" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+      </svg>
+    </div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Независимая журналистика и анализ</p>
+      <h1>ACTA <em>FRAGILIA</em></h1>
+      <p class="hero-lead">Право, экономика, корпоративные конфликты и общественные процессы — без шума, с проверкой фактов и вниманием к последствиям.</p>
+      <div class="hero-meta">
+        <span><span class="dot" aria-hidden="true"></span> Долгие тексты</span>
+        <span><span class="dot" aria-hidden="true"></span> Документы</span>
+        <span><span class="dot" aria-hidden="true"></span> Расследования</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ARTICLES LIST -->
+  <section class="container">
+    <div class="section-header">
+      <h2>Последние пуликации</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+
+    <div class="articles-list">
+      {articles.map(article => {
+        const d = new Date(article.data.date);
+        const dateStr = d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        return (
+          <article class="article-card">
+            <div class="article-marginalia">
+              <span class="article-category">{article.data.category}</span>
+              <time class="article-date" datetime={d.toISOString().split('T')[0]}>{dateStr}</time>
+            </div>
+            <div class="article-body">
+              <h3><a href={`/article/${article.slug}`}>{article.data.title}</a></h3>
+              <p>{article.data.subtitle}</p>
+              <a href={`/article/${article.slug}`} class="article-link">Читать полностью →</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <style>
+    .hero { position: relative; padding: var(--space-2xl) 0; overflow: hidden; }
+    .hero-grid { position: absolute; inset: 0; opacity: 0.35; pointer-events: none; }
+    .hero-grid svg { width: 100%; height: 100%; }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: var(--space-sm);
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-size: var(--step-4); font-weight: 300;
+      line-height: 1.05; letter-spacing: -0.03em; max-width: 18ch; margin-bottom: var(--space-md);
+    }
+    .hero h1 em { font-style: italic; font-weight: 400; }
+    .hero-lead {
+      font-family: var(--font-display); font-size: var(--step-1); font-weight: 400;
+      line-height: 1.5; color: var(--muted); max-width: 55ch; margin-bottom: var(--space-xl);
+    }
+    .hero-meta {
+      display: flex; gap: var(--space-lg);
+      font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted);
+    }
+    .hero-meta span { display: flex; align-items: center; gap: var(--space-xs); }
+    .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; opacity: 0.6; }
+
+    .section-header {
+      display: flex; align-items: baseline; gap: var(--space-md);
+      margin-bottom: var(--space-xl); padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .section-header h2 {
+      font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted);
+    }
+    .line { flex: 1; height: 1px; background: var(--line); }
+
+    .articles-list { display: flex; flex-direction: column; gap: var(--space-xl); padding-bottom: var(--space-2xl); }
+    .article-card {
+      display: grid; grid-template-columns: 140px 1fr; gap: var(--space-lg); align-items: start;
+    }
+    .article-marginalia {
+      display: flex; flex-direction: column; gap: var(--space-xs);
+      padding-top: 0.35em; text-align: right;
+      border-right: 1.5px solid var(--line); padding-right: var(--space-md);
+    }
+    .article-category {
+      font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .article-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+    .article-body { display: flex; flex-direction: column; gap: var(--space-sm); }
+    .article-body h3 {
+      font-family: var(--font-display); font-size: var(--step-2); font-weight: 600;
+      line-height: 1.15; letter-spacing: -0.01em; transition: color 0.2s;
+    }
+    .article-body h3 a:hover { color: var(--accent); }
+    .article-body p {
+      font-family: var(--font-ui); font-size: var(--step-0);
+      line-height: 1.65; color: var(--muted); max-width: 60ch;
+    }
+    .article-link {
+      display: inline-flex; align-items: center; gap: var(--space-xs);
+      font-family: var(--font-mono); font-size: var(--step--1); color: var(--accent); margin-top: var(--space-xs);
+      transition: gap 0.2s;
+    }
+    .article-card:hover .article-link { gap: var(--space-sm); }
+
+    @media (max-width: 768px) {
+      .article-card { grid-template-columns: 1fr; gap: var(--space-sm); }
+      .article-marginalia {
+        flex-direction: row; align-items: baseline; gap: var(--space-sm);
+        text-align: left; border-right: none; border-bottom: 1px solid var(--line);
+        padding-right: 0; padding-bottom: var(--space-sm);
+      }
+      .hero h1 { font-size: var(--step-3); }
+    }
+  </style>
+</Base>

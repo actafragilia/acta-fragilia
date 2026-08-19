@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Политика конфиденциальности"
+  description="Политика конфиденциальности ACTA FRAGILIA."
+  canonical="https://acta-fragilia.pages.dev/privacy"
+>
+  <div class="privacy-hero">
+    <div class="container">
+      <h1>Политика конфиденциальности</h1>
+    </div>
+  </div>
+
+  <div class="privacy-content container">
+    <div class="privacy-text">
+      <p>ACTA FRAGILIA не собирает персональные данные посетителей. Этот сайт не использует cookies для трекинга, не подключает аналитические сервисы третьих лиц и не размещает рекламу.</p>
+
+      <h2>Что мы не делаем</h2>
+      <ul>
+        <li>Не собираем IP-адреса для профилирования.</li>
+        <li>Не используем cookies для отслеживания поведения.</li>
+        <li>Не передаём данные рекламным сетям.</li>
+        <li>Не используем Google Analytics, Яндекс.Метрику и аналогичные сервисы.</li>
+      </ul>
+
+      <h2>Что используется</h2>
+      <p>Сайт размещён на Cloudflare Pages. Cloudflare может записывать IP-адреса в рамках своей инфраструктурной безопасности (защита от DDoS и ботов). Эти данные обрабатываются Cloudflare в соответствии с их политикой конфиденциальности и не используются нами для идентификации посетителей.</p>
+
+      <h2>Контакт</h2>
+      <p>Вопрос: <a href="mailto:info@acta-fragilia.pages.dev">info@acta-fragilia.pages.dev</a></p>
+    </div>
+  </div>
+
+  <style>
+    .privacy-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid var(--line-strong); }
+    .privacy-hero h1 {
+      font-family: var(--font-display); font-size: var(--step-3); font-weight: 600;
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .privacy-content { padding: var(--space-xl) 0 var(--space-2xl); }
+    .privacy-text {
+      font-family: var(--font-display); font-size: var(--step-0);
+      line-height: 1.75; max-width: var(--text-width);
+    }
+    .privacy-text > * + * { margin-top: var(--space-md); }
+    .privacy-text h2 {
+      font-family: var(--font-display); font-size: var(--step-2); font-weight: 600;
+      line-height: 1.2; letter-spacing: -0.01em;
+      margin-top: var(--space-xl); margin-bottom: var(--space-sm);
+    }
+    .privacy-text ul { padding-left: var(--space-md); }
+    .privacy-text li { margin-bottom: var(--space-xs); }
+    .privacy-text a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
+    .privacy-text a:hover { text-decoration-thickness: 2px; }
+  </style>
+</Base>
