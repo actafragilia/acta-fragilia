@@ -8,6 +8,7 @@ export interface Props {
 }
 
 const { title, lang, article } = Astro.props;
+const ogImage = `/og/${lang}/${article.slug}.png`;
 const { Content } = await article.render();
 
 function formatDate(date: Date | string, language: string = 'ru'): string {
@@ -46,7 +47,16 @@ const t = {
 };
 ---
 
-<Base title={title} lang={lang}>
+<Base
+  title={title}
+  lang={lang}
+  description={article.data.subtitle}
+  image={ogImage}
+  type="article"
+  publishedTime={article.data.date}
+  author={article.data.author}
+  section={article.data.category}
+>
   <article class="article-page">
     <header class="article-header">
       <div class="article-meta-header">
