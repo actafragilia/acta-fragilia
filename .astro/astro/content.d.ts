@@ -163,6 +163,75 @@ declare module 'astro:content' {
   data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
 };
+"articlesBy": {
+"bankrotstva-yak-sistema.md": {
+	id: "bankrotstva-yak-sistema.md";
+  slug: "bankrotstva-yak-sistema";
+  body: string;
+  collection: "articlesBy";
+  data: InferEntrySchema<"articlesBy">
+} & { render(): Render[".md"] };
+"medyjny-landshaft.md": {
+	id: "medyjny-landshaft.md";
+  slug: "medyjny-landshaft";
+  body: string;
+  collection: "articlesBy";
+  data: InferEntrySchema<"articlesBy">
+} & { render(): Render[".md"] };
+"novyya-religijnyya-ruhi.md": {
+	id: "novyya-religijnyya-ruhi.md";
+  slug: "novyya-religijnyya-ruhi";
+  body: string;
+  collection: "articlesBy";
+  data: InferEntrySchema<"articlesBy">
+} & { render(): Render[".md"] };
+};
+"articlesEn": {
+"bankruptcy-as-a-system.md": {
+	id: "bankruptcy-as-a-system.md";
+  slug: "bankruptcy-as-a-system";
+  body: string;
+  collection: "articlesEn";
+  data: InferEntrySchema<"articlesEn">
+} & { render(): Render[".md"] };
+"media-landscape.md": {
+	id: "media-landscape.md";
+  slug: "media-landscape";
+  body: string;
+  collection: "articlesEn";
+  data: InferEntrySchema<"articlesEn">
+} & { render(): Render[".md"] };
+"new-religious-movements.md": {
+	id: "new-religious-movements.md";
+  slug: "new-religious-movements";
+  body: string;
+  collection: "articlesEn";
+  data: InferEntrySchema<"articlesEn">
+} & { render(): Render[".md"] };
+};
+"articlesPl": {
+"nowe-ruchy-religijne.md": {
+	id: "nowe-ruchy-religijne.md";
+  slug: "nowe-ruchy-religijne";
+  body: string;
+  collection: "articlesPl";
+  data: InferEntrySchema<"articlesPl">
+} & { render(): Render[".md"] };
+"pejzaz-medialny.md": {
+	id: "pejzaz-medialny.md";
+  slug: "pejzaz-medialny";
+  body: string;
+  collection: "articlesPl";
+  data: InferEntrySchema<"articlesPl">
+} & { render(): Render[".md"] };
+"upadlosc-jako-system.md": {
+	id: "upadlosc-jako-system.md";
+  slug: "upadlosc-jako-system";
+  body: string;
+  collection: "articlesPl";
+  data: InferEntrySchema<"articlesPl">
+} & { render(): Render[".md"] };
+};
 
 	};
 

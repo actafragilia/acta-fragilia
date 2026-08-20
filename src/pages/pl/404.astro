@@ -1,25 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
-
-const page = {
-  title: 'Strona nie znaleziona',
-  text: 'Materiał mógł zostać przeniesiony lub link jest nieaktualny.',
-  home: '← Strona główna',
-  archive: 'Otwórz archiwum',
-};
 ---
 
-<Base title={`${page.title} — ACTA FRAGILIA`} lang="pl">
+<Base title="Strona nie znaleziona — ACTA FRAGILIA" lang="pl">
   <section class="notfound">
     <p class="notfound-code">404</p>
-    <h1 class="notfound-title">{page.title}</h1>
-    <p class="notfound-text">{page.text}</p>
+    <h1 class="notfound-title">Strona nie znaleziona</h1>
+    <p class="notfound-text">Materiał mógł zostać przeniesiony lub link jest nieaktualny.</p>
     <div class="notfound-actions">
-      <a href="/pl/" class="notfound-link">{page.home}</a>
-      <a href="/pl/archive/" class="notfound-link notfound-link--muted">{page.archive}</a>
+      <a href="/pl/" class="notfound-link">← Strona główna</a>
+      <a href="/pl/archive/" class="notfound-link notfound-link--muted">Otwórz archiwum</a>
     </div>
   </section>
-</Base>
 
 <style>
   .notfound { max-width: 640px; min-height: 620px; margin: 0 auto; padding: 5rem 0; text-align: center; }
@@ -32,3 +24,4 @@ const page = {
   .notfound-link--muted { color: var(--color-text-secondary); }
   .notfound-link--muted:hover { border-bottom-color: var(--color-text-secondary); }
 </style>
+</Base>

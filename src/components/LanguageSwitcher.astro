@@ -3,26 +3,65 @@ export interface Props {
   currentLang?: string;
 }
 
+type LangCode = 'ru' | 'en' | 'pl' | 'by';
+type ArticleSlugs = Record<LangCode, string>;
+
 const { currentLang = 'ru' } = Astro.props;
 
-const languages = [
+const languages: Array<{ code: LangCode; label: string }> = [
   { code: 'ru', label: 'RU' },
   { code: 'en', label: 'EN' },
   { code: 'pl', label: 'PL' },
   { code: 'by', label: 'BY' },
 ];
 
-const currentPath = Astro.url.pathname;
+// Соответствие переводов одной и той же статьи во всех языковых версиях.
+const articleSlugGroups: ArticleSlugs[] = [
+  {
+    ru: 'bankrotstvo-kak-sistema',
+    en: 'bankruptcy-as-a-system',
+    pl: 'upadlosc-jako-system',
+    by: 'bankrotstva-yak-sistema',
+  },
+  {
+    ru: 'novye-religioznye-dvizheniya',
+    en: 'new-religious-movements',
+    pl: 'nowe-ruchy-religijne',
+    by: 'novyya-religijnyya-ruhi',
+  },
+  {
+    ru: 'mediinyi-landshaft',
+    en: 'media-landscape',
+    pl: 'pejzaz-medialny',
+    by: 'medyjny-landshaft',
+  },
+];
 
-function getLangPath(langCode: string) {
-  if (langCode === 'ru') {
-    return currentPath.replace(/^\/(en|pl|by)\//, '/');
+// При статической сборке главная языковая страница может иметь путь /en,
+// /pl или /by без завершающего слэша. Поэтому префикс удаляется и перед
+// слэшем, и в конце строки.
+const normalizedPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const pathWithoutLanguage = normalizedPath.replace(/^\/(en|pl|by)(?=\/|$)/, '') || '/';
+
+function addLanguagePrefix(langCode: LangCode, cleanPath: string) {
+  const safePath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+  if (langCode === 'ru') return safePath;
+  return safePath === '/' ? `/${langCode}/` : `/${langCode}${safePath}`;
+}
+
+function getLangPath(langCode: LangCode) {
+  let translatedPath = pathWithoutLanguage;
+  const articleMatch = translatedPath.match(/^\/article\/([^/]+)$/);
+
+  if (articleMatch) {
+    const currentSlug = articleMatch[1];
+    const group = articleSlugGroups.find((slugs) => Object.values(slugs).includes(currentSlug));
+    if (group) translatedPath = `/article/${group[langCode]}`;
   }
-  const cleanPath = currentPath.replace(/^\/(en|pl|by)\//, '/');
-  return `/${langCode}${cleanPath}`;
+
+  return addLanguagePrefix(langCode, translatedPath);
 }
 ---
-
 <div class="language-switcher" aria-label="Переключатель языка">
   {languages.map((lang, index) => (
     <>
@@ -30,6 +69,7 @@ function getLangPath(langCode: string) {
         href={getLangPath(lang.code)}
         class={currentLang === lang.code ? 'active' : ''}
         aria-current={currentLang === lang.code ? 'page' : undefined}
+        hreflang={lang.code === 'by' ? 'be' : lang.code}
       >
         {lang.label}
       </a>
@@ -37,7 +77,6 @@ function getLangPath(langCode: string) {
     </>
   ))}
 </div>
-
 <style>
   .language-switcher {
     display: flex;

@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Privacy Policy — ACTA FRAGILIA"
+  lang="en"
+  description="ACTA FRAGILIA privacy policy."
+  canonical="https://acta-fragilia.pages.dev/en/privacy"
+>
+  <div class="privacy-hero">
+    <div class="container"><h1>Privacy Policy</h1></div>
+  </div>
+  <div class="privacy-content container">
+    <div class="privacy-text">
+      <p>ACTA FRAGILIA does not collect visitors’ personal data. This site does not use tracking cookies, third-party analytics services, or advertising.</p>
+      <h2>What we do not do</h2>
+      <ul>
+        <li>We do not collect IP addresses for profiling.</li>
+        <li>We do not use cookies to track visitor behaviour.</li>
+        <li>We do not share data with advertising networks.</li>
+        <li>We do not use Google Analytics, Yandex Metrica, or similar services.</li>
+      </ul>
+      <h2>What is used</h2>
+      <p>The site is hosted on Cloudflare Pages. Cloudflare may log IP addresses as part of its infrastructure security measures, including protection against DDoS attacks and bots. Cloudflare processes this data under its own privacy policy; ACTA FRAGILIA does not use it to identify visitors.</p>
+      <h2>Contact</h2>
+      <p>Questions: <a href="mailto:info@acta-fragilia.pages.dev">info@acta-fragilia.pages.dev</a></p>
+    </div>
+  </div>
+  <style>
+    .privacy-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid var(--color-border); }
+    .privacy-hero h1 {
+      font-family: var(--font-display); font-size: var(--step-3); font-weight: 600;
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .privacy-content { padding: var(--space-xl) 0 var(--space-2xl); }
+    .privacy-text {
+      font-family: var(--font-display); font-size: var(--step-0);
+      line-height: 1.75; max-width: var(--text-width);
+    }
+    .privacy-text > * + * { margin-top: var(--space-md); }
+    .privacy-text h2 {
+      font-family: var(--font-display); font-size: var(--step-2); font-weight: 600;
+      line-height: 1.2; letter-spacing: -0.01em;
+      margin-top: var(--space-xl); margin-bottom: var(--space-sm);
+    }
+    .privacy-text ul { padding-left: var(--space-md); }
+    .privacy-text li { margin-bottom: var(--space-xs); }
+    .privacy-text a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.2em; }
+    .privacy-text a:hover { text-decoration-thickness: 2px; }
+  </style>
+</Base>

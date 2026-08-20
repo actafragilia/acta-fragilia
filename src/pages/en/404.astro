@@ -1,25 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
-
-const page = {
-  title: 'Page not found',
-  text: 'The material may have been moved or the link is outdated.',
-  home: '← Back to home',
-  archive: 'Open archive',
-};
 ---
 
-<Base title={`${page.title} — ACTA FRAGILIA`} lang="en">
+<Base title="Page not found — ACTA FRAGILIA" lang="en">
   <section class="notfound">
     <p class="notfound-code">404</p>
-    <h1 class="notfound-title">{page.title}</h1>
-    <p class="notfound-text">{page.text}</p>
+    <h1 class="notfound-title">Page not found</h1>
+    <p class="notfound-text">The material may have been moved or the link is outdated.</p>
     <div class="notfound-actions">
-      <a href="/en/" class="notfound-link">{page.home}</a>
-      <a href="/en/archive/" class="notfound-link notfound-link--muted">{page.archive}</a>
+      <a href="/en/" class="notfound-link">← Back to home</a>
+      <a href="/en/archive/" class="notfound-link notfound-link--muted">Open archive</a>
     </div>
   </section>
-</Base>
 
 <style>
   .notfound { max-width: 640px; min-height: 620px; margin: 0 auto; padding: 5rem 0; text-align: center; }
@@ -32,3 +24,4 @@ const page = {
   .notfound-link--muted { color: var(--color-text-secondary); }
   .notfound-link--muted:hover { border-bottom-color: var(--color-text-secondary); }
 </style>
+</Base>

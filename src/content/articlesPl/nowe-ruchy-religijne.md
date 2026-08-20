@@ -26,7 +26,7 @@ NRM to grupy religijne powstałe głównie po XIX wieku, różniące się od tra
 
 - Transcendentalna Medytacja (założona przez Maharishiego Mahesha Yogi w 1955 r.)
 - Ruch Świadków Jehowy (powstał pod koniec XIX w.)
-- Kościół scjentologiczny (załoony przez L. Rona Hubbarda w 1954 r.)
+- Kościół scjentologiczny (założony przez L. Rona Hubbarda w 1954 r.)
 - Różne grupy neo-hinduistyczne i neo-buddyjskie, które rozprzestrzeniły się na Zachodzie od lat 60. XX w.
 
 Nie wszystkie NRM są niebezpieczne. Wiele istnieje od dziesięcioleci, nie łamiąc prawa i nie narażając swoich członków na ryzyko. Ale niektóre stosują metody nacisku psychologicznego, izolacji i wyzysku ekonomicznego.
@@ -45,7 +45,7 @@ Członkowie są oddalani od rodziny, przyjaciół i dawnych więzi społecznych.
 Regulowany jest porządek dnia, dieta, ubiór, krąg towarzyski, relacje intymne. Odchylenia karane są.
 
 **4. Wyzysk ekonomiczny**
-Członkowie przekazują grupie znaczną częś dochodu, majątku, pracują bezpłatnie. Przejrzystość finansowa nie istnieje.
+Członkowie przekazują grupie znaczną część dochodu, majątku, pracują bezpłatnie. Przejrzystość finansowa nie istnieje.
 
 **5. Mechanizm strachu przy wyjściu**
 Odejście z grupy przedstawiane jest jako duchowa śmierć, utrata zbawienia, zdrada. Byli członkowie są demonizowani.
