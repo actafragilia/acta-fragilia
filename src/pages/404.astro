@@ -46,6 +46,22 @@ const m = messages[lang];
       <a href="/archive/" class="notfound-link notfound-link--muted">{m.archive}</a>
     </div>
   </section>
+
+<script is:inline>
+  // ACTA_LOCALIZED_404
+  const path = window.location.pathname;
+  const target = path.startsWith('/en/')
+    ? '/en/404/'
+    : path.startsWith('/pl/')
+      ? '/pl/404/'
+      : path.startsWith('/by/')
+        ? '/by/404/'
+        : null;
+
+  if (target && path !== target) {
+    window.location.replace(target);
+  }
+</script>
 </Base>
 
 <style>
