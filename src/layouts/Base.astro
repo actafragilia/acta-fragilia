@@ -10,10 +10,10 @@ export interface Props {
 const { title, lang = 'ru' } = Astro.props;
 
 const nav = {
-  ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты' },
-  en: { materials: 'Materials', about: 'About', contacts: 'Contacts' },
-  pl: { materials: 'Materiały', about: 'O projekcie', contacts: 'Kontakt' },
-  by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты' },
+  ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив' },
+  en: { materials: 'Materials', about: 'About', contacts: 'Contacts', archive: 'Archive' },
+  pl: { materials: 'Materiały', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum' },
+  by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты', archive: 'Архіў' },
 };
 
 const footer = {
@@ -45,6 +45,7 @@ const prefix = lang === 'ru' ? '' : `/${lang}`;
         <span class="logo-mark" aria-hidden="true"></span>
         <span class="logo-text">ACTA FRAGILIA</span>
       </a>
+	<a href={`${prefix}/archive`}>{t.archive}</a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href={`${prefix}/`}>{t.materials}</a>
         <a href={`${prefix}/about`}>{t.about}</a>
