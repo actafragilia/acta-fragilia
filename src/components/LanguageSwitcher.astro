@@ -6,10 +6,10 @@ export interface Props {
 const { currentLang = 'ru' } = Astro.props;
 
 const languages = [
-  { code: 'ru', label: 'RU', path: '/' },
-  { code: 'en', label: 'EN', path: '/en/' },
-  { code: 'pl', label: 'PL', path: '/pl/' },
-  { code: 'by', label: 'BY', path: '/by/' },
+  { code: 'ru', label: 'RU' },
+  { code: 'en', label: 'EN' },
+  { code: 'pl', label: 'PL' },
+  { code: 'by', label: 'BY' },
 ];
 
 const currentPath = Astro.url.pathname;
