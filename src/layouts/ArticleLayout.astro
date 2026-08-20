@@ -1,0 +1,207 @@
+---
+import Base from './Base.astro';
+import { formatDate } from '../../utils/date';
+
+export interface Props {
+  title: string;
+  lang: string;
+  article: any;
+}
+
+const { title, lang, article } = Astro.props;
+const { Content } = await article.render();
+
+const readMoreText = {
+  ru: 'Читать полностью →',
+  en: 'Read full text →',
+  pl: 'Czytaj całość →',
+  by: 'Чытаць поўнасцю →',
+};
+
+const sourcesText = {
+  ru: 'Источники и ссылки',
+  en: 'Sources and references',
+  pl: 'Źródła i odniesienia',
+  by: 'Крыніцы і спасылкі',
+};
+
+const t = {
+  readMore: readMoreText[lang] || readMoreText['ru'],
+  sources: sourcesText[lang] || sourcesText['ru'],
+};
+---
+
+<Base title={title} lang={lang}>
+  <article class="article-page">
+    <header class="article-header">
+      <div class="article-meta-header">
+        <span class="article-category">{article.data.category}</span>
+        <time class="article-date">{formatDate(article.data.date, lang)}</time>
+        <span class="article-read-time">{article.data.readTime} min</span>
+      </div>
+      <h1 class="article-title">{article.data.title}</h1>
+      <p class="article-subtitle">{article.data.subtitle}</p>
+    </header>
+
+    <div class="article-layout">
+      <div class="article-main">
+        <div class="prose article-body">
+          <Content />
+        </div>
+
+        {article.data.sources && (
+          <footer class="article-sources">
+            <h2>{t.sources}</h2>
+            <ul>
+              {article.data.sources.map((source) => (
+                <li>{source}</li>
+              ))}
+            </ul>
+          </footer>
+        )}
+      </div>
+
+      {article.data.marginalNote && (
+        <aside class="article-marginalia">
+          <p>{article.data.marginalNote}</p>
+        </aside>
+      )}
+    </div>
+  </article>
+</Base>
+
+<style is:global>
+  .article-page {
+    padding: var(--space-xl) 0;
+  }
+
+  .article-header {
+    max-width: 720px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .article-meta-header {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    margin-bottom: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .article-category {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .article-date,
+  .article-read-time {
+    color: var(--color-text-secondary);
+  }
+
+  .article-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+
+  .article-subtitle {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: var(--space-xl);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .article-main {
+    min-width: 0;
+  }
+
+  .article-body {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-text);
+  }
+
+  .article-body h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .article-body p {
+    margin-bottom: var(--space-md);
+  }
+
+  .article-sources {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .article-sources h2 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .article-sources ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .article-sources li {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .article-marginalia {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    padding-top: var(--space-lg);
+  }
+
+  .article-marginalia p {
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--space-sm);
+  }
+
+  @media (max-width: 768px) {
+    .article-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .article-marginalia {
+      order: -1;
+      padding: var(--space-md);
+      background: rgba(155, 74, 74, 0.05);
+      border-radius: 4px;
+      margin-bottom: var(--space-lg);
+    }
+  }
+</style>
