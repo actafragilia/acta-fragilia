@@ -1,6 +1,5 @@
 ---
 import Base from './Base.astro';
-import { formatDate } from '../../utils/date';
 
 export interface Props {
   title: string;
@@ -11,14 +10,30 @@ export interface Props {
 const { title, lang, article } = Astro.props;
 const { Content } = await article.render();
 
-const readMoreText = {
+function formatDate(date: Date | string, language: string = 'ru'): string {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const locales: Record<string, string> = {
+    ru: 'ru-RU',
+    en: 'en-US',
+    pl: 'pl-PL',
+    by: 'be-BY',
+  };
+  return d.toLocaleDateString(locales[language] || 'ru-RU', options);
+}
+
+const readMoreText: Record<string, string> = {
   ru: 'Читать полностью →',
   en: 'Read full text →',
   pl: 'Czytaj całość →',
   by: 'Чытаць поўнасцю →',
 };
 
-const sourcesText = {
+const sourcesText: Record<string, string> = {
   ru: 'Источники и ссылки',
   en: 'Sources and references',
   pl: 'Źródła i odniesienia',
@@ -53,7 +68,7 @@ const t = {
           <footer class="article-sources">
             <h2>{t.sources}</h2>
             <ul>
-              {article.data.sources.map((source) => (
+              {article.data.sources.map((source: string) => (
                 <li>{source}</li>
               ))}
             </ul>
