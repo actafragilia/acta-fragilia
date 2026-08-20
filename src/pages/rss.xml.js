@@ -8,7 +8,7 @@ export async function GET(context) {
 
   return rss({
     title: 'ACTA FRAGILIA',
-    description: 'Независимая авторская площадка для долгих текстов, анализа документов, расследоваий и объяснения сложных тем.',
+    description: 'Независимая авторская площадка для долгих текстов, анализа документов, расследований и объяснения сложных тем.',
     site: context.site,
     items: articles.map(article => ({
       title: article.data.title,
