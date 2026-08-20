@@ -1,6 +1,6 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import ArticleLayout from '../../layouts/Article.astro';
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -10,11 +10,11 @@ export async function getStaticPaths() {
   }));
 }
 
-interface Props {
-  article: CollectionEntry<'articles'>;
-}
-
 const { article } = Astro.props;
 ---
 
-<ArticleLayout article={article} />
+<ArticleLayout
+  title={`${article.data.title} — ACTA FRAGILIA`}
+  lang="ru"
+  article={article}
+/>
