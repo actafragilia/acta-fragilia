@@ -1,0 +1,70 @@
+---
+export interface Props {
+  currentLang?: string;
+}
+
+const { currentLang = 'ru' } = Astro.props;
+
+const languages = [
+  { code: 'ru', label: 'RU', path: '/' },
+  { code: 'en', label: 'EN', path: '/en/' },
+  { code: 'pl', label: 'PL', path: '/pl/' },
+  { code: 'by', label: 'BY', path: '/by/' },
+];
+
+const currentPath = Astro.url.pathname;
+
+function getLangPath(langCode: string) {
+  if (langCode === 'ru') {
+    return currentPath.replace(/^\/(en|pl|by)\//, '/');
+  }
+  const cleanPath = currentPath.replace(/^\/(en|pl|by)\//, '/');
+  return `/${langCode}${cleanPath}`;
+}
+---
+
+<div class="language-switcher" aria-label="Переключатель языка">
+  {languages.map((lang, index) => (
+    <>
+      <a
+        href={getLangPath(lang.code)}
+        class={currentLang === lang.code ? 'active' : ''}
+        aria-current={currentLang === lang.code ? 'page' : undefined}
+      >
+        {lang.label}
+      </a>
+      {index < languages.length - 1 && <span class="lang-separator">·</span>}
+    </>
+  ))}
+</div>
+
+<style>
+  .language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .language-switcher a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+  .language-switcher a:hover {
+    color: var(--color-accent);
+    background: rgba(155, 74, 74, 0.08);
+  }
+  .language-switcher a.active {
+    color: var(--color-accent);
+    font-weight: 600;
+    background: rgba(155, 74, 74, 0.12);
+  }
+  .lang-separator {
+    color: var(--color-border);
+    user-select: none;
+  }
+</style>

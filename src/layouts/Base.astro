@@ -1,4 +1,6 @@
 ---
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+
 import "../styles/global.css";
 
 export interface Props {
@@ -62,6 +64,7 @@ const fullTitle = title === "ACTA FRAGILIA" ? title : `${title} — ACTA FRAGILI
         <li><a href="/" class={Astro.url.pathname === "/" ? "active" : ""}>Материалы</a></li>
         <li><a href="/about">О проекте</a></li>
         <li><a href="/contacts">Контакты</a></li>
+	<li> <LanguageSwitcher /></li>
       </ul>
     </div>
   </nav>
