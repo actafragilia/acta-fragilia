@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const articles = [
+  {
+    slug: 'bankrotstvo-kak-sistema',
+    category: 'Ekonomia',
+    date: '10.08.2026',
+    title: 'Upadłość jako system: kto płaci za upadek przedsiębiorstwa',
+    excerpt: 'Finansowy upadek firmy rzadko pozostaje prywatną sprawą jej właścicieli. Analizujemy, jak długi, decyzje zarządu i mechanizmy państwowe rozdzielają straty między pracowników, wierzycieli i społeczeństwo.',
+  },
+  {
+    slug: 'novye-religioznye-dvizheniya',
+    category: 'Społeczeństwo',
+    date: '22.07.2026',
+    title: 'Nowe ruchy religijne: między osobistym poszukiwaniem a systemami kontroli',
+    excerpt: 'Jak odróżnić społeczność światopoglądową od struktury, w której zaufanie staje się narzędziem podporządkowania: oznaki, mechanizmy i pytania do weryfikacji.',
+  },
+  {
+    slug: 'mediinyi-landshaft',
+    category: 'Media',
+    date: '05.07.2026',
+    title: 'Pejzaż medialny: jak strumienie informacji kształtują rzeczywistość',
+    excerpt: 'Dlaczego szybkość rozprzestrzeniania się informacji nie równa się jej wiarygodności i jakie techniki pomagają czytelnikowi oddzielić fakt od interpretacji i manipulacji.',
+  },
+];
+---
+
+<Base title="ACTA FRAGILIA — Niezależne dziennikarstwo i analizy" lang="pl">
+  <section class="hero">
+    <p class="hero-label">Niezależne dziennikarstwo i analizy</p>
+    <h1 class="hero-title">ACTA <em>FRAGILIA</em></h1>
+    <p class="hero-lead">
+      Prawo, ekonomia, korporacyjne konflikty i procesy społeczne — bez hałasu, z weryfikacją faktów i uwagą na konsekwencje.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Długie teksty</span>
+      <span class="tag">Dokumenty</span>
+      <span class="tag">Śledztwa</span>
+    </div>
+  </section>
+
+  <section class="latest">
+    <h2 class="section-title">Najnowsze publikacje</h2>
+    <div class="article-list">
+      {articles.map((article) => (
+        <article class="article-card">
+          <div class="article-meta">
+            <span class="article-category">{article.category}</span>
+            <time class="article-date">{article.date}</time>
+          </div>
+          <div class="article-body">
+            <h3 class="article-title">
+              <a href={`/pl/article/${article.slug}`}>{article.title}</a>
+            </h3>
+            <p class="article-excerpt">{article.excerpt}</p>
+            <a href={`/pl/article/${article.slug}`} class="read-more">Czytaj całość →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

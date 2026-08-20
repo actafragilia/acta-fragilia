@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const articles = [
+  {
+    slug: 'bankrotstvo-kak-sistema',
+    category: 'Economy',
+    date: '10.08.2026',
+    title: 'Bankruptcy as a System: Who Pays for Corporate Collapse',
+    excerpt: 'The financial collapse of a company rarely remains a private matter of its owners. We examine how debts, management decisions, and state mechanisms distribute losses among employees, creditors, and society.',
+  },
+  {
+    slug: 'novye-religioznye-dvizheniya',
+    category: 'Society',
+    date: '22.07.2026',
+    title: 'New Religious Movements: Between Personal Search and Control Systems',
+    excerpt: 'How to distinguish a worldview community from a structure where trust becomes an instrument of subordination: signs, mechanisms, and questions for verification.',
+  },
+  {
+    slug: 'mediinyi-landshaft',
+    category: 'Media',
+    date: '05.07.2026',
+    title: 'Media Landscape: How Information Flows Shape Reality',
+    excerpt: 'Why the speed of information dissemination is not equal to its reliability, and what techniques help the reader separate fact from interpretation and manipulation.',
+  },
+];
+---
+
+<Base title="ACTA FRAGILIA — Independent Journalism & Analysis" lang="en">
+  <section class="hero">
+    <p class="hero-label">Independent Journalism and Analysis</p>
+    <h1 class="hero-title">ACTA <em>FRAGILIA</em></h1>
+    <p class="hero-lead">
+      Law, economics, corporate conflicts, and social processes — without noise, with fact-checking and attention to consequences.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Long reads</span>
+      <span class="tag">Documents</span>
+      <span class="tag">Investigations</span>
+    </div>
+  </section>
+
+  <section class="latest">
+    <h2 class="section-title">Latest Publications</h2>
+    <div class="article-list">
+      {articles.map((article) => (
+        <article class="article-card">
+          <div class="article-meta">
+            <span class="article-category">{article.category}</span>
+            <time class="article-date">{article.date}</time>
+          </div>
+          <div class="article-body">
+            <h3 class="article-title">
+              <a href={`/en/article/${article.slug}`}>{article.title}</a>
+            </h3>
+            <p class="article-excerpt">{article.excerpt}</p>
+            <a href={`/en/article/${article.slug}`} class="read-more">Read full text →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
