@@ -1,115 +1,39 @@
-# ACTA FRAGILIA
+# Редакционная политика ACTA FRAGILIA — FINAL (4 языка)
 
-Независимая авторская площадка для долгих текстов, анализа документов, расследований и объяснения сложных тем.
+## Исправления в этой версии
 
-## Стек
+| Файл | Что исправлено |
+|------|---------------|
+| RU | «добровольне»→«добровольные», «указваются»→«указываются», «лбые»→«любые», «Ораничение»→«Ограничение» |
+| EN | Без изменений (текст корректен) |
+| PL | Без изменений (текст корректен) |
+| BY | Создана новая версия на белорусском языке |
 
-- **Astro** — статический генератор
-- **Markdown** — формат статей
-- **Cloudflare Pages** — хостинг и CDN
-- **Source Serif 4 + Inter + IBM Plex Mono** — типографика
+## Установка
 
-## Структура
+1. Распакуйте архив в корень проекта.
+2. Убедитесь, что созданы папки:
+   - `src/pages/editorial-policy/`
+   - `src/pages/en/editorial-policy/`
+   - `src/pages/pl/editorial-policy/`
+   - `src/pages/by/editorial-policy/`
+3. Проверьте пути импорта `Base.astro` (../../ или ../../../ в зависимости от расположения).
+4. Соберите: `npm run build`
+5. Проверьте:
+   - `/editorial-policy/`
+   - `/en/editorial-policy/`
+   - `/pl/editorial-policy/`
+   - `/by/editorial-policy/`
+6. Запушьте: `git add -A && git commit -m "Add editorial policy (RU, EN, PL, BY)" && git push`
 
+## Добавление в навигацию (Base.astro)
+
+Добавьте ссылку в меню и подвал:
+```astro
+<a href={`/${lang === 'ru' ? '' : lang + '/'}editorial-policy/`}>
+  {lang === 'ru' ? 'Редакционная политика' : 
+   lang === 'en' ? 'Editorial Policy' : 
+   lang === 'pl' ? 'Polityka redakcyjna' : 
+   'Рэдакцыйная палітыка'}
+</a>
 ```
-├── src/
-│   ├── content/
-│   │   ├─ articles/          # Статьи в Markdown
-│   │   └── config.ts          # Схема данных статей
-│   ├── layouts/
-│   │   ├── Base.astro         # Базовый шаблон (nav, footer, head)
-│   │   └── Article.astro      # Шаблон страницы статьи
-│   ├── pages/
-│   │   ├── index.astro        # Главная страница
-│   │   ├── article/
-│   │   │   └── [...slug].astro # Динамические страницы статей
-│   │   ├── about.astro        # О проекте
-│   │   ├── contacts.astro     # Контакты
-│   │   ├── privacy.astro      # Политика конфиденциальности
-│   │   └── rss.xml.js         # RSS-лента
-│   └── styles/
-│       └── global.css         # Глобальные стили, CSS-переменные
-├── public/
-│   ├── favicon.svg            # Фавикон
-│   ├── robots.txt             # Для поисковиков
-│   └── _headers               # HTTP-заголовки Cloudflare
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
-
-## Как добавить статью
-
-1. Создайте файл `src/content/articles/название-статьи.md`
-2. Добавьте frontmatter:
-
-```yaml
----
-title: "Заголовок статьи"
-subtitle: "Краткое описание для анонса"
-category: "Экономика"  # или: Общество, Медиа, Право, Конфликт, Документ
-date: 2026-08-20       # YYYY-MM-DD
-updated: 2026-08-22    # опционально
-author: "А. В."
-readTime: 15           # минут чтения
-sources:
-  - "Источник 1"
-  - "Источник 2"
-marginalNote: "Контекстная заметка для боковой колонки"
----
-
-Текст статьи в Markdown...
-```
-
-3. Закоммитьте и запушьте — Cloudflare Pages пересоберёт сайт автоматически.
-
-## Локальная разработка
-
-```bash
-# Установка зависимотей
-npm install
-
-# Запуск dev-сервера
-npm run dev
-
-# Сборка
-npm run build
-
-# Превью сборки
-npm run preview
-```
-
-## Деплой на Cloudflare Pages
-
-### Вариант 1: Git-интеграция (рекомендуется)
-
-1. Создайте репозиторий на GitHub и запушьте проект.
-2. В Cloudflare Dashboard перейдите в Pages → Create a project.
-3. Подключите GitHub-репозиторий.
-4. Настройк сборки:
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-5. Нажмите Save and Deploy.
-
-### Вариант 2: Direct Upload
-
-1. Соберите проект: `npm run build`
-2. В Cloudflare Dashboard: Pages → Create a project → Upload assets.
-3. Загрузите содержимое папки `dist/`.
-
-## Настройка домена
-
-1. В Cloudflare Dashboard добавьте свой домен в Pages project.
-2. Обновите `site` в `astro.config.mjs` на ваш домен.
-3. Обновите URL в `robots.txt` и `public/_headers`.
-
-## Дизайн
-
-- **Палитра:** архивный картон `#F0EDE7`, уголь `#1C1C1C`, приглушённый терракотовый `#9B4A4A`
-- **Шрифты:** Source Serif 4 (текст), Inter (интерфейс), IBM Plex Mono (метаданные)
-- **Сигнатурный элемент:** маргиналии слева от карточек статей и в боковой колонке лонгрида
-- **Тёмная тема:** автоматическая через `prefers-color-scheme`
-
-## Лицензия
-
-Материалы сайта распространяются под CC BY-NC-SA 4.0.
