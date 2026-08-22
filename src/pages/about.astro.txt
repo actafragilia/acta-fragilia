@@ -41,7 +41,7 @@ import Base from '../layouts/Base.astro';
         </ol>
 
         <h2>Автор</h2>
-        <p>Проект ведётся автором под псевдонимом Климент Вилейский. Контакт: <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a></p>
+        <p>Проект ведётся одним автором под псвдонимом А. В. Контакт: <a href="mailto:acta_fragilia@proton.me">info@acta-fragilia.pages.dev</a></p>
       </div>
 
       <aside class="about-sidebar">
