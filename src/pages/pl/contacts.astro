@@ -1,32 +1,49 @@
-﻿---
+---
 import Base from '../../layouts/Base.astro';
 ---
 
-<Base title="Kontakt вЂ” ACTA FRAGILIA" lang="pl">
-  <article class="page-content">
-    <header class="page-header">
-      <h1>Kontakt</h1>
-    </header>
+<Base title="Kontakt — ACTA FRAGILIA" description="Skontaktuj się z nami przez e-mail lub bezpieczne kanały.">
+  <main class="contacts-page">
+    <h1>Kontakt</h1>
 
-    <div class="prose">
-      <p class="lead">
-        W sprawie zapytaЕ„, propozycji wspГіЕ‚pracy i przesyЕ‚ania ЕєrГіdeЕ‚.
-      </p>
+    <p><strong>Jesteśmy otwarci na opinie, propozycje tematów, uwagi dotyczące faktów i współpracę.</strong></p>
 
-      <h2>Email</h2>
-      <p>
-        <a href="mailto:info@acta-fragilia.pages.dev">info@acta-fragilia.pages.dev</a>
-      </p>
+    <h2>Email</h2>
+    <p><a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a></p>
 
-      <h2>WspГіЕ‚praca</h2>
-      <p>
-        ZachД™camy do zgЕ‚aszania tematГіw, dokumentГіw do analizy i komentarzy ekspertГіw. Wszystkie kontakty sД… traktowane poufnie.
-      </p>
+    <h2>Bezpieczna komunikacja</h2>
+    <p>W przypadku poufnych wiadomości używaj Proton Mail (ten sam adres) lub szyfrowanych kanałów (na żądanie).</p>
 
-      <h2>RSS</h2>
-      <p>
-        Subskrybuj nowe publikacje przez <a href="/pl/rss.xml">kanaЕ‚ RSS</a>.
-      </p>
-    </div>
-  </article>
-<p>Email: <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a></p></Base>
+    <h2>Media społecznościowe</h2>
+    <p>Projekt nie prowadzi kont w komercyjnych mediach społecznościowych. Wszystkie publikacje są tylko na tej stronie i przez RSS.</p>
+
+    <h2>Zgłoszenia i śledztwa</h2>
+    <p>Jeśli masz informacje, dokumenty lub temat do zbadania — napisz. Gwarantujemy anonimowość.</p>
+  </main>
+</Base>
+
+<style>
+  .contacts-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .contacts-page h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .contacts-page h2 {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .contacts-page p {
+    margin-bottom: 1rem;
+  }
+  .contacts-page a {
+    color: #3d5a80;
+    text-decoration: underline;
+  }
+</style>
