@@ -180,7 +180,7 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 "novyya-religijnyya-ruhi.md": {
 	id: "novyya-religijnyya-ruhi.md";
-  slug: "novyya-religijnyya-ruhi";
+  slug: "novyya-religiynyya-rukhi";
   body: string;
   collection: "articlesBy";
   data: InferEntrySchema<"articlesBy">
