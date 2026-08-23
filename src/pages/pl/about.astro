@@ -2,34 +2,55 @@
 import Base from '../../layouts/Base.astro';
 ---
 
-<Base title="O projekcie — ACTA FRAGILIA" lang="pl">
-  <article class="page-content">
-    <header class="page-header">
-      <h1>O projekcie</h1>
-    </header>
+<Base title="O projekcie — ACTA FRAGILIA" description="Niezależna platforma dla dziennikarstwa analitycznego, śledztw i analizy dokumentów.">
+  <main class="about-page">
+    <h1>O projekcie</h1>
 
-    <div class="prose">
-      <p class="lead">
-        ACTA FRAGILIA to niezależna platforma długich tekstów, analizy dokumentów i śledztw w dziedzinie prawa, ekonomii, korporacyjnych konfliktów i procesów społecznych.
-      </p>
+    <p><strong>ACTA FRAGILIA to niezależna platforma dla dziennikarstwa analitycznego, śledztw i analizy dokumentów w dziedzinie prawa, ekonomii, konfliktów korporacyjnych i procesów społecznych.</strong></p>
 
-      <h2>Zasady</h2>
-      <ul>
-        <li><strong>Weryfikacja faktów.</strong> Każde twierdzenie jest sprawdzane z pierwotnymi źródłami.</li>
-        <li><strong>Kontekst ponad sensacją.</strong> Analizujemy przyczyny systemowe, nie pojedyncze przypadki.</li>
-        <li><strong>Uwaga na konsekwencje.</strong> Pytamy: kto ponosi koszt podjętych decyzji?</li>
-        <li><strong>Bez presji cyklu informacyjnego.</strong> Teksty publikujemy, gdy są gotowe, nie wtedy, gdy agenda informacyjna tego wymaga.</li>
-      </ul>
+    <p>Bez reklam, serwisu informacyjnego i szumu. Tylko zweryfikowane fakty, kontekst i próba zrozumienia, jak działają mechanizmy prawne, ekonomiczne i społeczne — i kto ponosi ich konsekwencje.</p>
 
-      <h2>Metodologia</h2>
-      <p>
-        Materiały opierają się na dokumentach sądowych, zgłoszeniach regulacyjnych, rejestrach korporacyjnych i bezpośrednich wywiadach. Tam, gdzie to możliwe, publikujemy linki do źródeł lub skany dokumentów.
-      </p>
+    <h2>Zasady</h2>
+    <ul>
+      <li><strong>Weryfikacja faktów.</strong> Każde twierdzenie jest sprawdzane ze źródłami pierwotnymi.</li>
+      <li><strong>Kontekst ponad sensacją.</strong> Analizujemy przyczyny systemowe, a nie pojedyncze przypadki.</li>
+      <li><strong>Uwaga na konsekwencje.</strong> Pytamy: kto ponosi koszty podjętych decyzji?</li>
+      <li><strong>Bez presji cyklu informacyjnego.</strong> Teksty publikujemy, gdy są gotowe, a nie gdy wymaga tego agenda informacyjna.</li>
+    </ul>
 
-      <h2>Język</h2>
-      <p>
-        Projekt publikuje w językach rosyjskim, angielskim, polskim i białoruskim. Nie wszystkie materiały są dostępne we wszystkich językach — priorytet ma język najbardziej odpowiedni do tematu.
-      </p>
-    </div>
-  </article>
+    <h2>Metodologia</h2>
+    <p>Materiały opierają się na dokumentach sądowych, aktach regulacyjnych, rejestrach korporacyjnych i bezpośrednich wywiadach. Tam, gdzie to możliwe, publikujemy linki do źródeł lub skany dokumentów.</p>
+
+    <h2>Języki</h2>
+    <p>Projekt publikuje w języku rosyjskim, angielskim, polskim i białoruskim. Nie wszystkie materiały są dostępne we wszystkich językach — priorytet ma język najbardziej odpowiedni dla tematu.</p>
+  </main>
 </Base>
+
+<style>
+  .about-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .about-page h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .about-page h2 {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .about-page p {
+    margin-bottom: 1rem;
+  }
+  .about-page ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .about-page ul li {
+    margin-bottom: 0.5rem;
+  }
+</style>

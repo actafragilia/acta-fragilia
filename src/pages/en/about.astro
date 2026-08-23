@@ -2,34 +2,55 @@
 import Base from '../../layouts/Base.astro';
 ---
 
-<Base title="About — ACTA FRAGILIA" lang="en">
-  <article class="page-content">
-    <header class="page-header">
-      <h1>About the Project</h1>
-    </header>
+<Base title="About the Project — ACTA FRAGILIA" description="Independent platform for analytical journalism, investigations and documentary analysis.">
+  <main class="about-page">
+    <h1>About the Project</h1>
 
-    <div class="prose">
-      <p class="lead">
-        ACTA FRAGILIA is an independent platform for long-form journalism, document analysis, and investigations in the fields of law, economics, corporate conflicts, and social processes.
-      </p>
+    <p><strong>ACTA FRAGILIA is an independent platform for analytical journalism, investigations and documentary analysis in the fields of law, economics, corporate conflicts and social processes.</strong></p>
 
-      <h2>Principles</h2>
-      <ul>
-        <li><strong>Fact-checking.</strong> Every claim is verified against primary sources.</li>
-        <li><strong>Context over sensation.</strong> We analyze systemic causes, not isolated cases.</li>
-        <li><strong>Attention to consequences.</strong> We ask: who bears the cost of decisions made?</li>
-        <li><strong>No news cycle pressure.</strong> Texts are published when they are ready, not when the news agenda demands.</li>
-      </ul>
+    <p>No advertising, news feed or noise. Only verified facts, context and an attempt to understand how legal, economic and social mechanisms work — and who bears their consequences.</p>
 
-      <h2>Methodology</h2>
-      <p>
-        Materials are based on court documents, regulatory filings, corporate registries, and direct interviews. Where possible, we publish links to sources or scans of documents.
-      </p>
+    <h2>Principles</h2>
+    <ul>
+      <li><strong>Fact-checking.</strong> Every claim is verified against primary sources.</li>
+      <li><strong>Context over sensation.</strong> We analyze systemic causes, not isolated cases.</li>
+      <li><strong>Attention to consequences.</strong> We ask: who bears the cost of decisions made?</li>
+      <li><strong>No news cycle pressure.</strong> Texts are published when they are ready, not when the news agenda demands.</li>
+    </ul>
 
-      <h2>Language</h2>
-      <p>
-        The project publishes in Russian, English, Polish, and Belarusian. Not all materials are available in all languages — priority is given to the language most relevant to the subject.
-      </p>
-    </div>
-  </article>
+    <h2>Methodology</h2>
+    <p>Materials are based on court documents, regulatory filings, corporate registries and direct interviews. Where possible, we publish links to sources or scans of documents.</p>
+
+    <h2>Languages</h2>
+    <p>The project publishes in Russian, English, Polish and Belarusian. Not all materials are available in all languages — priority is given to the language most relevant to the subject.</p>
+  </main>
 </Base>
+
+<style>
+  .about-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .about-page h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .about-page h2 {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .about-page p {
+    margin-bottom: 1rem;
+  }
+  .about-page ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .about-page ul li {
+    margin-bottom: 0.5rem;
+  }
+</style>
