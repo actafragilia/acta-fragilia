@@ -1,35 +1,40 @@
 ﻿---
 const currentPath = Astro.url.pathname;
 
-// Определяем язык из URL
-const langMap = {
-  'en': { label: 'EN', prefix: '/en' },
-  'pl': { label: 'PL', prefix: '/pl' },
-  'by': { label: 'BY', prefix: '/by' },
-  'ru': { label: 'RU', prefix: '' }
-};
+// Языки в нужном порядке: RU, BY, PL, EN
+const langMap = [
+  { lang: 'ru', label: 'RU', prefix: '' },
+  { lang: 'by', label: 'BY', prefix: '/by' },
+  { lang: 'pl', label: 'PL', prefix: '/pl' },
+  { lang: 'en', label: 'EN', prefix: '/en' }
+];
 
-// Текущий язык
+// Определяем текущий язык
 let currentLang = 'ru';
-for (const [lang, info] of Object.entries(langMap)) {
-  if (currentPath.startsWith(info.prefix + '/') || (info.prefix === '' && !currentPath.startsWith('/en/') && !currentPath.startsWith('/pl/') && !currentPath.startsWith('/by/'))) {
-    currentLang = lang;
+for (const entry of langMap) {
+  const prefix = entry.prefix;
+  if (prefix === '' && !currentPath.startsWith('/en/') && !currentPath.startsWith('/pl/') && !currentPath.startsWith('/by/')) {
+    currentLang = 'ru';
+    break;
+  }
+  if (prefix !== '' && currentPath.startsWith(prefix + '/')) {
+    currentLang = entry.lang;
     break;
   }
 }
 
 // Строим ссылки для каждого языка
-const links = Object.entries(langMap).map(([lang, info]) => {
-  let href = info.prefix || '/';
+const links = langMap.map(({ lang, label, prefix }) => {
+  let href = prefix || '/';
   // Если мы не на главной, добавляем путь после префикса
   if (currentPath !== '/' && currentPath !== '/en/' && currentPath !== '/pl/' && currentPath !== '/by/') {
     const suffix = currentPath.replace(/^\/(en|pl|by)/, '');
-    href = (info.prefix || '') + suffix;
+    href = (prefix || '') + suffix;
     // удаляем двойные слэши
     href = href.replace(/\/\//g, '/');
     if (href === '') href = '/';
   }
-  return { lang, label: info.label, href, active: lang === currentLang };
+  return { lang, label, href, active: lang === currentLang };
 });
 ---
 
