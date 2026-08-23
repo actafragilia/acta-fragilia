@@ -1,4 +1,4 @@
-﻿---
+---
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 export interface Props {
@@ -38,7 +38,7 @@ const htmlLang = lang === 'by' ? 'be' : lang;
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  
+
   <style>
     /* === ПОЛНЫЙ ДИЗАЙН САЙТА === */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -228,7 +228,7 @@ const htmlLang = lang === 'by' ? 'be' : lang;
         <a href={`${prefix}/rss.xml`}>RSS</a>
         <a href={`${prefix}/privacy`}>{f.privacy}</a>
       </div>
-      <div class="footer-copy">© 2026 ACTA FRAGILIA. {f.rights}</div>
+      <div class="footer-copy">&copy; 2026 ACTA FRAGILIA. {f.rights}</div>
     </div>
   </footer>
 </body>
