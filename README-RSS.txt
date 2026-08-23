@@ -1,12 +1,19 @@
-ACTA FRAGILIA — RSS EN/PL/BY
+README-RSS.txt
+==============
 
-Распакуйте архив в корень проекта acta-fragilia-astro.
-Будут добавлены файлы:
-- src/pages/en/rss.xml.js
-- src/pages/pl/rss.xml.js
-- src/pages/by/rss.xml.js
+Используйте apply-rss-fixes.ps1 для создания RSS-лент EN/PL/BY.
 
-После npm run build должны появиться маршруты:
-- /en/rss.xml
-- /pl/rss.xml
-- /by/rss.xml
+Исправления в этой версии:
+- customData теперь валидный XML (<language>…</language>)
+- Добавлена валидация дат перед сортировкой статей
+- Fix-Typos заменяет только внутри frontmatter
+- RSS autodiscovery добавлен для всех языков
+
+Проверка после запуска:
+  npm run build
+
+RSS должны быть доступны по:
+  /rss.xml
+  /en/rss.xml
+  /pl/rss.xml
+  /by/rss.xml

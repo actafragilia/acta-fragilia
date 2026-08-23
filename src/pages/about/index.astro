@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const page = {
+  title: 'О проекте',
+  lang: 'ru',
+};
+---
+
+<Base title={page.title} lang={page.lang}>
+  <article class="about">
+    <h1>{page.title}</h1>
+
+    <p class="lead">
+      ACTA FRAGILIA — независимая авторская площадка для долгих текстов, анализа документов,
+      расследований и объяснения сложных тем.
+    </p>
+
+    <p>
+      Здесь нет рекламы, новостной ленты и шума. Только проверяемые факты, контекст и попытка
+      понять, как устроен правовые, экономические и общественные процессы — и кто несёт их
+      последствия.
+    </p>
+
+    <h2>Методология</h2>
+    <p>
+      Каждый материал строится на первичных источниках: судебных решениях, законодательных актах,
+      финансовой отчётности, интервью с участниками событий. Мы не публикуем срочных новостей —
+      только то, что можно проверить и прокомментировать в контексте.
+    </p>
+
+    <h2>Рубрики</h2>
+    <ul>
+      <li><strong>Право</strong> — разбор законодательства, судебной практики и правовых коллизий.</li>
+      <li><strong>Экономика</strong> — анализ корпоративных конфликтов, банкротств, налоговых и финансовых механизмов.</li>
+      <li><strong>Общество</strong> — социальные процессы, нституты и их трансформация.</li>
+      <li><strong>Медиа</strong> — информационные потоки, журналистика и медиаграмотность.</li>
+      <li><strong>Конфликт</strong> — корпоративные и экономические споры в деталях.</li>
+      <li><strong>Документ</strong> — разбор одного конкретного документа с комментариями.</li>
+    </ul>
+
+    <h2>Принципы</h2>
+    <ol>
+      <li><strong>Проверяемость.</strong> Каждый факт можно проследить до источника.</li>
+      <li><strong>Контекст.</strong> Событие без контекста — не информация, а шум.</li>
+      <li><strong>Последствия.</strong> Важно не только что произошло, но и что из этого следует.</li>
+      <li><strong>Независимость.</strong> Нет рекламы, нет спонсоров, влияющих на редакционную политику.</li>
+    </ol>
+
+    <h2>Автор</h2>
+    <p>
+      Проект ведётся одним автором под псевдонимом А. В. Контакт: info@acta-fragilia.pages.dev
+    </p>
+  </article>
+</Base>
+
+<style>
+  .about {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-xl) 0;
+  }
+  .about h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+    color: var(--color-text);
+  }
+  .about h2 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+  .about .lead {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+  .about p {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+  .about ul,
+  .about ol {
+    margin-bottom: var(--space-lg);
+    padding-left: 1.5rem;
+  }
+  .about li {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+  }
+</style>

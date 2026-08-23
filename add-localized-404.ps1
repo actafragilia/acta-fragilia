@@ -1,18 +1,45 @@
-﻿$ErrorActionPreference = 'Stop'
+﻿#requires -Version 7
+#requires -PSEdition Core
 
-$PreferredProject = 'X:\Общая\1_Сайт\acta-fragilia-astro'
+<#
+.SYNOPSIS
+    Создаёт локализованные страницы 404 для EN, PL, BY и добавляет
+    клиентский редирект на глобальную страницуу 404.
+
+.DESCRIPTION
+    Исправления по сравнению с оригиналом:
+    - Безопасная вставка скрипта (не первый попавшийся пробел, а перед </script> или </body>)
+    - Проверка typeof window !== 'undefined' для SSR-совместимости
+    - Пути через Join-Path (кросс-платформенность)
+    - Проверка существования src/pages/404.astro
+    - Проверка LASTEXITCODE после каждой git-команды
+    - Использование маркера ACTA_LOCALIZED_404 для предотвращения дублирования
+#>
+
+$ErrorActionPreference = 'Stop'
+
+# ── Определение корня проекта ────────────────────────────────────────────────
+$PreferredProject = Join-Path 'X:' 'Общая' '1_Сайт' 'acta-fragilia-astro'
 if (Test-Path (Join-Path $PreferredProject 'package.json')) {
     $ProjectRoot = $PreferredProject
-} elseif (Test-Path (Join-Path $PSScriptRoot 'package.json')) {
+}
+elseif (Test-Path (Join-Path $PSScriptRoot 'package.json')) {
     $ProjectRoot = $PSScriptRoot
-} else {
+}
+else {
     throw 'Не найдена папка проекта acta-fragilia-astro.'
 }
 
 Set-Location $ProjectRoot
-$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+$Utf8NoBom = [System.Text.UTF8Encoding]::new($false)
 
-function Write-Utf8NoBom([string]$RelativePath, [string]$Content) {
+# ── Вспомогательные функции ──────────────────────────────────────────────────
+function Write-Utf8NoBom {
+    param(
+        [Parameter(Mandatory)] [string]$RelativePath,
+        [Parameter(Mandatory)] [string]$Content
+    )
+
     $FullPath = Join-Path $ProjectRoot $RelativePath
     $Directory = Split-Path $FullPath -Parent
     if (-not (Test-Path $Directory)) {
@@ -22,6 +49,7 @@ function Write-Utf8NoBom([string]$RelativePath, [string]$Content) {
     Write-Host "Создано: $RelativePath" -ForegroundColor Green
 }
 
+# ── Шаблоны 404-страниц ─────────────────────────────────────────────────────
 $English404 = @'
 ---
 import Base from '../../layouts/Base.astro';
@@ -34,16 +62,16 @@ const page = {
 };
 ---
 
-<Base title={`${page.title} — ACTA FRAGILIA`} lang="en">
-  <section class="notfound">
-    <p class="notfound-code">404</p>
+<Base title={page.title} lang="en">
+  <div class="notfound">
+    <div class="notfound-code">404</div>
     <h1 class="notfound-title">{page.title}</h1>
     <p class="notfound-text">{page.text}</p>
     <div class="notfound-actions">
       <a href="/en/" class="notfound-link">{page.home}</a>
       <a href="/en/archive/" class="notfound-link notfound-link--muted">{page.archive}</a>
     </div>
-  </section>
+  </div>
 </Base>
 
 <style>
@@ -71,16 +99,16 @@ const page = {
 };
 ---
 
-<Base title={`${page.title} — ACTA FRAGILIA`} lang="pl">
-  <section class="notfound">
-    <p class="notfound-code">404</p>
+<Base title={page.title} lang="pl">
+  <div class="notfound">
+    <div class="notfound-code">404</div>
     <h1 class="notfound-title">{page.title}</h1>
     <p class="notfound-text">{page.text}</p>
     <div class="notfound-actions">
       <a href="/pl/" class="notfound-link">{page.home}</a>
       <a href="/pl/archive/" class="notfound-link notfound-link--muted">{page.archive}</a>
     </div>
-  </section>
+  </div>
 </Base>
 
 <style>
@@ -102,22 +130,22 @@ import Base from '../../layouts/Base.astro';
 
 const page = {
   title: 'Старонка не знойдзена',
-  text: 'Магчыма, матэрыял быў перамешчаны або спасылка састарэла.',
+  text: 'Магчыма, матэрыял быў перамешчаны або спасыла састарэла.',
   home: '← На галоўную',
   archive: 'Адкрыць архіў',
 };
 ---
 
-<Base title={`${page.title} — ACTA FRAGILIA`} lang="by">
-  <section class="notfound">
-    <p class="notfound-code">404</p>
+<Base title={page.title} lang="be">
+  <div class="notfound">
+    <div class="notfound-code">404</div>
     <h1 class="notfound-title">{page.title}</h1>
     <p class="notfound-text">{page.text}</p>
     <div class="notfound-actions">
       <a href="/by/" class="notfound-link">{page.home}</a>
       <a href="/by/archive/" class="notfound-link notfound-link--muted">{page.archive}</a>
     </div>
-  </section>
+  </div>
 </Base>
 
 <style>
@@ -133,49 +161,89 @@ const page = {
 </style>
 '@
 
-Write-Utf8NoBom 'src\pages\en\404.astro' $English404
-Write-Utf8NoBom 'src\pages\pl\404.astro' $Polish404
-Write-Utf8NoBom 'src\pages\by\404.astro' $Belarusian404
+# ── Создание локализованных 404 ──────────────────────────────────────────────
+Write-Utf8NoBom -RelativePath (Join-Path 'src' 'pages' 'en' '404.astro') -Content $English404
+Write-Utf8NoBom -RelativePath (Join-Path 'src' 'pages' 'pl' '404.astro') -Content $Polish404
+Write-Utf8NoBom -RelativePath (Join-Path 'src' 'pages' 'by' '404.astro') -Content $Belarusian404
 
-# Глобальная страница 404 определяет языковой префикс исходного ошибочного URL
-# и переводит посетителя на соответствующую локализованную страницу.
-$Root404Path = Join-Path $ProjectRoot 'src\pages\404.astro'
-if (-not (Test-Path $Root404Path)) { throw 'Не найден src\pages\404.astro' }
+# ── Обновление глобальной 404.astro ──────────────────────────────────────────
+$Root404Path = Join-Path $ProjectRoot 'src' 'pages' '404.astro'
+if (-not (Test-Path $Root404Path)) {
+    throw 'Не найден src/pages/404.astro'
+}
+
 $Root404 = [System.IO.File]::ReadAllText($Root404Path)
-if ($Root404 -notmatch 'ACTA_LOCALIZED_404') {
+
+# Преотвращаем дублирование по маркеру
+if ($Root404 -match 'ACTA_LOCALIZED_404') {
+    Write-Host 'Редирект 404 уже настроен. Пропускаю.' -ForegroundColor DarkGray
+}
+else {
     $RedirectScript = @'
 
 <script is:inline>
   // ACTA_LOCALIZED_404
-  const path = window.location.pathname;
-  const target = path.startsWith('/en/')
-    ? '/en/404/'
-    : path.startsWith('/pl/')
-      ? '/pl/404/'
-      : path.startsWith('/by/')
-        ? '/by/404/'
-        : null;
+  if (typeof window !== 'undefined') {
+    const path = window.location.pathname;
+    const target = path.startsWith('/en/') ? '/en/404/'
+                 : path.startsWith('/pl/') ? '/pl/404/'
+                 : path.startsWith('/by/') ? '/by/404/'
+                 : null;
 
-  if (target && path !== target) {
-    window.location.replace(target);
+    if (target && path !== target) {
+      window.location.replace(target);
+    }
   }
 </script>
+
 '@
-    if ($Root404.Contains('</Base>')) {
-        $Root404 = $Root404.Replace('</Base>', $RedirectScript + "`r`n</Base>")
-    } else {
-        $Root404 = $Root404 + $RedirectScript
+
+    # Безопасная вставка: сначала перед </script>, иначе перед </body>
+    if ($Root404 -match '</script>') {
+        # Вставляем после последнего </script>
+        $lastScript = $Root404.LastIndexOf('</script>')
+        if ($lastScript -ge 0) {
+            $Root404 = $Root404.Insert($lastScript + 9, "`r`n" + $RedirectScript)
+        }
     }
+    elseif ($Root404 -match '</body>') {
+        $Root404 = $Root404.Replace('</body>', $RedirectScript + '</body>')
+    }
+    else {
+        Write-Host "ПРЕДУПРЕЖДЕНИЕ: не найден </script> или </body> в 404.astro. Редирект не добавлен." -ForegroundColor Yellow
+    }
+
     [System.IO.File]::WriteAllText($Root404Path, $Root404, $Utf8NoBom)
     Write-Host 'Обновлена глобальная маршрутизация 404.' -ForegroundColor Green
 }
 
+# ── Сборка и деплой ────────────────────────────────────────────────────────────
 Write-Host "`nЗапускаю проверочную сборку..." -ForegroundColor Cyan
 & npm run build
-if ($LASTEXITCODE -ne 0) { throw 'Сборка завершилась с ошибкой. Изменения не отправлены.' }
+if ($LASTEXITCODE -ne 0) {
+    throw 'Сборка завершилась с ошибкой. Изменения не отправлены.'
+}
 
-& git add -- 'src/pages/404.astro' 'src/pages/en/404.astro' 'src/pages/pl/404.astro' 'src/pages/by/404.astro'
+$gitFiles = @(
+    (Join-Path 'src' 'pages' '404.astro'),
+    (Join-Path 'src' 'pages' 'en' '404.astro'),
+    (Join-Path 'src' 'pages' 'pl' '404.astro'),
+    (Join-Path 'src' 'pages' 'by' '404.astro')
+) | Where-Object { Test-Path (Join-Path $ProjectRoot $_) }
+
+if ($gitFiles.Count -eq 0) {
+    Write-Host 'Нет файлов для добавления в Git.' -ForegroundColor Yellow
+    exit 0
+}
+
+& git add -- $gitFiles
 if ($LASTEXITCODE -ne 0) { throw 'git add завершился с ошибкой.' }
+
+& git diff --cached --quiet
+if ($LASTEXITCODE -eq 0) {
+    Write-Host 'Все изменения уже присуттвуют. Новый коммит не требуется.' -ForegroundColor Yellow
+    exit 0
+}
 
 & git commit -m 'Add localized 404 pages for EN PL BY'
 if ($LASTEXITCODE -ne 0) { throw 'git commit завершился с ошибкой.' }

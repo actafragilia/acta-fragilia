@@ -24,22 +24,22 @@
    - `date.ts` — date formatting utility
 
 5. **Article pages** (put in `src/pages/`):
-   - `article/slug.astro` — Russian article routes
-   - `en/article/slug.astro` — English article routes
-   - `pl/article/slug.astro` — Polish article routes
-   - `by/article/slug.astro` — Belarusian article routes
+   - `article/slug.astro` → rename to `[...slug].astro`
+   - `en/article/slug.astro` → rename to `[...slug].astro`
+   - `pl/article/slug.astro` → rename to `[...slug].astro`
+   - `by/article/slug.astro` → rename to `[...slug].astro`
 
 ## How to integrate
 
 1. Copy all folders from this ZIP into your `acta-fragilia-astro` project
-2. Rename `article/slug.astro` files to `[...slug].astro` (with brackets)
+2. Rename `article/slug.astro` files to `[...slug].astro` (with brackets):
+   - `src/pages/article/slug.astro` → `src/pages/article/[...slug].astro`
+   - `src/pages/en/article/slug.astro` → `src/pages/en/article/[...slug].astro`
+   - `src/pages/pl/article/slug.astro` → `src/pages/pl/article/[...slug].astro`
+   - `src/pages/by/article/slug.astro` → `src/pages/by/article/[...slug].astro`
 3. Run `npm run build` locally to test
 4. Push to GitHub — Cloudflare Pages will auto-deploy
 
 ## Note on file naming
 
-The article page files are named `slug.astro` instead of `[...slug].astro` because some systems have issues with brackets in filenames. Please rename them after extraction:
-- `src/pages/article/slug.astro` → `src/pages/article/[...slug].astro`
-- `src/pages/en/article/slug.astro`  `src/pages/en/article/[...slug].astro`
-- `src/pages/pl/article/slug.astro` → `src/pages/pl/article/[...slug].astro`
-- `src/pages/by/article/slug.astro` → `src/pages/by/article/[...slug].astro`
+The article page files are named `slug.astro` instead of `[...slug].astro` because some systems have issues with brackets in filenames. Please rename them after extraction.
