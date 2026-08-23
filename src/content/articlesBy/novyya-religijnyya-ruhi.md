@@ -6,6 +6,7 @@ date: 2026-07-22
 updated: 2026-08-10
 author: "А. К."
 readTime: 22
+slug: "novyya-religiynyya-rukhi"
 sources:
   - "Еўрапейскі суд па правах чалавека: справа «Сведкаў Іеговы» ў Расіі (рашэнні 2022–2024 гг.)."
   - "Даследаванне Pew Research Center (2023): «Religious Landscape Study» — даныя па НРР у Еўропе і ЗША."
