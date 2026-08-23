@@ -1,4 +1,4 @@
-п»ї---
+---
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 export interface Props {
@@ -10,17 +10,17 @@ export interface Props {
 const { title, lang = 'ru' } = Astro.props;
 
 const nav = {
-  ru: { materials: 'РњР°С‚РµСЂРёР°Р»С‹', about: 'Рћ РїСЂРѕРµРєС‚Рµ', contacts: 'РљРѕРЅС‚Р°РєС‚С‹', archive: 'РђСЂС…РёРІ' },
+  ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив' },
   en: { materials: 'Materials', about: 'About', contacts: 'Contacts', archive: 'Archive' },
-  pl: { materials: 'MateriaЕ‚y', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum' },
-  by: { materials: 'РњР°С‚СЌСЂС‹СЏР»С‹', about: 'РџСЂР° РїСЂР°РµРєС‚', contacts: 'РљР°РЅС‚Р°РєС‚С‹', archive: 'РђСЂС…С–Сћ' },
+  pl: { materials: 'Materialy', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum' },
+  by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты', archive: 'Архіў' },
 };
 
 const footer = {
-  ru: { privacy: 'РџРѕР»РёС‚РёРєР° РєРѕРЅС„РёРґРµРЅС†РёР°Р»СЊРЅРѕСЃС‚Рё', rights: 'РќРµР·Р°РІРёСЃРёРјР°СЏ Р¶СѓСЂРЅР°Р»РёСЃС‚РёРєР°' },
+  ru: { privacy: 'Политика конфиденциальности', rights: 'Независимая журналистика' },
   en: { privacy: 'Privacy Policy', rights: 'Independent Journalism' },
-  pl: { privacy: 'Polityka prywatnoЕ›ci', rights: 'NiezaleЕјne dziennikarstwo' },
-  by: { privacy: 'РџР°Р»С–С‚С‹РєР° РїСЂС‹РІР°С‚РЅР°СЃС†С–', rights: 'РќРµР·Р°Р»РµР¶РЅР°СЏ Р¶СѓСЂРЅР°Р»С–СЃС‚С‹РєР°' },
+  pl: { privacy: 'Polityka prywatnosci', rights: 'Niezalezne dziennikarstwo' },
+  by: { privacy: 'Палітыка прыватнасці', rights: 'Незалежная журналістыка' },
 };
 
 const t = nav[lang] || nav.ru;
@@ -38,7 +38,7 @@ const htmlLang = lang === 'by' ? 'be' : lang;
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="stylesheet" href="/style.css?v=10" />
+  <link rel="stylesheet" href="/app.css" />
 </head>
 <body>
   <header class="site-header">
@@ -64,7 +64,7 @@ const htmlLang = lang === 'by' ? 'be' : lang;
         <a href={`${prefix}/rss.xml`}>RSS</a>
         <a href={`${prefix}/privacy`}>{f.privacy}</a>
       </div>
-      <div class="footer-copy">В© 2026 ACTA FRAGILIA. {f.rights}</div>
+      <div class="footer-copy">© 2026 ACTA FRAGILIA. {f.rights}</div>
     </div>
   </footer>
 </body>
