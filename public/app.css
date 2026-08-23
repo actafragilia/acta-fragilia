@@ -23,13 +23,6 @@
   --step-2: 1.5rem;
   --step-3: 2rem;
   --step-4: 2.8rem;
-  /* Алиасы для совместимости со старыми scoped-стилями */
-  --font-serif: var(--font-display);
-  --color-text: var(--text);
-  --color-border: var(--line);
-  --color-accent: var(--accent);
-  --color-text-secondary: var(--muted);
-  --color-sans: var(--font-ui);
 }
 
 /* ===== БАЗОВЫЕ СТИЛИ ===== */

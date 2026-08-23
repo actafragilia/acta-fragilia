@@ -1,19 +1,21 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
 const articles = await getCollection('articlesPl');
 articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = ['Wszystkie', 'Gospodarka', 'Społeczeństwo', 'Media'];
 ---
 
-<Base title="Archiwum вЂ” ACTA FRAGILIA" lang="pl">
+<Base title="Archiwum — ACTA FRAGILIA" lang="pl">
   <div class="archive-page">
     <h1 class="archive-title">Archiwum</h1>
 
-    <div class="filter-bar" role="group" aria-label="Filtruj wedЕ‚ug kategorii">
+    <div class="filter-bar" role="group" aria-label="Filtruj według kategorii">
       <button class="filter-btn active" data-filter="all" aria-pressed="true">Wszystkie</button>
       <button class="filter-btn" data-filter="Gospodarka" aria-pressed="false">Gospodarka</button>
-      <button class="filter-btn" data-filter="SpoЕ‚eczeЕ„stwo" aria-pressed="false">SpoЕ‚eczeЕ„stwo</button>
+      <button class="filter-btn" data-filter="Społeczeństwo" aria-pressed="false">Społeczeństwo</button>
       <button class="filter-btn" data-filter="Media" aria-pressed="false">Media</button>
     </div>
 
@@ -28,23 +30,20 @@ articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
           <p>{article.data.subtitle}</p>
         </article>
       ))}
-      <p class="archive-empty hidden" style="display: none;">Brak materiaЕ‚Гіw w tej kategorii.</p>
+      <p class="archive-empty hidden" style="display: none;">Brak materiałów w wybranej kategorii.</p>
     </div>
   </div>
 </Base>
-
 
 <script>
   (function() {
     const buttons = document.querySelectorAll('.filter-btn');
     const items = document.querySelectorAll('.archive-item');
-
     buttons.forEach(btn => {
       btn.addEventListener('click', function() {
         buttons.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         const filter = this.dataset.filter;
-
         let visibleCount = 0;
         items.forEach(item => {
           if (filter === 'all' || item.dataset.category === filter) {
@@ -54,7 +53,6 @@ articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
             item.classList.add('hidden');
           }
         });
-
         const emptyMsg = document.querySelector('.archive-empty');
         if (emptyMsg) {
           emptyMsg.style.display = visibleCount === 0 ? '' : 'none';
@@ -64,115 +62,26 @@ articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   })();
 </script>
 
-
 <style>
-
-  .archive-page {
-    padding: var(--space-xl) 0;
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  .archive-title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    font-weight: 600;
-    color: var(--color-text);
-    margin-bottom: var(--space-lg);
-  }
-  .filter-bar {
-    display: flex;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-xl);
-    flex-wrap: wrap;
-    padding-bottom: var(--space-md);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .filter-btn {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid var(--color-border);
-    background: transparent;
-    color: var(--color-text-secondary);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .filter-btn:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-  .filter-btn.active {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: white;
-  }
-  .archive-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
-  }
-  .archive-item {
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .archive-item.hidden {
-    display: none;
-  }
-  .archive-meta {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: center;
-    margin-bottom: var(--space-sm);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  .archive-category {
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-  .archive-date {
-    color: var(--color-text-secondary);
-  }
-  .archive-item h2 {
-    font-family: var(--font-serif);
-    font-size: 1.35rem;
-    font-weight: 600;
-    line-height: 1.25;
-    margin-bottom: var(--space-sm);
-  }
-  .archive-item h2 a {
-    color: var(--color-text);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-  .archive-item h2 a:hover {
-    color: var(--color-accent);
-  }
-  .archive-item p {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-  }
-  .archive-empty {
-    font-family: var(--font-sans);
-    color: var(--color-text-secondary);
-    font-style: italic;
-    padding: var(--space-xl) 0;
-  }
+  .archive-page { padding: var(--space-xl) 0; max-width: 960px; margin: 0 auto; }
+  .archive-title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 600; color: var(--text); margin-bottom: var(--space-lg); }
+  .filter-bar { display: flex; gap: var(--space-sm); margin-bottom: var(--space-xl); flex-wrap: wrap; padding-bottom: var(--space-md); border-bottom: 1px solid var(--line); }
+  .filter-btn { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.4rem 0.9rem; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 3px; cursor: pointer; transition: all 0.2s ease; }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .archive-list { display: flex; flex-direction: column; gap: var(--space-xl); }
+  .archive-item { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--line); }
+  .archive-item.hidden { display: none; }
+  .archive-meta { display: flex; gap: var(--space-sm); align-items: center; margin-bottom: var(--space-sm); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .archive-category { color: var(--accent); font-weight: 500; }
+  .archive-date { color: var(--muted); }
+  .archive-item h2 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; line-height: 1.25; margin-bottom: var(--space-sm); }
+  .archive-item h2 a { color: var(--text); text-decoration: none; transition: color 0.2s ease; }
+  .archive-item h2 a:hover { color: var(--accent); }
+  .archive-item p { font-family: var(--font-ui); font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+  .archive-empty { font-family: var(--font-ui); color: var(--muted); font-style: italic; padding: var(--space-xl) 0; }
   @media (max-width: 768px) {
-    .filter-bar {
-      gap: var(--space-xs);
-    }
-    .filter-btn {
-      padding: 0.35rem 0.6rem;
-      font-size: 0.7rem;
-    }
+    .filter-bar { gap: var(--space-xs); }
+    .filter-btn { padding: 0.35rem 0.6rem; font-size: 0.7rem; }
   }
-
 </style>
