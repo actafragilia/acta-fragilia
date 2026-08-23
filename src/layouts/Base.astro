@@ -108,6 +108,75 @@ const alternateLocales = Object.values(locales).filter((locale) => locale !== cu
     title="ACTA FRAGILIA RSS"
     href={`${prefix}/rss.xml`}
   />
+<style is:global>
+  /* Светлая тема (по умолчанию) */
+  :root {
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --border: #e0e0e0;
+    --accent: #3d5a80;
+    --accent-hover: #2c4460;
+    --card-bg: #f9f9f9;
+    --footer-bg: #f5f5f5;
+  }
+
+  /* Тёмная тема (автоматически) */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121212;
+      --text: #e8e8e8;
+      --text-secondary: #aaa;
+      --border: #333;
+      --accent: #4dabf7;
+      --accent-hover: #6ec1f9;
+      --card-bg: #1e1e1e;
+      --footer-bg: #1a1a1a;
+    }
+  }
+
+  /* Применяем ко всему */
+  html, body {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .site-header, header, .navbar, nav, .footer, footer {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+  }
+
+  .card, .post-card, article, section, .hero, .content, main {
+    background-color: var(--card-bg) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, li, .title, .subtitle {
+    color: var(--text) !important;
+  }
+
+  a {
+    color: var(--accent) !important;
+  }
+  a:hover {
+    color: var(--accent-hover) !important;
+  }
+
+  .lang-switcher a {
+    color: var(--text-secondary) !important;
+  }
+  .lang-switcher a.active {
+    background-color: var(--border) !important;
+    color: var(--text) !important;
+  }
+  .lang-switcher a:hover {
+    background-color: var(--border) !important;
+    color: var(--text) !important;
+  }
+</style>
 </head>
 <body>
   <header class="site-header">
