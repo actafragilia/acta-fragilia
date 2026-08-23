@@ -1,109 +1,81 @@
----
-export interface Props {
-  currentLang?: string;
-}
+﻿---
+const currentPath = Astro.url.pathname;
 
-type LangCode = 'ru' | 'en' | 'pl' | 'by';
-type ArticleSlugs = Record<LangCode, string>;
+// Определяем язык из URL
+const langMap = {
+  'en': { label: 'EN', prefix: '/en' },
+  'pl': { label: 'PL', prefix: '/pl' },
+  'by': { label: 'BY', prefix: '/by' },
+  'ru': { label: 'RU', prefix: '' }
+};
 
-const { currentLang = 'ru' } = Astro.props;
-
-const languages: Array<{ code: LangCode; label: string }> = [
-  { code: 'ru', label: 'RU' },
-  { code: 'en', label: 'EN' },
-  { code: 'pl', label: 'PL' },
-  { code: 'by', label: 'BY' },
-];
-
-// Соответствие переводов одной и той же статьи во всех языковых версиях.
-const articleSlugGroups: ArticleSlugs[] = [
-  {
-    ru: 'bankrotstvo-kak-sistema',
-    en: 'bankruptcy-as-a-system',
-    pl: 'upadlosc-jako-system',
-    by: 'bankrotstva-yak-sistema',
-  },
-  {
-    ru: 'novye-religioznye-dvizheniya',
-    en: 'new-religious-movements',
-    pl: 'nowe-ruchy-religijne',
-    by: 'novyya-religijnyya-ruhi',
-  },
-  {
-    ru: 'mediinyi-landshaft',
-    en: 'media-landscape',
-    pl: 'pejzaz-medialny',
-    by: 'medyjny-landshaft',
-  },
-];
-
-// При статической сборке главная языковая страница может иметь путь /en,
-// /pl или /by без завершающего слэша. Поэтому префикс удаляется и перед
-// слэшем, и в конце строки.
-const normalizedPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const pathWithoutLanguage = normalizedPath.replace(/^\/(en|pl|by)(?=\/|$)/, '') || '/';
-
-function addLanguagePrefix(langCode: LangCode, cleanPath: string) {
-  const safePath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
-  if (langCode === 'ru') return safePath;
-  return safePath === '/' ? `/${langCode}/` : `/${langCode}${safePath}`;
-}
-
-function getLangPath(langCode: LangCode) {
-  let translatedPath = pathWithoutLanguage;
-  const articleMatch = translatedPath.match(/^\/article\/([^/]+)$/);
-
-  if (articleMatch) {
-    const currentSlug = articleMatch[1];
-    const group = articleSlugGroups.find((slugs) => Object.values(slugs).includes(currentSlug));
-    if (group) translatedPath = `/article/${group[langCode]}`;
+// Текущий язык
+let currentLang = 'ru';
+for (const [lang, info] of Object.entries(langMap)) {
+  if (currentPath.startsWith(info.prefix + '/') || (info.prefix === '' && !currentPath.startsWith('/en/') && !currentPath.startsWith('/pl/') && !currentPath.startsWith('/by/'))) {
+    currentLang = lang;
+    break;
   }
-
-  return addLanguagePrefix(langCode, translatedPath);
 }
+
+// Строим ссылки для каждого языка
+const links = Object.entries(langMap).map(([lang, info]) => {
+  let href = info.prefix || '/';
+  // Если мы не на главной, добавляем путь после префикса
+  if (currentPath !== '/' && currentPath !== '/en/' && currentPath !== '/pl/' && currentPath !== '/by/') {
+    const suffix = currentPath.replace(/^\/(en|pl|by)/, '');
+    href = (info.prefix || '') + suffix;
+    // удаляем двойные слэши
+    href = href.replace(/\/\//g, '/');
+    if (href === '') href = '/';
+  }
+  return { lang, label: info.label, href, active: lang === currentLang };
+});
 ---
-<div class="language-switcher" aria-label="Переключатель языка">
-  {languages.map((lang, index) => (
-    <>
-      <a
-        href={getLangPath(lang.code)}
-        class={currentLang === lang.code ? 'active' : ''}
-        aria-current={currentLang === lang.code ? 'page' : undefined}
-        hreflang={lang.code === 'by' ? 'be' : lang.code}
-      >
-        {lang.label}
-      </a>
-      {index < languages.length - 1 && <span class="lang-separator">·</span>}
-    </>
+
+<nav class="lang-switcher">
+  {links.map(({ lang, label, href, active }) => (
+    <a
+      href={href}
+      class:list={{ active }}
+      aria-current={active ? 'page' : undefined}
+    >
+      {label}
+    </a>
   ))}
-</div>
+</nav>
+
 <style>
-  .language-switcher {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
+  .lang-switcher {
+    display: inline-flex;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 500;
   }
-  .language-switcher a {
-    color: var(--color-text-secondary);
+  .lang-switcher a {
+    padding: 0.25rem 0.5rem;
     text-decoration: none;
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    transition: all 0.2s ease;
+    color: #888;
+    border-radius: 4px;
+    transition: 0.2s;
   }
-  .language-switcher a:hover {
-    color: var(--color-accent);
-    background: rgba(155, 74, 74, 0.08);
+  .lang-switcher a:hover {
+    color: #222;
+    background: #f0f0f0;
   }
-  .language-switcher a.active {
-    color: var(--color-accent);
+  .lang-switcher a.active {
+    color: #000;
+    background: #e0e0e0;
     font-weight: 600;
-    background: rgba(155, 74, 74, 0.12);
   }
-  .lang-separator {
-    color: var(--color-border);
-    user-select: none;
+  @media (prefers-color-scheme: dark) {
+    .lang-switcher a:hover {
+      color: #eee;
+      background: #333;
+    }
+    .lang-switcher a.active {
+      color: #fff;
+      background: #444;
+    }
   }
 </style>
