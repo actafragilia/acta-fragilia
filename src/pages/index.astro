@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
@@ -7,7 +7,7 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base title="ACTA FRAGILIA" description="РќРµР·Р°РІРёСЃРёРјР°СЏ Р°РІС‚РѕСЂСЃРєР°СЏ РїР»РѕС‰Р°РґРєР° РґР»СЏ РґРѕР»РіРёС… С‚РµРєСЃС‚РѕРІ, Р°РЅР°Р»РёР·Р° РґРѕРєСѓРјРµРЅС‚РѕРІ, СЂР°СЃСЃР»РµРґРѕРІР°РЅРёР№ Рё РѕР±СЉСЏСЃРЅРµРЅРёСЏ СЃР»РѕР¶РЅС‹С… С‚РµРј.">
+<Base title="ACTA FRAGILIA" description="Независимая авторская площадка для долгих текстов, анализа документов, расследований и объяснения сложных тем.">
 
   <!-- HERO -->
   <header class="hero">
@@ -24,13 +24,13 @@ const articles = (await getCollection('articles'))
       </svg>
     </div>
     <div class="container hero-content">
-      <p class="hero-eyebrow">РќРµР·Р°РІРёСЃРёРјР°СЏ Р¶СѓСЂРЅР°Р»РёСЃС‚РёРєР° Рё Р°РЅР°Р»РёР·</p>
+      <p class="hero-eyebrow">Независимая журналистика и анализ</p>
       <h1>ACTA <em>FRAGILIA</em></h1>
-      <p class="hero-lead">РџСЂР°РІРѕ, СЌРєРѕРЅРѕРјРёРєР°, РєРѕСЂРїРѕСЂР°С‚РёРІРЅС‹Рµ РєРѕРЅС„Р»РёРєС‚С‹ Рё РѕР±С‰РµСЃС‚РІРµРЅРЅС‹Рµ РїСЂРѕС†РµСЃСЃС‹ вЂ” Р±РµР· С€СѓРјР°, СЃ РїСЂРѕРІРµСЂРєРѕР№ С„Р°РєС‚РѕРІ Рё РІРЅРёРјР°РЅРёРµРј Рє РїРѕСЃР»РµРґСЃС‚РІРёСЏРј.</p>
+      <p class="hero-lead">Право, экономика, корпоративные конфликты и общественные процессы — без шума, с проверкой фактов и вниманием к последствиям.</p>
       <div class="hero-meta">
-        <span><span class="dot" aria-hidden="true"></span> Р”РѕР»РіРёРµ С‚РµРєСЃС‚С‹</span>
-        <span><span class="dot" aria-hidden="true"></span> Р”РѕРєСѓРјРµРЅС‚С‹</span>
-        <span><span class="dot" aria-hidden="true"></span> Р Р°СЃСЃР»РµРґРѕРІР°РЅРёСЏ</span>
+        <span><span class="dot" aria-hidden="true"></span> Долгие тексты</span>
+        <span><span class="dot" aria-hidden="true"></span> Документы</span>
+        <span><span class="dot" aria-hidden="true"></span> Расследования</span>
       </div>
     </div>
   </header>
@@ -38,7 +38,7 @@ const articles = (await getCollection('articles'))
   <!-- ARTICLES LIST -->
   <section class="container">
     <div class="section-header">
-      <h2>РџРѕСЃР»РµРґРЅРёРµ РїСѓР±Р»РёРєР°С†РёРё</h2>
+      <h2>Последние публикации</h2>
       <span class="line" aria-hidden="true"></span>
     </div>
 
@@ -55,7 +55,7 @@ const articles = (await getCollection('articles'))
             <div class="article-body">
               <h3><a href={`/article/${article.slug}`}>{article.data.title}</a></h3>
               <p>{article.data.subtitle}</p>
-              <a href={`/article/${article.slug}`} class="article-link">Р§РёС‚Р°С‚СЊ РїРѕР»РЅРѕСЃС‚СЊСЋ в†’</a>
+              <a href={`/article/${article.slug}`} class="article-link">Читать полностью →</a>
             </div>
           </article>
         );
