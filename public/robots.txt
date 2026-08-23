@@ -1,4 +1,3 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
-
 Sitemap: https://acta-fragilia.pages.dev/sitemap-index.xml
