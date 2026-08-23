@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Климент Вилейский — Автор ACTA FRAGILIA"
+  description="Климент Вилейский — автор и редактор проекта ACTA FRAGILIA. Специализируется на анализе правовых, экономических и социальных процессов."
+  canonical="https://acta-fragilia.pages.dev/about/author"
+>
+
+  <div class="author-hero">
+    <div class="container">
+      <h1>Климент Вилейский</h1>
+      <p class="lead">Автор проекта ACTA FRAGILIA</p>
+    </div>
+  </div>
+
+  <div class="author-content container">
+    <div class="author-layout">
+      <div class="author-main">
+        <h2>О методе</h2>
+        <p>Работаю на пересечении журналистики, права и экономики. Основной принцип — проверяемость каждого утверждения. Для анализа использую первичные источники: судебные решения, документы, финансовую отчетность.</p>
+
+        <h2>Темы</h2>
+        <ul>
+          <li>Корпоративные конфликты и банкротства</li>
+          <li>Религиоведение и механизмы контроля</li>
+          <li>Медийный ландшафт и информационные искажения</li>
+        </ul>
+      </div>
+
+      <aside class="author-sidebar">
+        <div class="sidebar-block">
+          <strong>Контакт</strong>
+          <p><a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a></p>
+        </div>
+        
+        <div class="sidebar-block">
+          <strong>Примечание</strong>
+          <p>Климент Вилейский — выбранное имя (псевдоним), используемое для профессиональной деятельности. Настоящее имя автора известно редакции в соответствии с внутренней политикой безопасности.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <style>
+    .author-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid var(--line-strong); }
+    .author-hero h1 { font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; margin-bottom: var(--space-sm); }
+    .author-hero .lead { font-family: var(--font-display); font-size: var(--step-1); color: var(--muted); font-style: italic; }
+    .author-content { padding: var(--space-xl) 0; }
+    .author-layout { display: grid; grid-template-columns: 1fr 280px; gap: var(--space-xl); }
+    
+    .author-main h2 { font-family: var(--font-display); font-size: var(--step-2); margin-bottom: var(--space-sm); }
+    .author-main ul { list-style: disc; padding-left: var(--space-md); }
+    
+    .author-sidebar { padding-top: var(--space-sm); }
+    .sidebar-block { padding: var(--space-md); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: var(--space-md); }
+    .sidebar-block strong { display: block; font-family: var(--font-mono); text-transform: uppercase; font-size: var(--step--1); color: var(--muted); margin-bottom: var(--space-xs); }
+    .sidebar-block p { font-family: var(--font-ui); font-size: var(--step--1); color: var(--muted); line-height: 1.55; }
+    
+    @media (max-width: 768px) { .author-layout { grid-template-columns: 1fr; } }
+  </style>
+</Base>
