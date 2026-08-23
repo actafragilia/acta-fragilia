@@ -59,3 +59,27 @@ articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
     });
   })();
 </script>
+
+<style>
+  .archive-page { padding: var(--space-xl) 0; max-width: 960px; margin: 0 auto; }
+  .archive-title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 600; color: var(--text); margin-bottom: var(--space-lg); }
+  .filter-bar { display: flex; gap: var(--space-sm); margin-bottom: var(--space-xl); flex-wrap: wrap; padding-bottom: var(--space-md); border-bottom: 1px solid var(--line); }
+  .filter-btn { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.4rem 0.9rem; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 3px; cursor: pointer; transition: all 0.2s ease; }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .archive-list { display: flex; flex-direction: column; gap: var(--space-xl); }
+  .archive-item { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--line); }
+  .archive-item.hidden { display: none; }
+  .archive-meta { display: flex; gap: var(--space-sm); align-items: center; margin-bottom: var(--space-sm); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .archive-category { color: var(--accent); font-weight: 500; }
+  .archive-date { color: var(--muted); }
+  .archive-item h2 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; line-height: 1.25; margin-bottom: var(--space-sm); }
+  .archive-item h2 a { color: var(--text); text-decoration: none; transition: color 0.2s ease; }
+  .archive-item h2 a:hover { color: var(--accent); }
+  .archive-item p { font-family: var(--font-ui); font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+  .archive-empty { font-family: var(--font-ui); color: var(--muted); font-style: italic; padding: var(--space-xl) 0; }
+  @media (max-width: 768px) {
+    .filter-bar { gap: var(--space-xs); }
+    .filter-btn { padding: 0.35rem 0.6rem; font-size: 0.7rem; }
+  }
+</style>
