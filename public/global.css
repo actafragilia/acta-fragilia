@@ -1,5 +1,5 @@
-
-/* ===== œ≈–≈Ã≈ÕÕ€≈ ===== */
+Ôªø
+/* ===== –ü–ï–†–ï–ú–ï–ù–ù–´–ï ===== */
 :root {
   --accent: #8B0000;
   --accent-dark: #6b0000;
@@ -825,7 +825,7 @@ em { font-style: italic; }
     display: block;
   }
 }
-/* ===== AUTHOR SIGNATURE ó MONASTIC ===== */
+/* ===== AUTHOR SIGNATURE ‚Äî MONASTIC ===== */
 .author-monastic {
   font-family: var(--font-mono);
   font-size: 0.95rem;
@@ -842,8 +842,7 @@ em { font-style: italic; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.8em;
-  height: 1.8em;
+  width: 2.2em;`n  height: 2.2em;
   border: 1px solid var(--accent);
   border-radius: 50%;
   font-weight: 500;
@@ -851,7 +850,7 @@ em { font-style: italic; }
   margin-right: 0.5em;
   font-size: 0.9em;
 }
-/* ===== AUTHOR SIGNATURE ó MONASTIC ===== */
+/* ===== AUTHOR SIGNATURE ‚Äî MONASTIC ===== */
 .author-monastic {
   font-family: var(--font-mono);
   font-size: 0.95rem;
@@ -868,8 +867,7 @@ em { font-style: italic; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.8em;
-  height: 1.8em;
+  width: 2.2em;`n  height: 2.2em;
   border: 1px solid var(--accent);
   border-radius: 50%;
   font-weight: 500;
@@ -877,3 +875,4 @@ em { font-style: italic; }
   margin-right: 0.5em;
   font-size: 0.9em;
 }
+
