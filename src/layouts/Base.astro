@@ -1,4 +1,4 @@
----
+﻿---
 import "../styles/global.css";
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
@@ -69,6 +69,7 @@ const alternateLocales = Object.values(locales).filter((locale) => locale !== cu
 <!DOCTYPE html>
 <html lang={htmlLang} prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
 <head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
@@ -110,6 +111,7 @@ const alternateLocales = Object.values(locales).filter((locale) => locale !== cu
 </head>
 <body>
   <header class="site-header">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <div class="container header-inner">
       <a href={`${prefix}/`} class="logo" aria-label="ACTA FRAGILIA">
         <span class="logo-mark" aria-hidden="true"></span>
