@@ -1,4 +1,4 @@
----
+﻿---
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 export interface Props {
@@ -10,10 +10,10 @@ export interface Props {
 const { title, lang = 'ru' } = Astro.props;
 
 const nav = {
-  ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив' },
-  en: { materials: 'Materials', about: 'About', contacts: 'Contacts', archive: 'Archive' },
-  pl: { materials: 'Materiały', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum' },
-  by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты', archive: 'Архіў' },
+  ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив', pseudonym: 'О псевдониме' },
+  en: { materials: 'Materials', about: 'About', contacts: 'Contacts', archive: 'Archive', pseudonym: 'About the pseudonym' },
+  pl: { materials: 'Materiały', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum', pseudonym: 'O pseudonimie' },
+  by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты', archive: 'Архіў', pseudonym: 'Пра псеўданім' },
 };
 
 const footer = {
@@ -50,6 +50,7 @@ const htmlLang = lang === 'by' ? 'be' : lang;
         <a href={`${prefix}/archive`}>{t.archive}</a>
         <a href={`${prefix}/about`}>{t.about}</a>
         <a href={`${prefix}/contacts`}>{t.contacts}</a>
+        <a href={`${prefix}/pseudonym`}>{t.pseudonym}</a>
         <LanguageSwitcher currentLang={lang} />
       </nav>
     </div>
