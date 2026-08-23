@@ -40,11 +40,10 @@ const htmlLang = lang === 'by' ? 'be' : lang;
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   
   <style>
-    /* === ПОЛНЫЙ ДИЗАЙН САЙТА === */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background-color: #fafafa;
+      background: #fafafa;
       color: #1a1a1a;
       line-height: 1.7;
       padding: 0 1rem;
@@ -160,9 +159,8 @@ const htmlLang = lang === 'by' ? 'be' : lang;
     .footer-links a:hover { text-decoration: underline; }
     .footer-copy { color: #999; font-size: 0.85rem; }
 
-    /* Тёмная тема */
     @media (prefers-color-scheme: dark) {
-      body { background-color: #121212; color: #e8e8e8; }
+      body { background: #121212; color: #e8e8e8; }
       .site-header { border-bottom-color: #2a2a2a; }
       .logo { color: #e8e8e8; }
       .logo:hover { color: #4dabf7; }
@@ -191,7 +189,6 @@ const htmlLang = lang === 'by' ? 'be' : lang;
       .footer-copy { color: #888; }
     }
 
-    /* Адаптив */
     @media (max-width: 700px) {
       .site-header { flex-direction: column; align-items: stretch; gap: 0.5rem; }
       .header-inner { flex-direction: column; align-items: stretch; gap: 0.8rem; }
