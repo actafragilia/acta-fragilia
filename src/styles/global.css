@@ -6,9 +6,11 @@
   --border: #e0e0e0;
   --accent: #3d5a80;
   --accent-hover: #2c4460;
-  --code-bg: #f4f4f4;
   --card-bg: #f9f9f9;
   --footer-bg: #f5f5f5;
+  --code-bg: #f4f4f4;
+  --header-bg: #ffffff;
+  --nav-bg: #ffffff;
 }
 
 /* === Тёмная тема (автоматически) === */
@@ -20,66 +22,71 @@
     --border: #333;
     --accent: #4dabf7;
     --accent-hover: #6ec1f9;
-    --code-bg: #1e1e1e;
     --card-bg: #1e1e1e;
     --footer-bg: #1a1a1a;
+    --code-bg: #1e1e1e;
+    --header-bg: #1a1a1a;
+    --nav-bg: #1a1a1a;
   }
 }
 
-/* === Глобальные стили === */
-html {
+/* === Глобальное применение === */
+html, body {
   background-color: var(--bg);
   color: var(--text);
   transition: background-color 0.3s, color 0.3s;
 }
 
-body {
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
-  background-color: var(--bg);
-  color: var(--text);
-  margin: 0;
-  padding: 0;
+/* Шапка, навигация, подвал */
+.site-header, .header, .navbar, nav, .footer, footer {
+  background-color: var(--header-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
 }
 
+/* Карточки, блоки, секции */
+.card, .post-card, .article-card, .archive-item, section, .hero, .content {
+  background-color: var(--card-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+/* Заголовки, параграфы, списки */
+h1, h2, h3, h4, h5, h6, p, li, .title, .subtitle, .description {
+  color: var(--text) !important;
+}
+
+/* Ссылки */
 a {
-  color: var(--accent);
-  text-decoration: none;
+  color: var(--accent) !important;
 }
 a:hover {
-  color: var(--accent-hover);
-  text-decoration: underline;
+  color: var(--accent-hover) !important;
 }
 
-/* === Примеры использования переменных === */
-.site-header {
-  background-color: var(--bg);
-  border-bottom: 1px solid var(--border);
+/* Код, пре, блоки цитат */
+code, pre, .code-block, blockquote {
+  background-color: var(--code-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
 }
 
-.footer {
-  background-color: var(--footer-bg);
-  border-top: 1px solid var(--border);
-  color: var(--text-secondary);
+/* Инпуты, формы (если есть) */
+input, textarea, select, button {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
 }
 
-.card, .post-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: background-color 0.3s, border-color 0.3s;
+/* Дополнительно: для переключателя языков, если он использует свои классы */
+.lang-switcher a {
+  color: var(--text-secondary) !important;
 }
-
-code, pre {
-  background-color: var(--code-bg);
-  color: var(--text);
+.lang-switcher a.active {
+  background-color: var(--border) !important;
+  color: var(--text) !important;
 }
-
-/* Дополнительно: для текста в подвале */
-.footer a {
-  color: var(--text-secondary);
-}
-.footer a:hover {
-  color: var(--accent);
+.lang-switcher a:hover {
+  background-color: var(--border) !important;
+  color: var(--text) !important;
 }
