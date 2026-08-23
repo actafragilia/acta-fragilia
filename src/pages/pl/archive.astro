@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
@@ -6,14 +6,14 @@ const articles = await getCollection('articlesPl');
 articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base title="Archiwum — ACTA FRAGILIA" lang="pl">
+<Base title="Archiwum вЂ” ACTA FRAGILIA" lang="pl">
   <div class="archive-page">
     <h1 class="archive-title">Archiwum</h1>
 
-    <div class="filter-bar" role="group" aria-label="Filtruj według kategorii">
+    <div class="filter-bar" role="group" aria-label="Filtruj wedЕ‚ug kategorii">
       <button class="filter-btn active" data-filter="all" aria-pressed="true">Wszystkie</button>
       <button class="filter-btn" data-filter="Gospodarka" aria-pressed="false">Gospodarka</button>
-      <button class="filter-btn" data-filter="Społeczeństwo" aria-pressed="false">Społeczeństwo</button>
+      <button class="filter-btn" data-filter="SpoЕ‚eczeЕ„stwo" aria-pressed="false">SpoЕ‚eczeЕ„stwo</button>
       <button class="filter-btn" data-filter="Media" aria-pressed="false">Media</button>
     </div>
 
@@ -28,7 +28,7 @@ articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
           <p>{article.data.subtitle}</p>
         </article>
       ))}
-      <p class="archive-empty hidden" style="display: none;">Brak materiałów w tej kategorii.</p>
+      <p class="archive-empty hidden" style="display: none;">Brak materiaЕ‚Гіw w tej kategorii.</p>
     </div>
   </div>
 </Base>

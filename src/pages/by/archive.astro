@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
@@ -6,15 +6,15 @@ const articles = await getCollection('articlesBy');
 articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base title="Архіў — ACTA FRAGILIA" lang="by">
+<Base title="РђСЂС…С–Сћ вЂ” ACTA FRAGILIA" lang="by">
   <div class="archive-page">
-    <h1 class="archive-title">Архіў матэрыялаў</h1>
+    <h1 class="archive-title">РђСЂС…С–Сћ РјР°С‚СЌСЂС‹СЏР»Р°Сћ</h1>
 
-    <div class="filter-bar" role="group" aria-label="Фільтр па рубрыках">
-      <button class="filter-btn active" data-filter="all" aria-pressed="true">Усе</button>
-      <button class="filter-btn" data-filter="Эканоміка" aria-pressed="false">Эканоміка</button>
-      <button class="filter-btn" data-filter="Грамадства" aria-pressed="false">Грамадства</button>
-      <button class="filter-btn" data-filter="Медыя" aria-pressed="false">Медыя</button>
+    <div class="filter-bar" role="group" aria-label="Р¤С–Р»СЊС‚СЂ РїР° СЂСѓР±СЂС‹РєР°С…">
+      <button class="filter-btn active" data-filter="all" aria-pressed="true">РЈСЃРµ</button>
+      <button class="filter-btn" data-filter="Р­РєР°РЅРѕРјС–РєР°" aria-pressed="false">Р­РєР°РЅРѕРјС–РєР°</button>
+      <button class="filter-btn" data-filter="Р“СЂР°РјР°РґСЃС‚РІР°" aria-pressed="false">Р“СЂР°РјР°РґСЃС‚РІР°</button>
+      <button class="filter-btn" data-filter="РњРµРґС‹СЏ" aria-pressed="false">РњРµРґС‹СЏ</button>
     </div>
 
     <div class="archive-list">
@@ -28,7 +28,7 @@ articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
           <p>{article.data.subtitle}</p>
         </article>
       ))}
-      <p class="archive-empty hidden" style="display: none;">Няма матэрыялаў у выбранай рубрыцы.</p>
+      <p class="archive-empty hidden" style="display: none;">РќСЏРјР° РјР°С‚СЌСЂС‹СЏР»Р°Сћ Сѓ РІС‹Р±СЂР°РЅР°Р№ СЂСѓР±СЂС‹С†С‹.</p>
     </div>
   </div>
 </Base>

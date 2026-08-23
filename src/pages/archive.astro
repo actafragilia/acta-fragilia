@@ -1,22 +1,22 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
 const articles = await getCollection('articles');
 articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const categories = ['Все', 'Экономика', 'Общество', 'Медиа'];
+const categories = ['Р’СЃРµ', 'Р­РєРѕРЅРѕРјРёРєР°', 'РћР±С‰РµСЃС‚РІРѕ', 'РњРµРґРёР°'];
 ---
 
-<Base title="Архив — ACTA FRAGILIA" lang="ru">
+<Base title="РђСЂС…РёРІ вЂ” ACTA FRAGILIA" lang="ru">
   <div class="archive-page">
-    <h1 class="archive-title">Архив материалов</h1>
+    <h1 class="archive-title">РђСЂС…РёРІ РјР°С‚РµСЂРёР°Р»РѕРІ</h1>
 
-    <div class="filter-bar" role="group" aria-label="Фильтр по рубрикм">
-      <button class="filter-btn active" data-filter="all" aria-pressed="true">Все</button>
-      <button class="filter-btn" data-filter="Экономика" aria-pressed="false">Экономика</button>
-      <button class="filter-btn" data-filter="Общество" aria-pressed="false">Общество</button>
-      <button class="filter-btn" data-filter="Медиа" aria-pressed="false">Медиа</button>
+    <div class="filter-bar" role="group" aria-label="Р¤РёР»СЊС‚СЂ РїРѕ СЂСѓР±СЂРёРєРј">
+      <button class="filter-btn active" data-filter="all" aria-pressed="true">Р’СЃРµ</button>
+      <button class="filter-btn" data-filter="Р­РєРѕРЅРѕРјРёРєР°" aria-pressed="false">Р­РєРѕРЅРѕРјРёРєР°</button>
+      <button class="filter-btn" data-filter="РћР±С‰РµСЃС‚РІРѕ" aria-pressed="false">РћР±С‰РµСЃС‚РІРѕ</button>
+      <button class="filter-btn" data-filter="РњРµРґРёР°" aria-pressed="false">РњРµРґРёР°</button>
     </div>
 
     <div class="archive-list">
@@ -30,7 +30,7 @@ const categories = ['Все', 'Экономика', 'Общество', 'Мед�
           <p>{article.data.subtitle}</p>
         </article>
       ))}
-      <p class="archive-empty hidden" style="display: none;">Нет материалов в выбранной рубрике.</p>
+      <p class="archive-empty hidden" style="display: none;">РќРµС‚ РјР°С‚РµСЂРёР°Р»РѕРІ РІ РІС‹Р±СЂР°РЅРЅРѕР№ СЂСѓР±СЂРёРєРµ.</p>
     </div>
   </div>
 </Base>
