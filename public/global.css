@@ -876,3 +876,30 @@ em { font-style: italic; }
   font-size: 0.9em;
 }
 
+
+/* Home page categories */
+.home-categories {
+  max-width: 960px;
+  margin: 0 auto var(--space-xl);
+  padding: 0;
+  list-style: none;
+}
+
+.home-categories li {
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-ui);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.home-categories a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-categories a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

@@ -1,89 +1,78 @@
 ﻿---
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+
+const articles = (await getCollection('articles'))
+  .filter(a => !a.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base
-  title="O projekcie"
-  description="ACTA FRAGILIA to niezależna platforma długich tekstów, analizy dokumentów i śledztw w dziedzinie prawa, ekonomii, konfliktów korporacyjnych i procesów społecznych."
-  canonical="https://acta-fragilia.pages.dev/pl/about"
->
-  <div class="about-hero">
-    <div class="container">
-      <h1>O projekcie</h1>
-      <p class="lead">ACTA FRAGILIA to niezależna platforma długich tekstów, analizy dokumentów i śledztw w dziedzinie prawa, ekonomii, konfliktów korporacyjnych i procesów społecznych.</p>
+<Base title="ACTA FRAGILIA" lang="pl" description="Niezalezna platforma dla dlugich tekstow, analizy dokumentow, sledztw i wyjasniania zlozonych tematow.">
+
+  <header class="hero">
+    <div class="hero-grid" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--line-strong)" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+        <line x1="100%" y1="0" x2="0" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+      </svg>
     </div>
-  </div>
-
-  <div class="about-content container">
-    <div class="about-layout">
-      <div class="about-text">
-        <p>Bez reklam, bez feedu informacyjnego, bez szumu. Tylko sprawdzalne fakty, kontekst i próba zrozumienia, jak działają procesy prawne, ekonomiczne i społeczne — oraz kto ponosi ich konsekwencje.</p>
-
-        <h2>Metodologia</h2>
-        <p>Każdy materiał opiera się na źródłach pierwotnych: wyrokach sądowych, aktach prawnych, raportach finansowych i wywiadach z uczestnikami. Nie publikujemy wiadomości z ostatniej chwili — tylko to, co można zweryfikować i skomentować w kontekście.</p>
-
-        <h2>Kategorie</h2>
-        <ul class="category-list">
-          <li><strong>Prawo</strong> — Analiza ustawodawstwa, praktyki sądowej i kolizji prawnych.</li>
-          <li><strong>Ekonomia</strong> — Analiza konfliktów korporacyjnych, upadłości, mechanizmów podatkowych i finansowych.</li>
-          <li><strong>Społeczeństwo</strong> — Procesy społeczne, instytucje i ich transformacja.</li>
-          <li><strong>Media</strong> — Przepływy informacyjne, dziennikarstwo i umiejętność korzystania z mediów.</li>
-          <li><strong>Konflikt</strong> — Spory korporacyjne i gospodarcze w szczegółach.</li>
-          <li><strong>Dokument</strong> — Analiza jednego konkretnego dokumentu z komentarzami.</li>
-        </ul>
-
-        <h2>Zasady</h2>
-        <ol class="principles">
-          <li><strong>Weryfikowalność.</strong> Każdy fakt można prześledzić do źródła.</li>
-          <li><strong>Kontekst.</strong> Wydarzenie bez kontekstu to nie informacja, a szum.</li>
-          <li><strong>Konsekwencje.</strong> Ważne jest nie tylko to, co się stało, ale też co z tego wynika.</li>
-          <li><strong>Niezależność.</strong> Bez reklam, bez sponsorów wpływających na politykę redakcyjną.</li>
-        </ol>
-
-        <h2>Autor</h2>
-        <p>Autor projektu — Klimient Wilejski. Kontakt: <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a></p>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Niezalezne dziennikarstwo i analiza</p>
+      <h1>ACTA <em>FRAGILIA</em></h1>
+      <p class="hero-lead">Prawo, ekonomia, konflikty korporacyjne i procesy spoleczne — bez szumu, z weryfikacja faktow i uwaga na konsekwencje.</p>
+      <div class="hero-meta">
+        <span><span class="dot" aria-hidden="true"></span> Dlugie teksty</span>
+        <span><span class="dot" aria-hidden="true"></span> Dokumenty</span>
+        <span><span class="dot" aria-hidden="true"></span> Sledztwa</span>
       </div>
-
-      <aside class="about-sidebar">
-        <div class="sidebar-block">
-          <strong>Status</strong>
-          <p>Niezależny projekt. Nie jest osobą prawną. Publikacje nie stanowią porady prawnej.</p>
-        </div>
-        <div class="sidebar-block">
-          <strong>Licencja</strong>
-          <p>Materiały dystrybuowane na licencji CC BY-NC-SA 4.0. Przy przedruku wskaż źródło i zachowaj kontekst.</p>
-        </div>
-        <div class="sidebar-block">
-          <strong>Aktualizacje</strong>
-          <p>Nowe materiały pojawiają się w miarę gotowości — bez stałego harmonogramu, ale z zaangażowaniem w jakość.</p>
-        </div>
-      </aside>
     </div>
-  </div>
+  </header>
 
-  <style>
-    .about-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid var(--line-strong); }
-    .about-hero h1 { font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: var(--space-md); }
-    .lead { font-family: var(--font-display); font-size: var(--step-1); font-weight: 400; line-height: 1.5; color: var(--muted); font-style: italic; max-width: 55ch; }
-    .about-content { padding: var(--space-xl) 0 var(--space-2xl); }
-    .about-layout { display: grid; grid-template-columns: min(var(--text-width), 100%) 1fr; gap: var(--space-xl); }
-    .about-text { font-family: var(--font-display); font-size: var(--step-0); line-height: 1.75; }
-    .about-text > * + * { margin-top: var(--space-md); }
-    .about-text h2 { font-family: var(--font-display); font-size: var(--step-2); font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
-    .about-text p { max-width: var(--text-width); }
-    .about-text a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
-    .about-text a:hover { text-decoration-thickness: 2px; }
-    .category-list { list-style: none; padding: 0; }
-    .category-list li { padding: var(--space-sm) 0; border-bottom: 1px solid var(--line); font-family: var(--font-ui); line-height: 1.6; }
-    .category-list li:first-child { padding-top: 0; }
-    .category-list strong { color: var(--accent); font-weight: 600; }
-    .principles { padding-left: var(--space-md); }
-    .principles li { margin-bottom: var(--space-sm); line-height: 1.6; }
-    .principles strong { color: var(--ink); }
-    .about-sidebar { padding-top: var(--space-sm); }
-    .sidebar-block { padding: var(--space-md); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: var(--space-md); }
-    .sidebar-block strong { display: block; font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: var(--space-xs); }
-    .sidebar-block p { font-family: var(--font-ui); font-size: var(--step--1); color: var(--muted); line-height: 1.55; margin: 0; }
-    @media (max-width: 768px) { .about-layout { grid-template-columns: 1fr; } }
-  </style>
-</Base>
+  <section class="container">
+    <div class="section-header">
+      <h2>Kategorie</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+    <ul class="category-list home-categories">
+      <li><a href="/pl/archive?category=Prawo">Prawo</a> — Analiza ustawodawstwa, praktyki sadowej i kolizji prawnych.</li>
+      <li><a href="/pl/archive?category=Ekonomia">Ekonomia</a> — Analiza konfliktow korporacyjnych, upadlosci, mechanizmow podatkowych i finansowych.</li>
+      <li><a href="/pl/archive?category=Spoleczenstwo">Spoleczenstwo</a> — Procesy spoleczne, instytucje i ich transformacja.</li>
+      <li><a href="/pl/archive?category=Media">Media</a> — Przeplywy informacyjne, dziennikarstwo i umiejetnosc korzystania z mediow.</li>
+      <li><a href="/pl/archive?category=Konflikt">Konflikt</a> — Spory korporacyjne i gospodarcze w szczegolach.</li>
+      <li><a href="/pl/archive?category=Dokument">Dokument</a> — Analiza jednego konkretnego dokumentu z komentarzami.</li>
+    </ul>
+  </section>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Najnowsze publikacje</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+
+    <div class="articles-list">
+      {articles.map(article => {
+        const d = new Date(article.data.date);
+        const dateStr = d.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        return (
+          <article class="article-card">
+            <div class="article-marginalia">
+              <a href={`/pl/archive?category=${article.data.category}`} class="article-category">{article.data.category}</a>
+              <time class="article-date" datetime={d.toISOString().split('T')[0]}>{dateStr}</time>
+            </div>
+            <div class="article-body">
+              <h3><a href={`/pl/article/${article.slug}`}>{article.data.title}</a></h3>
+              <p>{article.data.subtitle}</p>
+              <a href={`/pl/article/${article.slug}`} class="article-link">Czytaj w calosci →</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+  </Base>
