@@ -1,0 +1,89 @@
+﻿---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Пра праект"
+  description="ACTA FRAGILIA — незалежная платформа доўгіх тэкстаў, аналізу дакументаў і расследаванняў у сферы права, эканомікі, карпаратыўных канфліктаў і грамадскіх працэсаў."
+  canonical="https://acta-fragilia.pages.dev/by/about"
+>
+  <div class="about-hero">
+    <div class="container">
+      <h1>Пра праект</h1>
+      <p class="lead">ACTA FRAGILIA — незалежная платформа доўгіх тэкстаў, аналізу дакументаў і расследаванняў у сферы права, эканомікі, карпаратыўных канфліктаў і грамадскіх працэсаў.</p>
+    </div>
+  </div>
+
+  <div class="about-content container">
+    <div class="about-layout">
+      <div class="about-text">
+        <p>Без рэкламы, навінавай стужкі і шуму. Толькі правяральныя факты, кантэкст і спроба зразумець, як уладкаваны прававыя, эканамічныя і грамадскія працэсы — і хто нясе іх наступствы.</p>
+
+        <h2>Метадалогія</h2>
+        <p>Кожны матэрыял будуецца на першасных крыніцах: судовых рашэннях, заканадаўчых актах, фінансавай справаздачнасці і інтэрв'ю з удзельнікамі. Мы не публікуем тэрміновых навін — толькі тое, што можна праверыць і пракаментаваць у кантэксце.</p>
+
+        <h2>Рубрыкі</h2>
+        <ul class="category-list">
+          <li><strong>Права</strong> — Разбор заканадаўства, судовай практыкі і прававых калізій.</li>
+          <li><strong>Эканоміка</strong> — Аналіз карпаратыўных канфліктаў, банкруцтваў, падатковых і фінансавых механізмаў.</li>
+          <li><strong>Грамадства</strong> — Сацыяльныя працэсы, інстытуты і іх трансфармацыя.</li>
+          <li><strong>Медыя</strong> — Інфармацыйныя патокі, журналістыка і медыяграматнасць.</li>
+          <li><strong>Канфлікт</strong> — Карпаратыўныя і эканамічныя спробы ў дэталях.</li>
+          <li><strong>Дакумент</strong> — Разбор аднаго канкрэтнага дакумента з каментарамі.</li>
+        </ul>
+
+        <h2>Прынцыпы</h2>
+        <ol class="principles">
+          <li><strong>Правяральнасць.</strong> Кожны факт можна прасачыць да крыніцы.</li>
+          <li><strong>Кантэкст.</strong> Падзея без кантэксту — не інфармацыя, а шум.</li>
+          <li><strong>Наступствы.</strong> Важна не толькі што адбылося, але і што з гэтага вынікае.</li>
+          <li><strong>Незалежнасць.</strong> Без рэкламы, без спонсараў, якія ўплываюць на рэдакцыйную палітыку.</li>
+        </ol>
+
+        <h2>Аўтар</h2>
+        <p>Аўтар праекта — Клімент Вілейскі. Кантакт: <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a></p>
+      </div>
+
+      <aside class="about-sidebar">
+        <div class="sidebar-block">
+          <strong>Статус</strong>
+          <p>Незалежны праект. Не з'яўляецца юрыдычнай асобай. Публікацыі не з'яўляюцца юрыдычнай кансультацыяй.</p>
+        </div>
+        <div class="sidebar-block">
+          <strong>Ліцэнзія</strong>
+          <p>Матэрыялы распаўсюджваюцца пад ліцэнзіяй CC BY-NC-SA 4.0. Пры перадруку ўказвайце крыніцу і захоўвайце кантэкст.</p>
+        </div>
+        <div class="sidebar-block">
+          <strong>Абнаўленні</strong>
+          <p>Новыя матэрыялы паступаюць па меры гатоўнасці — без фіксаванага графіка, але з абавязацельствам да якасці.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <style>
+    .about-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid var(--line-strong); }
+    .about-hero h1 { font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: var(--space-md); }
+    .lead { font-family: var(--font-display); font-size: var(--step-1); font-weight: 400; line-height: 1.5; color: var(--muted); font-style: italic; max-width: 55ch; }
+    .about-content { padding: var(--space-xl) 0 var(--space-2xl); }
+    .about-layout { display: grid; grid-template-columns: min(var(--text-width), 100%) 1fr; gap: var(--space-xl); }
+    .about-text { font-family: var(--font-display); font-size: var(--step-0); line-height: 1.75; }
+    .about-text > * + * { margin-top: var(--space-md); }
+    .about-text h2 { font-family: var(--font-display); font-size: var(--step-2); font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
+    .about-text p { max-width: var(--text-width); }
+    .about-text a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
+    .about-text a:hover { text-decoration-thickness: 2px; }
+    .category-list { list-style: none; padding: 0; }
+    .category-list li { padding: var(--space-sm) 0; border-bottom: 1px solid var(--line); font-family: var(--font-ui); line-height: 1.6; }
+    .category-list li:first-child { padding-top: 0; }
+    .category-list strong { color: var(--accent); font-weight: 600; }
+    .principles { padding-left: var(--space-md); }
+    .principles li { margin-bottom: var(--space-sm); line-height: 1.6; }
+    .principles strong { color: var(--ink); }
+    .about-sidebar { padding-top: var(--space-sm); }
+    .sidebar-block { padding: var(--space-md); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: var(--space-md); }
+    .sidebar-block strong { display: block; font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: var(--space-xs); }
+    .sidebar-block p { font-family: var(--font-ui); font-size: var(--step--1); color: var(--muted); line-height: 1.55; margin: 0; }
+    @media (max-width: 768px) { .about-layout { grid-template-columns: 1fr; } }
+  </style>
+</Base>
