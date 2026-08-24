@@ -60,6 +60,13 @@ const t = {
   <article class="article-page">
     <header class="article-header">
   <link rel="stylesheet" href="/global.css" />
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={`/${lang === 'ru' ? '' : lang + '/'}`}>{lang === 'ru' ? 'Материалы' : lang === 'by' ? 'Матэрыялы' : lang === 'en' ? 'Materials' : 'Materiały'}</a>
+        <span aria-hidden="true">/</span>
+        <a href={`/${lang === 'ru' ? '' : lang + '/'}archive`}>{lang === 'ru' ? 'Архив' : lang === 'by' ? 'Архів' : lang === 'en' ? 'Archive' : 'Archiwum'}</a>
+        <span aria-hidden="true">/</span>
+        <span class="current">{title}</span>
+      </nav>
       <div class="article-meta-header">
         <span class="article-category">{article.data.category}</span>
         <time class="article-date">{formatDate(article.data.date, lang)}</time>

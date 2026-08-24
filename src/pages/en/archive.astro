@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
@@ -10,6 +10,11 @@ const categories = ['All', 'Economy', 'Society', 'Media'];
 
 <Base title="Archive — ACTA FRAGILIA" lang="en">
   <div class="archive-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/en/">Materials</a>
+      <span aria-hidden="true">/</span>
+      <span class="current">Archive</span>
+    </nav>
     <h1 class="archive-title">Archive</h1>
 
     <div class="filter-bar" role="group" aria-label="Filter by category">

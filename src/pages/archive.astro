@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
@@ -10,11 +10,16 @@ const categories = ['Все', 'Экономика', 'Общество', 'Мед�
 
 <Base title="Архив — ACTA FRAGILIA" lang="ru">
   <div class="archive-page">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/">Материалы</a>
+      <span aria-hidden="true">/</span>
+      <span class="current">Архив</span>
+    </nav>
     <h1 class="archive-title">Архив материалов</h1>
 
     <div class="filter-bar" role="group" aria-label="Фильтр по рубрикам">
       <button class="filter-btn active" data-filter="all" aria-pressed="true">Все</button>
-      <button class="filter-btn" data-filter="Экономика" aria-pressed="false">Экномика</button>
+      <button class="filter-btn" data-filter="Экономика" aria-pressed="false">Экономика</button>
       <button class="filter-btn" data-filter="Общество" aria-pressed="false">Общество</button>
       <button class="filter-btn" data-filter="Медиа" aria-pressed="false">Медиа</button>
     </div>
