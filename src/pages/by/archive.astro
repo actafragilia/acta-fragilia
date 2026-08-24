@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
@@ -8,6 +8,11 @@ articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 <Base title="Архіў — ACTA FRAGILIA" lang="by">
   <div class="archive-page">
+    <nav class="breadcrumbs" aria-label="Хлебныя крошкі">
+      <a href="/by/">Матэрыялы</a>
+      <span aria-hidden="true">/</span>
+      <span class="current">Архів</span>
+    </nav>
     <h1 class="archive-title">Архіў матэрыялаў</h1>
 
     <div class="filter-bar" role="group" aria-label="Фільтр па рубрыках">
