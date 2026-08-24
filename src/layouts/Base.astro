@@ -1,4 +1,4 @@
-﻿---
+---
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 export interface Props {
@@ -23,10 +23,24 @@ const footer = {
   by: { privacy: 'Палітыка прыватнасці', rights: 'Незалежная журналістыка' },
 };
 
+const defaultDescriptions = {
+  ru: 'ACTA FRAGILIA — независимое издание о политике, экономике и обществе.',
+  be: 'ACTA FRAGILIA — незалежнае выданне пра палітыку, эканоміку і грамадства.',
+  en: 'ACTA FRAGILIA — independent journalism on politics, economics, and society.',
+  pl: 'ACTA FRAGILIA — niezależne dziennikarstwo o polityce, ekonomii i społeczeństwie.',
+};
+
+const ogLocales = { ru: 'ru_RU', be: 'be_BY', en: 'en_US', pl: 'pl_PL' };
+
 const t = nav[lang] || nav.ru;
 const f = footer[lang] || footer.ru;
 const prefix = lang === 'ru' ? '' : `/${lang}`;
 const htmlLang = lang === 'by' ? 'be' : lang;
+
+const siteURL = 'https://acta-fragilia.pages.dev';
+const pageURL = new URL(Astro.url.pathname, siteURL).href;
+const metaDescription = description || defaultDescriptions[htmlLang] || defaultDescriptions.ru;
+const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
 ---
 <!DOCTYPE html>
 <html lang={htmlLang}>
