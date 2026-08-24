@@ -4,17 +4,26 @@ import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articlesPl');
-  return articles.map((article) => ({
+
+  const sortedArticles = [...articles].sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
+
+  return sortedArticles.map((article) => ({
     params: { slug: article.slug },
-    props: { article },
+    props: {
+      article,
+      articles: sortedArticles,
+    },
   }));
 }
 
-const { article } = Astro.props;
+const { article, articles } = Astro.props;
 ---
 
 <ArticleLayout
-  title={`${article.data.title} — ACTA FRAGILIA`}
+  title={article.data.title}
   lang="pl"
   article={article}
+  articles={articles}
 />
