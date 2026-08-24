@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
@@ -22,7 +22,7 @@ const articles = (await getCollection('articles'))
         <line x1="100%" y1="0" x2="0" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
       </svg>
     </div>
-    <div class="container hero-content">
+    <div class="hero-content">
       <p class="hero-eyebrow">Независимая журналистика и анализ</p>
       <h1>ACTA <em>FRAGILIA</em></h1>
       <p class="hero-lead">Право, экономика, корпоративные конфликты и общественные процессы — без шума, с проверкой фактов и вниманием к последствиям.</p>
@@ -31,10 +31,11 @@ const articles = (await getCollection('articles'))
         <span><span class="dot" aria-hidden="true"></span> Документы</span>
         <span><span class="dot" aria-hidden="true"></span> Расследования</span>
       </div>
+      <a href="#latest" class="hero-cta">Читать материалы →</a>
     </div>
   </header>
 
-  <section class="container">
+  <section id="latest">
     <div class="section-header">
       <h2>Последние публикации</h2>
       <span class="line" aria-hidden="true"></span>
@@ -61,7 +62,7 @@ const articles = (await getCollection('articles'))
     </div>
   </section>
 
-  <section class="container">
+  <section>
     <div class="section-header">
       <h2>Исследуйте по темам</h2>
       <span class="line" aria-hidden="true"></span>

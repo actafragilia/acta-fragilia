@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
@@ -7,7 +7,7 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base title="ACTA FRAGILIA" lang="en" description="Independent platform for long-form journalism, document analysis, investigations, and explaining complex topics.">
+<Base title="ACTA FRAGILIA" lang="en">
 
   <header class="hero">
     <div class="hero-grid" aria-hidden="true">
@@ -22,7 +22,7 @@ const articles = (await getCollection('articles'))
         <line x1="100%" y1="0" x2="0" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
       </svg>
     </div>
-    <div class="container hero-content">
+    <div class="hero-content">
       <p class="hero-eyebrow">Independent journalism and analysis</p>
       <h1>ACTA <em>FRAGILIA</em></h1>
       <p class="hero-lead">Law, economics, corporate conflicts, and social processes — without noise, with fact-checking and attention to consequences.</p>
@@ -31,10 +31,11 @@ const articles = (await getCollection('articles'))
         <span><span class="dot" aria-hidden="true"></span> Documents</span>
         <span><span class="dot" aria-hidden="true"></span> Investigations</span>
       </div>
+      <a href="#latest" class="hero-cta">Read the latest →</a>
     </div>
   </header>
 
-  <section class="container">
+  <section id="latest">
     <div class="section-header">
       <h2>Latest publications</h2>
       <span class="line" aria-hidden="true"></span>
@@ -61,7 +62,7 @@ const articles = (await getCollection('articles'))
     </div>
   </section>
 
-  <section class="container">
+  <section>
     <div class="section-header">
       <h2>Explore by topic</h2>
       <span class="line" aria-hidden="true"></span>
