@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const articles = (await getCollection('articles'))
+  .filter(a => !a.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="ACTA FRAGILIA" lang="by" description="Незалежная аўтарская пляцоўка для доўгіх тэкстаў, аналізу дакументаў, расследаванняў і тлумачэння складаных тэм.">
+
+  <header class="hero">
+    <div class="hero-grid" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--line-strong)" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+        <line x1="100%" y1="0" x2="0" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+      </svg>
+    </div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Незалежная журналістыка і аналіз</p>
+      <h1>ACTA <em>FRAGILIA</em></h1>
+      <p class="hero-lead">Права, эканоміка, карпартыўныя канфлікты і грамадскія працэсы — без шуму, з праверкай фактаў і ўвагай да наступстваў.</p>
+      <div class="hero-meta">
+        <span><span class="dot" aria-hidden="true"></span> Доўгія тэксты</span>
+        <span><span class="dot" aria-hidden="true"></span> Дакументы</span>
+        <span><span class="dot" aria-hidden="true"></span> Расследаванні</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Апошнія публікацыі</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+
+    <div class="articles-list">
+      {articles.map(article => {
+        const d = new Date(article.data.date);
+        const dateStr = d.toLocaleDateString('be-BY', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        return (
+          <article class="article-card">
+            <div class="article-marginalia">
+              <a href={`/by/archive?category=${article.data.category}`} class="article-category">{article.data.category}</a>
+              <time class="article-date" datetime={d.toISOString().split('T')[0]}>{dateStr}</time>
+            </div>
+            <div class="article-body">
+              <h3><a href={`/by/article/${article.slug}`}>{article.data.title}</a></h3>
+              <p>{article.data.subtitle}</p>
+              <a href={`/by/article/${article.slug}`} class="article-link">Чытаць цалкам →</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Даследуйце па тэмах</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+    <ul class="category-list home-categories">
+      <li><a href="/by/archive?category=Права">Права</a> — Разбор заканадаўства, судовай практыкі і прававых калізій.</li>
+      <li><a href="/by/archive?category=Эканоміка">Эканоміка</a> — Аналіз карпаратыўных канфліктаў, банкруцтваў, падатковых і фінансавых механізмаў.</li>
+      <li><a href="/by/archive?category=Грамадства">Грамадства</a> — Сацыяльныя працэсы, інстытуты і іх трансфармацыя.</li>
+      <li><a href="/by/archive?category=Медыя">Медыя</a> — Інфармацыйныя патокі, журналістыка і медыяграматнасць.</li>
+      <li><a href="/by/archive?category=Канфлікт">Канфлікт</a> — Карпаратыўныя і эканамічныя спробы ў дэталях.</li>
+      <li><a href="/by/archive?category=Дакумент">Дакумент</a> — Разбор аднаго канкрэтнага дакумента з каментарамі.</li>
+    </ul>
+  </section>
+  </Base>

@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const articles = (await getCollection('articles'))
+  .filter(a => !a.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="ACTA FRAGILIA" lang="en" description="Independent platform for long-form journalism, document analysis, investigations, and explaining complex topics.">
+
+  <header class="hero">
+    <div class="hero-grid" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--line-strong)" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+        <line x1="100%" y1="0" x2="0" y2="100%" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+      </svg>
+    </div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Independent journalism and analysis</p>
+      <h1>ACTA <em>FRAGILIA</em></h1>
+      <p class="hero-lead">Law, economics, corporate conflicts, and social processes — without noise, with fact-checking and attention to consequences.</p>
+      <div class="hero-meta">
+        <span><span class="dot" aria-hidden="true"></span> Long reads</span>
+        <span><span class="dot" aria-hidden="true"></span> Documents</span>
+        <span><span class="dot" aria-hidden="true"></span> Investigations</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Latest publications</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+
+    <div class="articles-list">
+      {articles.map(article => {
+        const d = new Date(article.data.date);
+        const dateStr = d.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        return (
+          <article class="article-card">
+            <div class="article-marginalia">
+              <a href={`/en/archive?category=${article.data.category}`} class="article-category">{article.data.category}</a>
+              <time class="article-date" datetime={d.toISOString().split('T')[0]}>{dateStr}</time>
+            </div>
+            <div class="article-body">
+              <h3><a href={`/en/article/${article.slug}`}>{article.data.title}</a></h3>
+              <p>{article.data.subtitle}</p>
+              <a href={`/en/article/${article.slug}`} class="article-link">Read in full →</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Explore by topic</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+    <ul class="category-list home-categories">
+      <li><a href="/en/archive?category=Law">Law</a> — Analysis of legislation, judicial practice, and legal conflicts.</li>
+      <li><a href="/en/archive?category=Economics">Economics</a> — Analysis of corporate conflicts, bankruptcies, tax, and financial mechanisms.</li>
+      <li><a href="/en/archive?category=Society">Society</a> — Social processes, institutions, and their transformation.</li>
+      <li><a href="/en/archive?category=Media">Media</a> — Information flows, journalism, and media literacy.</li>
+      <li><a href="/en/archive?category=Conflict">Conflict</a> — Corporate and economic disputes in detail.</li>
+      <li><a href="/en/archive?category=Document">Document</a> — Analysis of one specific document with comments.</li>
+    </ul>
+  </section>
+  </Base>
