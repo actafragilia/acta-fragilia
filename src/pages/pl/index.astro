@@ -36,21 +36,6 @@ const articles = (await getCollection('articles'))
 
   <section class="container">
     <div class="section-header">
-      <h2>Kategorie</h2>
-      <span class="line" aria-hidden="true"></span>
-    </div>
-    <ul class="category-list home-categories">
-      <li><a href="/pl/archive?category=Prawo">Prawo</a> — Analiza ustawodawstwa, praktyki sadowej i kolizji prawnych.</li>
-      <li><a href="/pl/archive?category=Ekonomia">Ekonomia</a> — Analiza konfliktow korporacyjnych, upadlosci, mechanizmow podatkowych i finansowych.</li>
-      <li><a href="/pl/archive?category=Spoleczenstwo">Spoleczenstwo</a> — Procesy spoleczne, instytucje i ich transformacja.</li>
-      <li><a href="/pl/archive?category=Media">Media</a> — Przeplywy informacyjne, dziennikarstwo i umiejetnosc korzystania z mediow.</li>
-      <li><a href="/pl/archive?category=Konflikt">Konflikt</a> — Spory korporacyjne i gospodarcze w szczegolach.</li>
-      <li><a href="/pl/archive?category=Dokument">Dokument</a> — Analiza jednego konkretnego dokumentu z komentarzami.</li>
-    </ul>
-  </section>
-
-  <section class="container">
-    <div class="section-header">
       <h2>Najnowsze publikacje</h2>
       <span class="line" aria-hidden="true"></span>
     </div>
@@ -74,5 +59,20 @@ const articles = (await getCollection('articles'))
         );
       })}
     </div>
+  </section>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Przegladaj wedlug tematu</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+    <ul class="category-list home-categories">
+      <li><a href="/pl/archive?category=Prawo">Prawo</a> — Analiza ustawodawstwa, praktyki sadowej i kolizji prawnych.</li>
+      <li><a href="/pl/archive?category=Ekonomia">Ekonomia</a> — Analiza konfliktow korporacyjnych, upadlosci, mechanizmow podatkowych i finansowych.</li>
+      <li><a href="/pl/archive?category=Spoleczenstwo">Spoleczenstwo</a> — Procesy spoleczne, instytucje i ich transformacja.</li>
+      <li><a href="/pl/archive?category=Media">Media</a> — Przeplywy informacyjne, dziennikarstwo i umiejetnosc korzystania z mediow.</li>
+      <li><a href="/pl/archive?category=Konflikt">Konflikt</a> — Spory korporacyjne i gospodarcze w szczegolach.</li>
+      <li><a href="/pl/archive?category=Dokument">Dokument</a> — Analiza jednego konkretnego dokumentu z komentarzami.</li>
+    </ul>
   </section>
   </Base>

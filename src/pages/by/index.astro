@@ -9,7 +9,6 @@ const articles = (await getCollection('articles'))
 
 <Base title="ACTA FRAGILIA" lang="by" description="Незалежная аўтарская пляцоўка для доўгіх тэкстаў, аналізу дакументаў, расследаванняў і тлумачэння складаных тэм.">
 
-  <!-- HERO -->
   <header class="hero">
     <div class="hero-grid" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -35,23 +34,6 @@ const articles = (await getCollection('articles'))
     </div>
   </header>
 
-  <!-- CATEGORIES -->
-  <section class="container">
-    <div class="section-header">
-      <h2>Рубрыкі</h2>
-      <span class="line" aria-hidden="true"></span>
-    </div>
-    <ul class="category-list home-categories">
-      <li><a href="/by/archive?category=Права">Права</a> — Разбор заканадаўства, судовай практыкі і прававых калізій.</li>
-      <li><a href="/by/archive?category=Эканоміка">Эканоміка</a> — Аналіз карпаратыўных канфліктаў, банкруцтваў, падатковых і фінансавых механізмаў.</li>
-      <li><a href="/by/archive?category=Грамадства">Грамадства</a> — Сацыяльныя працэсы, інстытуты і іх трансфармацыя.</li>
-      <li><a href="/by/archive?category=Медыя">Медыя</a> — Інфармацыйныя патокі, журналістыка і медыяграматнасць.</li>
-      <li><a href="/by/archive?category=Канфлікт">Канфлікт</a> — Карпаратыўныя і эканамічныя спробы ў дэталях.</li>
-      <li><a href="/by/archive?category=Дакумент">Дакумент</a> — Разбор аднаго канкрэтнага дакумента з каментарамі.</li>
-    </ul>
-  </section>
-
-  <!-- ARTICLES LIST -->
   <section class="container">
     <div class="section-header">
       <h2>Апошнія публікацыі</h2>
@@ -77,5 +59,20 @@ const articles = (await getCollection('articles'))
         );
       })}
     </div>
+  </section>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Даследуйце па тэмах</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+    <ul class="category-list home-categories">
+      <li><a href="/by/archive?category=Права">Права</a> — Разбор заканадаўства, судовай практыкі і прававых калізій.</li>
+      <li><a href="/by/archive?category=Эканоміка">Эканоміка</a> — Аналіз карпаратыўных канфліктаў, банкруцтваў, падатковых і фінансавых механізмаў.</li>
+      <li><a href="/by/archive?category=Грамадства">Грамадства</a> — Сацыяльныя працэсы, інстытуты і іх трансфармацыя.</li>
+      <li><a href="/by/archive?category=Медыя">Медыя</a> — Інфармацыйныя патокі, журналістыка і медыяграматнасць.</li>
+      <li><a href="/by/archive?category=Канфлікт">Канфлікт</a> — Карпаратыўныя і эканамічныя спробы ў дэталях.</li>
+      <li><a href="/by/archive?category=Дакумент">Дакумент</a> — Разбор аднаго канкрэтнага дакумента з каментарамі.</li>
+    </ul>
   </section>
   </Base>

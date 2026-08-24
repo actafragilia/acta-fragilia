@@ -9,7 +9,6 @@ const articles = (await getCollection('articles'))
 
 <Base title="ACTA FRAGILIA" lang="en" description="Independent platform for long-form journalism, document analysis, investigations, and explaining complex topics.">
 
-  <!-- HERO -->
   <header class="hero">
     <div class="hero-grid" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -35,23 +34,6 @@ const articles = (await getCollection('articles'))
     </div>
   </header>
 
-  <!-- CATEGORIES -->
-  <section class="container">
-    <div class="section-header">
-      <h2>Rubrics</h2>
-      <span class="line" aria-hidden="true"></span>
-    </div>
-    <ul class="category-list home-categories">
-      <li><a href="/en/archive?category=Law">Law</a> — Analysis of legislation, judicial practice, and legal conflicts.</li>
-      <li><a href="/en/archive?category=Economics">Economics</a> — Analysis of corporate conflicts, bankruptcies, tax, and financial mechanisms.</li>
-      <li><a href="/en/archive?category=Society">Society</a> — Social processes, institutions, and their transformation.</li>
-      <li><a href="/en/archive?category=Media">Media</a> — Information flows, journalism, and media literacy.</li>
-      <li><a href="/en/archive?category=Conflict">Conflict</a> — Corporate and economic disputes in detail.</li>
-      <li><a href="/en/archive?category=Document">Document</a> — Analysis of one specific document with comments.</li>
-    </ul>
-  </section>
-
-  <!-- ARTICLES LIST -->
   <section class="container">
     <div class="section-header">
       <h2>Latest publications</h2>
@@ -77,5 +59,20 @@ const articles = (await getCollection('articles'))
         );
       })}
     </div>
+  </section>
+
+  <section class="container">
+    <div class="section-header">
+      <h2>Explore by topic</h2>
+      <span class="line" aria-hidden="true"></span>
+    </div>
+    <ul class="category-list home-categories">
+      <li><a href="/en/archive?category=Law">Law</a> — Analysis of legislation, judicial practice, and legal conflicts.</li>
+      <li><a href="/en/archive?category=Economics">Economics</a> — Analysis of corporate conflicts, bankruptcies, tax, and financial mechanisms.</li>
+      <li><a href="/en/archive?category=Society">Society</a> — Social processes, institutions, and their transformation.</li>
+      <li><a href="/en/archive?category=Media">Media</a> — Information flows, journalism, and media literacy.</li>
+      <li><a href="/en/archive?category=Conflict">Conflict</a> — Corporate and economic disputes in detail.</li>
+      <li><a href="/en/archive?category=Document">Document</a> — Analysis of one specific document with comments.</li>
+    </ul>
   </section>
   </Base>
