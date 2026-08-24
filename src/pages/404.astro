@@ -1,131 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const messages = {
-  ru: {
-    code: '404',
-    title: 'Страница не найдена',
-    text: 'Возможно, материал был перемещён или ссылка устарела.',
-    home: '← На главную',
-    archive: 'Открыть архив',
-  },
-  en: {
-    code: '404',
-    title: 'Page not found',
-    text: 'The material may have been moved or the link is outdated.',
-    home: '← Back to home',
-    archive: 'Open archive',
-  },
-  pl: {
-    code: '404',
-    title: 'Strona nie znaleziona',
-    text: 'Materiał mógł zostać przeniesiony lub link jest nieaktualny.',
-    home: '← Strona główna',
-    archive: 'Otwórz archiwum',
-  },
-  by: {
-    code: '404',
-    title: 'Старонка не знойдзена',
-    text: 'Магчыма, матэрыял быў перамешчаны або спасылка састарэла.',
-    home: '← На галоўную',
-    archive: 'Адкрыць архіў',
-  },
-};
-
-const lang = 'ru';
-const m = messages[lang];
 ---
-
-<Base title={`${m.title} — ACTA FRAGILIA`} lang={lang}>
+<Base title="Страница не найдена — ACTA FRAGILIA" lang="ru" description="ACTA FRAGILIA — независимое издание о политике, экономике и обществе.">
   <section class="notfound">
-    <p class="notfound-code">{m.code}</p>
-    <h1 class="notfound-title">{m.title}</h1>
-    <p class="notfound-text">{m.text}</p>
+    <p class="notfound-code">404</p>
+    <h1 class="notfound-title">Страница не найдена</h1>
+    <p class="notfound-text">Возможно, материал был перемещён или ссылка устарела.</p>
     <div class="notfound-actions">
-      <a href="/" class="notfound-link">{m.home}</a>
-      <a href="/archive/" class="notfound-link notfound-link--muted">{m.archive}</a>
+      <a href="/" class="notfound-link">← На главную</a>
+      <a href="/archive" class="notfound-link notfound-link--muted">Открыть архив</a>
     </div>
   </section>
-
-<script is:inline>
-  // ACTA_LOCALIZED_404
-  const path = window.location.pathname;
-  const target = path.startsWith('/en/')
-    ? '/en/404/'
-    : path.startsWith('/pl/')
-      ? '/pl/404/'
-      : path.startsWith('/by/')
-        ? '/by/404/'
-        : null;
-
-  if (target && path !== target) {
-    window.location.replace(target);
-  }
-</script>
 </Base>
-
 <style>
-  .notfound {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: var(--space-xl) 0;
-    text-align: center;
-  }
-
-  .notfound-code {
-    font-family: var(--font-mono);
-    font-size: clamp(3rem, 12vw, 6rem);
-    font-weight: 500;
-    line-height: 1;
-    color: var(--color-accent);
-    margin-bottom: var(--space-md);
-    letter-spacing: 0.05em;
-  }
-
-  .notfound-title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.5rem, 4vw, 2.2rem);
-    font-weight: 600;
-    color: var(--color-text);
-    margin-bottom: var(--space-md);
-  }
-
-  .notfound-text {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    margin-bottom: var(--space-xl);
-  }
-
-  .notfound-actions {
-    display: flex;
-    gap: var(--space-lg);
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .notfound-link {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: border-color 0.2s ease;
-  }
-
-  .notfound-link:hover {
-    border-bottom-color: var(--color-accent);
-  }
-
-  .notfound-link--muted {
-    color: var(--color-text-secondary);
-  }
-
-  .notfound-link--muted:hover {
-    border-bottom-color: var(--color-text-secondary);
-  }
+.notfound { max-width: 640px; min-height: 620px; margin: 0 auto; padding: 5rem 0; text-align: center; }
+.notfound-code { font-family: var(--font-mono); font-size: clamp(4rem, 12vw, 6rem); font-weight: 500; line-height: 1; color: var(--color-accent); margin-bottom: var(--space-md); letter-spacing: .05em; }
+.notfound-title { font-family: var(--font-serif); font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 600; color: var(--color-text); margin-bottom: var(--space-md); }
+.notfound-text { font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: var(--space-xl); }
+.notfound-actions { display: flex; gap: var(--space-lg); justify-content: center; flex-wrap: wrap; }
+.notfound-link { font-family: var(--font-mono); font-size: .9rem; text-transform: uppercase; letter-spacing: .08em; color: var(--color-accent); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+.notfound-link:hover { border-bottom-color: var(--color-accent); }
+.notfound-link--muted { color: var(--color-text-secondary); }
+.notfound-link--muted:hover { border-bottom-color: var(--color-text-secondary); }
 </style>

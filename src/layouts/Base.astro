@@ -104,18 +104,32 @@ const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
   <main class="container" id="main">
     <slot />
   </main>
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">ACTA FRAGILIA</div>
-      <div class="footer-links">
-        <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a>
-        <a href={`${prefix}/rss.xml`}>RSS</a>
-        <a href={`${prefix}/privacy`}>{f.privacy}</a>
-      </div>
-      <div class="footer-copy">&copy; 2026 ACTA FRAGILIA. {f.rights}</div>
+  <footer class="footer-monastic">
+  <div class="footer-monastic-inner">
+    <div class="footer-monastic-brand">
+      <span class="footer-monastic-line"></span>
+      <span class="footer-monastic-copy">© ACTA FRAGILIA, 2026</span>
     </div>
-  </footer>
-  <script is:inline>
+    <div class="footer-monastic-links">
+      <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/privacy">Политика конфиденциальности</a>
+    </div>
+    <div class="footer-monastic-tagline">Независимая журналистика</div>
+  </div>
+</footer>
+<style>
+.footer-monastic { margin-top: var(--space-xl); padding: var(--space-lg) 0; border-top: 1px solid var(--color-border, #ddd); font-family: 'IBM Plex Mono', 'Courier New', monospace; color: var(--color-text-secondary, #666); }
+.footer-monastic-inner { max-width: 960px; margin: 0 auto; padding: 0 var(--space-md); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-md); }
+.footer-monastic-brand { display: flex; align-items: center; gap: 0.75rem; }
+.footer-monastic-line { display: inline-block; width: 2px; height: 1.8em; background: var(--color-accent, #9b4a4a); flex-shrink: 0; }
+.footer-monastic-copy { font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text, #222); }
+.footer-monastic-links { display: flex; flex-wrap: wrap; gap: var(--space-md); font-size: 0.8rem; }
+.footer-monastic-links a { color: var(--color-text-secondary, #666); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.footer-monastic-links a:hover { border-bottom-color: var(--color-accent, #9b4a4a); color: var(--color-accent, #9b4a4a); }
+.footer-monastic-tagline { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted, #aaa); }
+@media (max-width: 768px) { .footer-monastic-inner { flex-direction: column; align-items: flex-start; gap: var(--space-sm); } .footer-monastic-links { flex-wrap: wrap; gap: var(--space-sm); } }
+</style>t is:inline>
     (function () {
       var btn = document.getElementById('theme-toggle');
       if (!btn) return;
