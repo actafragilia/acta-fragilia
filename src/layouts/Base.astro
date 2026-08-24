@@ -10,17 +10,17 @@ export interface Props {
 const { title, lang = 'ru', description } = Astro.props;
 
 const nav = {
-  ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив', pseudonym: 'О псевдониме', menu: 'Меню', theme: 'Сменить тему' },
-  en: { materials: 'Materials', about: 'About', contacts: 'Contacts', archive: 'Archive', pseudonym: 'About the pseudonym', menu: 'Menu', theme: 'Toggle theme' },
-  pl: { materials: 'Materiały', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum', pseudonym: 'O pseudonimie', menu: 'Menu', theme: 'Zmień motyw' },
-  by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты', archive: 'Архіў', pseudonym: 'Пра псеўданім', menu: 'Меню', theme: 'Змяніць тэму' },
+  ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив', pseudonym: 'О псевдониме' },
+  en: { materials: 'Materials', about: 'About', contacts: 'Contacts', archive: 'Archive', pseudonym: 'About the pseudonym' },
+  pl: { materials: 'Materiały', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum', pseudonym: 'O pseudonimie' },
+  by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты', archive: 'Архіў', pseudonym: 'Пра псеўданім' },
 };
 
 const footer = {
-  ru: { privacy: 'Политика конфиденциальности', rights: 'Независимая журналистика', skip: 'К содержанию' },
-  en: { privacy: 'Privacy Policy', rights: 'Independent Journalism', skip: 'Skip to content' },
-  pl: { privacy: 'Polityka prywatności', rights: 'Niezależne dziennikarstwo', skip: 'Przejdź do treści' },
-  by: { privacy: 'Палітыка прыватнасці', rights: 'Незалежная журналістыка', skip: 'Да зместу' },
+  ru: { privacy: 'Политика конфиденциальности', rights: 'Независимая журналистика' },
+  en: { privacy: 'Privacy Policy', rights: 'Independent Journalism' },
+  pl: { privacy: 'Polityka prywatności', rights: 'Niezależne dziennikarstwo' },
+  by: { privacy: 'Палітыка прыватнасці', rights: 'Незалежная журналістыка' },
 };
 
 const defaultDescriptions = {
@@ -67,28 +67,19 @@ const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/global.css" />
-  <script is:inline>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = saved || (prefersDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {}
-    })();
-  </script>
 </head>
 <body>
-  <a href="#main" class="skip-link">{f.skip}</a>
+  <a href="#main" class="skip-link">{lang === 'ru' ? 'К содержанию' : lang === 'by' ? 'Да зместу' : lang === 'en' ? 'Skip to content' : 'Przejdź do treści'}</a>
+
   <header class="site-header">
     <div class="header-inner">
       <a href={`${prefix}/`} class="logo">ACTA FRAGILIA</a>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
-      <button type="button" class="theme-toggle" id="theme-toggle" aria-label={t.theme} title={t.theme}>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Сменить тему" title="Сменить тему">
         <span class="theme-icon-light" aria-hidden="true">◐</span>
         <span class="theme-icon-dark" aria-hidden="true">◑</span>
       </button>
-      <label for="nav-toggle" class="nav-burger" aria-label={t.menu}>
+      <label for="nav-toggle" class="nav-burger" aria-label="Меню">
         <span></span><span></span><span></span>
       </label>
       <nav class="main-nav" aria-label="main">
@@ -101,39 +92,37 @@ const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
       </nav>
     </div>
   </header>
+
   <main class="container" id="main">
     <slot />
   </main>
-  <footer class="footer-monastic">
-  <div class="footer-monastic-inner">
-    <div class="footer-monastic-brand">
-      <span class="footer-monastic-line"></span>
-      <span class="footer-monastic-copy">© ACTA FRAGILIA, 2026</span>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">ACTA FRAGILIA</div>
+      <div class="footer-links">
+        <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a>
+        <a href={`${prefix}/rss.xml`}>RSS</a>
+        <a href={`${prefix}/privacy`}>{f.privacy}</a>
+      </div>
+      <div class="footer-copy">&copy; 2026 ACTA FRAGILIA. {f.rights}</div>
     </div>
-    <div class="footer-monastic-links">
-      <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a>
-      <a href="/rss.xml">RSS</a>
-      <a href="/privacy">Политика конфиденциальности</a>
-    </div>
-    <div class="footer-monastic-tagline">Независимая журналистика</div>
-  </div>
-</footer>
-<style>
-.footer-monastic { margin-top: var(--space-xl); padding: var(--space-lg) 0; border-top: 1px solid var(--color-border, #ddd); font-family: 'IBM Plex Mono', 'Courier New', monospace; color: var(--color-text-secondary, #666); }
-.footer-monastic-inner { max-width: 960px; margin: 0 auto; padding: 0 var(--space-md); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-md); }
-.footer-monastic-brand { display: flex; align-items: center; gap: 0.75rem; }
-.footer-monastic-line { display: inline-block; width: 2px; height: 1.8em; background: var(--color-accent, #9b4a4a); flex-shrink: 0; }
-.footer-monastic-copy { font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text, #222); }
-.footer-monastic-links { display: flex; flex-wrap: wrap; gap: var(--space-md); font-size: 0.8rem; }
-.footer-monastic-links a { color: var(--color-text-secondary, #666); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
-.footer-monastic-links a:hover { border-bottom-color: var(--color-accent, #9b4a4a); color: var(--color-accent, #9b4a4a); }
-.footer-monastic-tagline { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted, #aaa); }
-@media (max-width: 768px) { .footer-monastic-inner { flex-direction: column; align-items: flex-start; gap: var(--space-sm); } .footer-monastic-links { flex-wrap: wrap; gap: var(--space-sm); } }
-</style>t is:inline>
-    (function () {
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+
+    (function() {
       var btn = document.getElementById('theme-toggle');
       if (!btn) return;
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function() {
         var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
         var next = cur === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
@@ -141,8 +130,8 @@ const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
       });
       var toggle = document.getElementById('nav-toggle');
       if (toggle) {
-        document.querySelectorAll('.main-nav a').forEach(function (a) {
-          a.addEventListener('click', function () { toggle.checked = false; });
+        document.querySelectorAll('.main-nav a').forEach(function(a) {
+          a.addEventListener('click', function() { toggle.checked = false; });
         });
       }
     })();
