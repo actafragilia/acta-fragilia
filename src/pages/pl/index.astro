@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
-const articles = (await getCollection('articles'))
+const articles = (await getCollection('articlesPl'))
   .filter(a => !a.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
