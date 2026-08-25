@@ -1,13 +1,14 @@
----
+﻿---
 import Base from './Base.astro';
 
 export interface Props {
   title: string;
   lang: string;
   article: any;
+  articles?: any[];
 }
 
-const { title, lang, article } = Astro.props;
+const { title, lang, article, articles = [] } = Astro.props;
 const ogImage = `/og/${lang}/${article.slug}.png`;
 const { Content } = await article.render();
 
@@ -44,6 +45,10 @@ const sourcesText: Record<string, string> = {
 const t = {
   readMore: readMoreText[lang] || readMoreText['ru'],
   sources: sourcesText[lang] || sourcesText['ru'],
+  navigation: {
+    previous: { ru: 'Предыдущая', en: 'Previous', pl: 'Poprzednia', by: 'Папярэдняя' }[lang] || 'Предыдущая',
+    next: { ru: 'Следующая', en: 'Next', pl: 'Następna', by: 'Наступная' }[lang] || 'Следующая',
+  },
 };
 ---
 
@@ -93,6 +98,26 @@ const t = {
         </aside>
       )}
     </div>
+  
+    {(previousArticle || nextArticle) && (
+      <nav class="article-nav" aria-label="Article navigation">
+        <div class="article-nav-grid">
+          {previousArticle ? (
+            <a href={articlePath(previousArticle)} class="article-nav-card article-nav-prev">
+              <span class="article-nav-label">{t.navigation.previous}</span>
+              <span class="article-nav-title">{previousArticle.data.title}</span>
+            </a>
+          ) : <span aria-hidden="true"></span>}
+
+          {nextArticle ? (
+            <a href={articlePath(nextArticle)} class="article-nav-card article-nav-next">
+              <span class="article-nav-label">{t.navigation.next}</span>
+              <span class="article-nav-title">{nextArticle.data.title}</span>
+            </a>
+          ) : <span aria-hidden="true"></span>}
+        </div>
+      </nav>
+    )}
   </article>
 </Base>
 
