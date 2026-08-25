@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+﻿import { defineCollection, z } from 'astro:content';
 
 const articleSchema = z.object({
   title: z.string(),
@@ -17,3 +17,5 @@ export const collections = {
   articlesPl: defineCollection({ schema: articleSchema }),
   articlesBy: defineCollection({ schema: articleSchema }),
 };
+
+// rebuild trigger 2026-08-25 16:09:55
