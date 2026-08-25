@@ -1,119 +1,68 @@
-﻿---
-import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-
-const articles = await getCollection('articlesPl');
-articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-const categories = ['Wszystkie', 'Gospodarka', 'Społeczeństwo', 'Media'];
+---
+import Base from "../../layouts/Base.astro";
 ---
 
-<Base title="Archiwum — ACTA FRAGILIA" lang="pl">
-  <div class="archive-page">
-    <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="/pl/">Materiały</a>
-      <span aria-hidden="true">/</span>
-      <span class="current">Archiwum</span>
+<Base title="Archiwum — Acta Fragilia">
+  <main class="archive-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumbs">
+      <a href="/pl/">Strona główna</a>
+      <span class="breadcrumbs-separator">/</span>
+      <span class="breadcrumbs-current">Archiwum</span>
     </nav>
-    <h1 class="archive-title">Archiwum</h1>
 
-    <div class="filter-bar" role="group" aria-label="Filtruj według kategorii">
-      <button class="filter-btn active" data-filter="all" aria-pressed="true">Wszystkie</button>
-      <button class="filter-btn" data-filter="Gospodarka" aria-pressed="false">Gospodarka</button>
-      <button class="filter-btn" data-filter="Społeczeństwo" aria-pressed="false">Społeczeństwo</button>
-      <button class="filter-btn" data-filter="Media" aria-pressed="false">Media</button>
-    </div>
+    <h1>Archiwum</h1>
+    <p class="archive-intro">Pełna lista materiałów.</p>
 
-    <div class="archive-list">
-      {articles.map(article => (
-        <article class="archive-item" data-category={article.data.category}>
-          <div class="archive-meta">
-            <span class="archive-category">{article.data.category}</span>
-            <time class="archive-date">{article.data.date.toLocaleDateString('pl-PL', {year:'numeric', month:'long', day:'numeric'})}</time>
-          </div>
-          <h2><a href={`/pl/article/${article.slug}/`}>{article.data.title}</a></h2>
-          <p>{article.data.subtitle}</p>
-        </article>
-      ))}
-      <p class="archive-empty hidden" style="display: none;">Brak materiałów w wybranej kategorii.</p>
-    </div>
-  </div>
+    <ul class="archive-list">
+      <li><a href="/pl/article/novyya-religijnyya-ruhi/">Nowe ruchy religijne</a></li>
+    </ul>
+  </main>
 </Base>
 
-<script>
-  (function() {
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get('category');
-    if (category) {
-      const btn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
-      if (btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-        let visibleCount = 0;
-        document.querySelectorAll('.archive-item').forEach(item => {
-          if (item.dataset.category === category) {
-            item.classList.remove('hidden');
-            visibleCount++;
-          } else {
-            item.classList.add('hidden');
-          }
-        });
-        const emptyMsg = document.querySelector('.archive-empty');
-        if (emptyMsg) {
-          emptyMsg.style.display = visibleCount === 0 ? '' : 'none';
-        }
-      }
-    }
-
-    const buttons = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.archive-item');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        buttons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        const filter = this.dataset.filter;
-        let visibleCount = 0;
-        items.forEach(item => {
-          if (filter === 'all' || item.dataset.category === filter) {
-            item.classList.remove('hidden');
-            visibleCount++;
-          } else {
-            item.classList.add('hidden');
-          }
-        });
-        const emptyMsg = document.querySelector('.archive-empty');
-        if (emptyMsg) {
-          emptyMsg.style.display = visibleCount === 0 ? '' : 'none';
-        }
-      });
-    });
-  })();
-</script>
-
 <style>
-  .archive-page { padding: var(--space-xl) 0; max-width: 960px; margin: 0 auto; }
-  .archive-title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 600; color: var(--text); margin-bottom: var(--space-lg); }
-  .filter-bar { display: flex; gap: var(--space-sm); margin-bottom: var(--space-xl); flex-wrap: wrap; padding-bottom: var(--space-md); border-bottom: 1px solid var(--line); }
-  .filter-btn { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.4rem 0.9rem; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 3px; cursor: pointer; transition: all 0.2s ease; }
-  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
-  .archive-list { display: flex; flex-direction: column; gap: var(--space-xl); }
-  .archive-item { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--line); }
-  .archive-item.hidden { display: none; }
-  .archive-meta { display: flex; gap: var(--space-sm); align-items: center; margin-bottom: var(--space-sm); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
-  .archive-category { color: var(--accent); font-weight: 500; }
-  .archive-date { color: var(--muted); }
-  .archive-item h2 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; line-height: 1.25; margin-bottom: var(--space-sm); }
-  .archive-item h2 a { color: var(--text); text-decoration: none; transition: color 0.2s ease; }
-  .archive-item h2 a:hover { color: var(--accent); }
-  .archive-item p { font-family: var(--font-ui); font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
-  .archive-empty { font-family: var(--font-ui); color: var(--muted); font-style: italic; padding: var(--space-xl) 0; }
-  @media (max-width: 768px) {
-    .filter-bar { gap: var(--space-xs); }
-    .filter-btn { padding: 0.35rem 0.6rem; font-size: 0.7rem; }
+  .archive-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #666);
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+  }
+  .breadcrumbs a {
+    color: var(--color-link, #005a9c);
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .breadcrumbs-separator {
+    margin: 0 0.4rem;
+    color: var(--color-text-muted, #999);
+  }
+  .breadcrumbs-current {
+    color: var(--color-text, #333);
+    font-weight: 500;
+  }
+  .archive-intro {
+    color: var(--color-text-muted, #666);
+    margin-bottom: 1.5rem;
+  }
+  .archive-list {
+    list-style: none;
+    padding: 0;
+  }
+  .archive-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border, #e0e0e0);
+  }
+  .archive-list a {
+    color: var(--color-link, #005a9c);
+    text-decoration: none;
+  }
+  .archive-list a:hover {
+    text-decoration: underline;
   }
 </style>
