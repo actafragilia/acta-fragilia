@@ -5,9 +5,10 @@ export interface Props {
   title: string;
   lang?: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, lang = 'ru', description } = Astro.props;
+const { title, lang = 'ru', description, ogImage } = Astro.props;
 
 const nav = {
   ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив', pseudonym: 'О псевдониме' },
@@ -41,6 +42,7 @@ const siteURL = 'https://acta-fragilia.pages.dev';
 const pageURL = new URL(Astro.url.pathname, siteURL).href;
 const metaDescription = description || defaultDescriptions[htmlLang] || defaultDescriptions.ru;
 const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
+const ogImageAbsolute = ogImage ? new URL(ogImage, siteURL).href : new URL('/og-default.jpg', siteURL).href;
 ---
 <!DOCTYPE html>
 <html lang={htmlLang}>
@@ -48,6 +50,18 @@ const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
+  <meta name="description" content={metaDescription} />
+  <link rel="canonical" href={pageURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={metaDescription} />
+  <meta property="og:url" content={pageURL} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content={ogLocale} />
+  <meta property="og:image" content={ogImageAbsolute} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={metaDescription} />
+  <meta name="twitter:image" content={ogImageAbsolute} />
   <meta name="description" content={metaDescription} />  <meta name="license" content="https://creativecommons.org/licenses/by-nc/4.0/" />  <meta name="license" content="https://creativecommons.org/licenses/by-nc/4.0/" />
   <meta name="theme-color" content="#f0ece0" />
   <meta property="og:title" content={title} />
