@@ -23,21 +23,21 @@ const articles = (await getCollection('articlesBy'))
       </svg>
     </div>
     <div class="hero-content">
-      <p class="hero-eyebrow">РќРµР·Р°Р»РµР¶РЅР°СЏ Р¶СѓСЂРЅР°Р»С–СЃС‚С‹РєР° С– Р°РЅР°Р»С–Р·</p>
+      <p class="hero-eyebrow">Незалежная журналістыка і аналіз</p>
       <h1>ACTA <em>FRAGILIA</em></h1>
-      <p class="hero-lead">РџСЂР°РІР°, СЌРєР°РЅРѕРјС–РєР°, РєР°СЂРїР°СЂР°С‚С‹СћРЅС‹СЏ РєР°РЅС„Р»С–РєС‚С‹ С– РіСЂР°РјР°РґСЃРєС–СЏ РїСЂР°С†СЌСЃС‹ вЂ” Р±РµР· С€СѓРјСѓ, Р· РїСЂР°РІРµСЂРєР°Р№ С„Р°РєС‚Р°Сћ С– СћРІР°РіР°Р№ РґР° РЅР°СЃС‚СѓРїСЃС‚РІР°Сћ.</p>
+      <p class="hero-lead">Права, эканоміка, карпаратыўныя канфлікты і грамадскія працэсы — без шуму, з праверкай фактаў і ўвагай да наступстваў.</p>
       <div class="hero-meta">
-        <span><span class="dot" aria-hidden="true"></span> Р”РѕСћРіС–СЏ С‚СЌРєСЃС‚С‹</span>
-        <span><span class="dot" aria-hidden="true"></span> Р”Р°РєСѓРјРµРЅС‚С‹</span>
-        <span><span class="dot" aria-hidden="true"></span> Р Р°СЃСЃР»РµРґР°РІР°РЅРЅС–</span>
+        <span><span class="dot" aria-hidden="true"></span> Доўгія тэксты</span>
+        <span><span class="dot" aria-hidden="true"></span> Дакументы</span>
+        <span><span class="dot" aria-hidden="true"></span> Расследаванні</span>
       </div>
-      <a href="#latest" class="hero-cta">Р§С‹С‚Р°С†СЊ РјР°С‚СЌСЂС‹СЏР»С‹ в†’</a>
+      <a href="#latest" class="hero-cta">Чытаць матэрыялы →</a>
     </div>
   </header>
 
   <section id="latest">
     <div class="section-header">
-      <h2>РђРїРѕС€РЅС–СЏ РїСѓР±Р»С–РєР°С†С‹С–</h2>
+      <h2>Апошнія публікацыі</h2>
       <span class="line" aria-hidden="true"></span>
     </div>
 
@@ -54,7 +54,7 @@ const articles = (await getCollection('articlesBy'))
             <div class="article-body">
               <h3><a href={`/by/article/${article.slug}`}>{article.data.title}</a></h3>
               <p>{article.data.subtitle}</p>
-              <a href={`/by/article/${article.slug}`} class="article-link">Р§С‹С‚Р°С†СЊ С†Р°Р»РєР°Рј в†’</a>
+              <a href={`/by/article/${article.slug}`} class="article-link">Чытаць цалкам →</a>
             </div>
           </article>
         );
@@ -64,16 +64,16 @@ const articles = (await getCollection('articlesBy'))
 
   <section>
     <div class="section-header">
-      <h2>Р”Р°СЃР»РµРґСѓР№С†Рµ РїР° С‚СЌРјР°С…</h2>
+      <h2>Даследуйце па тэмах</h2>
       <span class="line" aria-hidden="true"></span>
     </div>
     <ul class="category-list home-categories">
-      <li><a href="/by/archive?category=РџСЂР°РІР°">РџСЂР°РІР°</a> вЂ” Р Р°Р·Р±РѕСЂ Р·Р°РєР°РЅР°РґР°СћСЃС‚РІР°, СЃСѓРґРѕРІР°Р№ РїСЂР°РєС‚С‹РєС– С– РїСЂР°РІР°РІС‹С… РєР°Р»С–Р·С–Р№.</li>
-      <li><a href="/by/archive?category=Р­РєР°РЅРѕРјС–РєР°">Р­РєР°РЅРѕРјС–РєР°</a> вЂ” РђРЅР°Р»С–Р· РєР°СЂРїР°СЂР°С‚С‹СћРЅС‹С… РєР°РЅС„Р»С–РєС‚Р°Сћ, Р±Р°РЅРєСЂСѓС†С‚РІР°Сћ, РїР°РґР°С‚РєРѕРІС‹С… С– С„С–РЅР°РЅСЃР°РІС‹С… РјРµС…Р°РЅС–Р·РјР°Сћ.</li>
-      <li><a href="/by/archive?category=Р“СЂР°РјР°РґСЃС‚РІР°">Р“СЂР°РјР°РґСЃС‚РІР°</a> вЂ” РЎР°С†С‹СЏР»СЊРЅС‹СЏ РїСЂР°С†СЌСЃС‹, С–РЅСЃС‚С‹С‚СѓС‚С‹ С– С–С… С‚СЂР°РЅСЃС„Р°СЂРјР°С†С‹СЏ.</li>
-      <li><a href="/by/archive?category=РњРµРґС‹СЏ">РњРµРґС‹СЏ</a> вЂ” Р†РЅС„Р°СЂРјР°С†С‹Р№РЅС‹СЏ РїР°С‚РѕРєС–, Р¶СѓСЂРЅР°Р»С–СЃС‚С‹РєР° С– РјРµРґС‹СЏРіСЂР°РјР°С‚РЅР°СЃС†СЊ.</li>
-      <li><a href="/by/archive?category=РљР°РЅС„Р»С–РєС‚">РљР°РЅС„Р»С–РєС‚</a> вЂ” РљР°СЂРїР°СЂР°С‚С‹СћРЅС‹СЏ С– СЌРєР°РЅР°РјС–С‡РЅС‹СЏ СЃРїСЂСЌС‡РєС– Сћ РґСЌС‚Р°Р»СЏС….</li>
-      <li><a href="/by/archive?category=Р”Р°РєСѓРјРµРЅС‚">Р”Р°РєСѓРјРµРЅС‚</a> вЂ” Р Р°Р·Р±РѕСЂ Р°РґРЅР°РіРѕ РєР°РЅРєСЂСЌС‚РЅР°РіР° РґР°РєСѓРјРµРЅС‚Р° Р· РєР°РјРµРЅС‚Р°СЂР°РјС–.</li>
+      <li><a href="/by/archive?category=Права">Права</a> — Разбор заканадаўства, судовай практыкі і прававых калізій.</li>
+      <li><a href="/by/archive?category=Эканоміка">Эканоміка</a> — Аналіз карпаратыўных канфліктаў, банкруцтваў, падатковых і фінансавых механізмаў.</li>
+      <li><a href="/by/archive?category=Грамадства">Грамадства</a> — Сацыяльныя працэсы, інстытуты і іх трансфармацыя.</li>
+      <li><a href="/by/archive?category=Медыя">Медыя</a> — Інфармацыйныя патокі, журналістыка і медыяграматнасць.</li>
+      <li><a href="/by/archive?category=Канфлікт">Канфлікт</a> — Карпаратыўныя і эканамічныя спрэчкі ў дэталях.</li>
+      <li><a href="/by/archive?category=Дакумент">Дакумент</a> — Разбор аднаго канкрэтнага дакумента з каментарамі.</li>
     </ul>
   </section>
   </Base>
