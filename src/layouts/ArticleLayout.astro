@@ -10,7 +10,7 @@ export interface Props {
 
 const { title, lang, article, articles = [] } = Astro.props;
 const ogImage = `/og/${lang}/${article.slug}.png`;
-const { Content } = await article.render();
+
 
 function formatDate(date: Date | string, language: string = 'ru'): string {
   const d = typeof date === 'string' ? new Date(date) : date;
