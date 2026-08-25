@@ -32,7 +32,6 @@ const articlePath = (item: any) =>
   `/${lang === 'ru' ? '' : `${lang}/`}article/${item.slug}/`;
 
 const ogImage = `/og/${lang}/${article.slug}.png`;
-const { Content } = await article.render();
 
 function formatDate(date: Date | string, language: string = 'ru'): string {
   const d = typeof date === 'string' ? new Date(date) : date;
