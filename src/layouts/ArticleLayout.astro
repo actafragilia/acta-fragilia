@@ -1,137 +1,111 @@
-﻿--- import Base from './Base.astro';
+---
+import Base from "./Base.astro";
 
-export interface Props { title: string; lang: string; article: any; articles: any[]; }
-
-const { title, lang, article, articles } = Astro.props;
-
-// --- отладка: выводим в HTML комментарий ---
-const debugInfo = `articles count: ${articles?.length}, current slug: ${article?.slug}`;
-const sortedArticles = [...articles].sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-const currentIndex = sortedArticles.findIndex(item => item.slug === article.slug);
-const previousArticle = currentIndex > 0 ? sortedArticles[currentIndex - 1] : null;
-const nextArticle = currentIndex >= 0 && currentIndex < sortedArticles.length - 1 ? sortedArticles[currentIndex + 1] : null;
-
-const articlePath = (item: any) => `/${lang === 'ru' ? '' : `${lang}/`}article/${item.slug}/`;
-const { Content } = await article.render();
-
-function formatDate(date: Date | string, language: string = 'ru'): string {
-  const d = typeof date === 'string' ? new Date(date) : date;
-  const locales: Record<string, string> = { ru: 'ru-RU', en: 'en-US', pl: 'pl-PL', by: 'be-BY' };
-  return d.toLocaleDateString(locales[language] || 'ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+export interface Props {
+  title: string;
+  category?: string;
+  date?: string;
+  author?: string;
+  readTime?: number;
 }
 
-const sourcesText: Record<string, string> = {
-  ru: 'Sources and links', en: 'Sources and references', pl: 'Zrodla i odniesienia', by: 'Krynicy i spasylki'
-};
-const navigationText: Record<string, { previous: string; next: string }> = {
-  ru: { previous: 'Previous', next: 'Next' },
-  by: { previous: 'Paparedniaja', next: 'Nastupnaja' },
-  en: { previous: 'Previous', next: 'Next' },
-  pl: { previous: 'Poprzednia', next: 'Nastepna' }
-};
-const t = { sources: sourcesText[lang] || sourcesText.ru, navigation: navigationText[lang] || navigationText.ru };
+const { title, category = "Материалы", date, author, readTime } = Astro.props;
 ---
 
-<Base title={title} lang={lang} description={article.data.subtitle}>
-
-<!-- DEBUG: {{ debugInfo }} -->
-
-<article class="article-page">
-  <header class="article-header">
-    <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href={`/${lang === 'ru' ? '' : `${lang}/`}`}>{lang === 'ru' ? 'Materialy' : lang === 'by' ? 'Materyjaly' : lang === 'en' ? 'Materials' : 'Materialy'}</a>
-      <span aria-hidden="true">/</span>
-      <a href={`/${lang === 'ru' ? '' : `${lang}/`}archive/`}>{lang === 'ru' ? 'Arkhiv' : lang === 'by' ? 'Arkhiu' : lang === 'en' ? 'Archive' : 'Archiwum'}</a>
-      <span aria-hidden="true">/</span>
-      <span class="current">{article.data.title}</span>
+<Base title={title}>
+  <main class="article-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumbs">
+      <a href="/">Главная</a>
+      <span class="breadcrumbs-separator">/</span>
+      <a href="/archive/">Материалы</a>
+      <span class="breadcrumbs-separator">/</span>
+      <span>{category}</span>
+      <span class="breadcrumbs-separator">/</span>
+      <span class="breadcrumbs-current">{title}</span>
     </nav>
 
-    <div class="article-meta-header">
-      <span class="article-category">{article.data.category}</span>
-      <time class="article-date">{formatDate(article.data.date, lang)}</time>
-      <span class="article-read-time">{article.data.readTime} min</span>
-    </div>
+    <article>
+      <header class="article-header">
+        <p class="article-category">{category}</p>
+        <h1>{title}</h1>
+        <div class="article-meta-header">
+          {date && <span>{date}</span>}
+          {readTime && <span>· {readTime} мин</span>}
+          <span class="author-monastic">◈ А. К.</span>
+        </div>
+      </header>
 
-    <h1 class="article-title">{article.data.title}</h1>
-    <p class="article-subtitle">{article.data.subtitle}</p>
-  </header>
-
-  <div class="article-layout">
-    <div class="article-main">
-      <div class="prose article-body">
-        <Content />
-        <div class="author-monastic" style="margin-top: 3rem;"><span class="initial">K</span>Kliment Vileysky</div>
+      <div class="article-content">
+        <slot />
       </div>
+    </article>
 
-      {article.data.sources && (
-        <footer class="article-sources">
-          <h2>{t.sources}</h2>
-          <ul>{article.data.sources.map((source: string) => <li>{source}</li>)}</ul>
-        </footer>
-      )}
-    </div>
-
-    {article.data.marginalNote && (
-      <aside class="article-marginalia"><p>{article.data.marginalNote}</p></aside>
-    )}
-  </div>
-
-  {(previousArticle || nextArticle) && (
-    <nav class="article-nav" aria-label="Article navigation">
-      <div class="article-nav-grid">
-        {previousArticle ? (
-          <a href={articlePath(previousArticle)} class="article-nav-card article-nav-prev">
-            <span class="article-nav-label">{t.navigation.previous}</span>
-            <span class="article-nav-title">{previousArticle.data.title}</span>
-          </a>
-        ) : <span aria-hidden="true"></span>}
-        {nextArticle ? (
-          <a href={articlePath(nextArticle)} class="article-nav-card article-nav-next">
-            <span class="article-nav-label">{t.navigation.next}</span>
-            <span class="article-nav-title">{nextArticle.data.title}</span>
-          </a>
-        ) : <span aria-hidden="true"></span>}
-      </div>
-    </nav>
-  )}
-</article>
+    <footer class="article-footer">
+      <p class="author-monastic">◈ А. К.</p>
+    </footer>
+  </main>
 </Base>
 
-<style is:global>
-.article-page { padding: var(--space-xl) 0; }
-.article-header { max-width: 720px; margin: 0 auto var(--space-xl); }
-.breadcrumbs { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-lg); color: var(--color-text-secondary); font-family: var(--font-mono); font-size: 0.8rem; }
-.breadcrumbs a { color: inherit; }
-.breadcrumbs a:hover { color: var(--color-accent); }
-.article-meta-header { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; margin-bottom: var(--space-md); font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
-.article-category { color: var(--color-accent); font-weight: 500; }
-.article-date, .article-read-time { color: var(--color-text-secondary); }
-.article-title { color: var(--color-text); font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 600; line-height: 1.15; margin-bottom: var(--space-md); }
-.article-subtitle { color: var(--color-text-secondary); font-family: var(--font-serif); font-size: 1.15rem; font-style: italic; line-height: 1.5; }
-.article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: var(--space-xl); max-width: 960px; margin: 0 auto; }
-.article-main { min-width: 0; }
-.article-body { max-width: 65ch; color: var(--color-text); font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.75; }
-.article-body h2 { color: var(--color-text); font-family: var(--font-serif); font-size: 1.4rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); }
-.article-body p { margin-bottom: var(--space-md); }
-.article-sources { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border); }
-.article-sources h2 { color: var(--color-text-secondary); font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; margin-bottom: var(--space-md); text-transform: uppercase; }
-.article-sources ul { list-style: none; padding: 0; }
-.article-sources li { padding: var(--space-xs) 0; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); font-family: var(--font-sans); font-size: 0.9rem; }
-.article-marginalia { padding-top: var(--space-lg); color: var(--color-text-secondary); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; }
-.article-marginalia p { padding-left: var(--space-sm); border-left: 2px solid var(--color-accent); }
-.article-nav { max-width: 960px; margin: var(--space-xl) auto 0; padding-top: var(--space-xl); border-top: 1px solid var(--color-border); }
-.article-nav-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); }
-.article-nav-card { display: block; min-height: 96px; padding: var(--space-md); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; color: var(--color-text); text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
-.article-nav-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
-.article-nav-label { display: block; margin-bottom: var(--space-xs); color: var(--color-accent); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; }
-.article-nav-title { display: block; color: var(--color-text); font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; line-height: 1.3; }
-.article-nav-next { text-align: right; }
-@media (max-width: 768px) {
-  .article-layout { grid-template-columns: 1fr; }
-  .article-marginalia { order: -1; margin-bottom: var(--space-lg); padding: var(--space-md); background: rgba(155,74,74,0.05); border-radius: 4px; }
-  .article-nav-grid { grid-template-columns: 1fr; }
-  .article-nav-next { text-align: left; }
-}
+<style>
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #666);
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+  }
+  .breadcrumbs a {
+    color: var(--color-link, #005a9c);
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .breadcrumbs-separator {
+    margin: 0 0.4rem;
+    color: var(--color-text-muted, #999);
+  }
+  .breadcrumbs-current {
+    color: var(--color-text, #333);
+    font-weight: 500;
+  }
+  .article-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .article-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border, #e0e0e0);
+  }
+  .article-category {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted, #666);
+    margin-bottom: 0.5rem;
+  }
+  .article-header h1 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+    margin: 0 0 1rem 0;
+  }
+  .article-meta-header {
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #666);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .article-content {
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  .article-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border, #e0e0e0);
+    text-align: center;
+  }
 </style>

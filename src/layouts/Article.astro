@@ -1,210 +1,105 @@
-﻿---
-import Base from './Base.astro';
-import type { CollectionEntry } from 'astro:content';
-
-interface Props {
-  article: CollectionEntry<'articles'>;
-}
-
-const { article } = Astro.props;
-const { title, subtitle, category, date, updated, author, readTime } = article.data;
-const { Content } = await article.render();
-
-const formattedDate = new Date(date).toLocaleDateString('ru-RU', {
-  day: 'numeric', month: 'long', year: 'numeric'
-});
-
-const formattedUpdated = updated ? new Date(updated).toLocaleDateString('ru-RU', {
-  day: 'numeric', month: 'long', year: 'numeric'
-}) : null;
+---
+const { title, category, date, author } = Astro.props;
 ---
 
-<Base
-  title={title}
-  description={subtitle}
-  canonical={`https://acta-fragilia.pages.dev/article/${article.slug}`}
->
-  <article>
-    <header class="article-header container">
-  <link rel="stylesheet" href="/global.css" />
-      <nav class="breadcrumbs" aria-label="РќР°РІРёРіР°С†РёСЏ">
-        <a href="/">РњР°С‚РµСЂРёР°Р»С‹</a>
-        <span aria-hidden="true">/</span>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/global.css" />
+  </head>
+  <body>
+    <main class="article-page">
+      <nav class="breadcrumbs" aria-label="Breadcrumbs">
+        <a href="/">Главная</a>
+        <span class="breadcrumbs-separator">/</span>
+        <a href="/archive/">Материалы</a>
+        <span class="breadcrumbs-separator">/</span>
         <span>{category}</span>
+        <span class="breadcrumbs-separator">/</span>
+        <span class="breadcrumbs-current">{title}</span>
       </nav>
 
-      <span class="article-category">{category}</span>
-      <h1>{title}</h1>
-      <p class="article-subtitle">{subtitle}</p>
-
-      <div class="article-meta-row">
-        <span>РђРІС‚РѕСЂ: {author}</span>
-        <span class="divider" aria-hidden="true"></span>
-        <time datetime={date.toISOString().split('T')[0]}>{formattedDate}</time>
-        <span class="divider" aria-hidden="true"></span>
-        <span>Р’СЂРµРјСЏ С‡С‚РµРЅРёСЏ: {readTime} РјРёРЅ</span>
-        {formattedUpdated && (
-          <>
-            <span class="divider" aria-hidden="true"></span>
-            <span>РћР±РЅРѕРІР»РµРЅРѕ: {formattedUpdated}</span>
-          </>
-        )}
-      </div>
-    </header>
-
-    <div class="article-content container">
-      <div class="article-layout">
-        <div class="article-text">
-          <Content />
-
-          <div class="sources">
-            <h3>РСЃС‚РѕС‡РЅРёРєРё Рё СЃСЃС‹Р»РєРё</h3>
-            <ol>
-              {article.data.sources?.map((source: string) => (
-                <li>{source}</li>
-              )) || <li>РСЃС‚РѕС‡РЅРёРєРё РЅРµ СѓРєР°Р·Р°РЅС‹.</li>}
-            </ol>
+      <article>
+        <header class="article-header">
+          <p class="article-category">{category}</p>
+          <h1>{title}</h1>
+          <div class="article-meta">
+            <span>{date}</span>
+            <span class="author-monastic">◈ А. К.</span>
           </div>
+        </header>
+        <div class="article-content">
+          <slot />
         </div>
+      </article>
 
-        <aside class="marginal-note" aria-label="РљРѕРЅС‚РµРєСЃС‚">
-          <strong>РљРѕРЅС‚РµРєСЃС‚</strong>
-          {article.data.marginalNote || "Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ РєРѕРЅС‚РµРєСЃС‚ Рє РјР°С‚РµСЂРёР°Р»Сѓ."}
-        </aside>
-      </div>
-    </div>
-  <div class="author-monastic" style="margin-top: 3rem;">
-    <span class="initial">K</span>Kliment Vileysky
-  </div>
+      <footer class="article-footer">
+        <p class="author-monastic">◈ А. К.</p>
+      </footer>
+    </main>
+  </body>
+</html>
 
-    </article>
-
-  <aside class="read-more container">
-    <h2>Р§РёС‚Р°С‚СЊ РґР°Р»РµРµ</h2>
-    <div class="read-more-grid">
-      <a href="/" class="read-more-card">
-        <span class="category">в†ђ Р’СЃРµ РјР°С‚РµСЂРёР°Р»С‹</span>
-        <h4>Р’РµСЂРЅСѓС‚СЊСЃСЏ Рє СЃРїРёСЃРєСѓ РїСѓР±Р»РёРєР°С†РёР№</h4>
-        <p>Р”СЂСѓРіРёРµ РјР°С‚РµСЂРёР°Р»С‹ РїРѕ РїСЂР°РІСѓ, СЌРєРѕРЅРѕРјРёРєРµ Рё РѕР±С‰РµСЃС‚РІРµРЅРЅС‹Рј РїСЂРѕС†РµСЃСЃР°Рј.</p>
-      </a>
-    </div>
-  </aside>
-
-  <style>
-    .article-header { padding: var(--space-xl) 0 var(--space-lg); }
-    .breadcrumbs {
-      display: flex; align-items: center; gap: var(--space-xs);
-      font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted);
-      margin-bottom: var(--space-lg);
-    }
-    .breadcrumbs a:hover { color: var(--accent); }
-    .article-category {
-      display: inline-block;
-      font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500;
-      color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em;
-      margin-bottom: var(--space-sm);
-    }
-    .article-header h1 {
-      font-family: var(--font-display); font-size: var(--step-3); font-weight: 600;
-      line-height: 1.1; letter-spacing: -0.02em; max-width: 26ch; margin-bottom: var(--space-md);
-    }
-    .article-subtitle {
-      font-family: var(--font-display); font-size: var(--step-1); font-weight: 400;
-      line-height: 1.5; color: var(--muted); font-style: italic;
-      max-width: 55ch; margin-bottom: var(--space-lg);
-    }
-    .article-meta-row {
-      display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md);
-      font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted);
-      padding-top: var(--space-md); border-top: 1px solid var(--line);
-    }
-    .article-meta-row .divider { width: 1px; height: 1em; background: var(--line-strong); }
-
-    .article-content { padding-bottom: var(--space-2xl); }
-    .article-layout {
-      display: grid;
-      grid-template-columns: 1fr min(var(--text-width), 100%) 1fr;
-      gap: var(--space-lg);
-    }
-    .article-text {
-      grid-column: 2;
-      font-family: var(--font-display); font-size: var(--step-0); line-height: 1.75;
-    }
-    .article-text > :global(* + *) { margin-top: var(--space-md); }
-    .article-text :global(h2) {
-      font-family: var(--font-display); font-size: var(--step-2); font-weight: 600;
-      line-height: 1.2; letter-spacing: -0.01em;
-      margin-top: var(--space-xl); margin-bottom: var(--space-sm);
-    }
-    .article-text :global(h3) {
-      font-family: var(--font-ui); font-size: var(--step-1); font-weight: 600;
-      line-height: 1.3; margin-top: var(--space-lg); margin-bottom: var(--space-xs); color: var(--muted);
-    }
-    .article-text :global(p) { max-width: var(--text-width); }
-    .article-text :global(a) {
-      color: var(--accent); text-decoration: underline;
-      text-underline-offset: 0.2em; text-decoration-thickness: 1px;
-    }
-    .article-text :global(a:hover) { text-decoration-thickness: 2px; }
-
-    .sources {
-      margin-top: var(--space-xl); padding: var(--space-lg);
-      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-    }
-    .sources h3 {
-      font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.04em;
-      margin-bottom: var(--space-md); color: var(--muted);
-    }
-    .sources ol {
-      padding-left: var(--space-md);
-      font-family: var(--font-ui); font-size: var(--step--1);
-      color: var(--muted); line-height: 1.7;
-    }
-    .sources li { margin-bottom: var(--space-xs); padding-left: var(--space-xs); }
-
-    .marginal-note {
-      grid-column: 3; font-family: var(--font-mono); font-size: 0.8rem;
-      line-height: 1.5; color: var(--muted);
-      padding-top: var(--space-sm); border-top: 1px solid var(--line); align-self: start;
-    }
-    .marginal-note strong { display: block; color: var(--ink); font-weight: 500; margin-bottom: 0.2em; }
-
-    .read-more { padding: var(--space-xl) 0; border-top: 1px solid var(--line-strong); }
-    .read-more h2 {
-      font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: var(--space-lg);
-    }
-    .read-more-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); }
-    .read-more-card {
-      padding: var(--space-md); background: var(--surface);
-      border: 1px solid var(--line); border-radius: var(--radius);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .read-more-card:hover { border-color: var(--line-strong); box-shadow: 0 4px 20px -8px color-mix(in oklab, var(--ink) 15%, transparent); }
-    .read-more-card .category {
-      font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: var(--space-xs); display: block;
-    }
-    .read-more-card h4 {
-      font-family: var(--font-display); font-size: var(--step-1); font-weight: 600;
-      line-height: 1.25; margin-bottom: var(--space-xs);
-    }
-    .read-more-card p {
-      font-family: var(--font-ui); font-size: var(--step--1); color: var(--muted); line-height: 1.55;
-    }
-
-    @media (max-width: 768px) {
-      .article-layout { grid-template-columns: 1fr; }
-      .article-text { grid-column: 1; }
-      .marginal-note {
-        grid-column: 1; margin-top: var(--space-sm); padding: var(--space-sm);
-        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-      }
-    }
-  </style>
-</Base>
-
-
-
-
+<style>
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #666);
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+  }
+  .breadcrumbs a {
+    color: var(--color-link, #005a9c);
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .breadcrumbs-separator {
+    margin: 0 0.4rem;
+    color: var(--color-text-muted, #999);
+  }
+  .breadcrumbs-current {
+    color: var(--color-text, #333);
+    font-weight: 500;
+  }
+  .article-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .article-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border, #e0e0e0);
+  }
+  .article-category {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted, #666);
+    margin-bottom: 0.5rem;
+  }
+  .article-header h1 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+    margin: 0 0 1rem 0;
+  }
+  .article-meta {
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #666);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .article-content {
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  .article-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border, #e0e0e0);
+    text-align: center;
+  }
+</style>
