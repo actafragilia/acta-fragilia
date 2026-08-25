@@ -180,7 +180,7 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 "novyya-religijnyya-ruhi.md": {
 	id: "novyya-religijnyya-ruhi.md";
-  slug: "novyya-religiynyya-rukhi";
+  slug: "novyya-religijnyya-ruhi";
   body: string;
   collection: "articlesBy";
   data: InferEntrySchema<"articlesBy">
@@ -236,7 +236,12 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		
+		"_backup": Record<string, {
+  id: string;
+  collection: "_backup";
+  data: any;
+}>;
+
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
