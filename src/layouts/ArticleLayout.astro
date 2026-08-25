@@ -5,50 +5,69 @@ export interface Props {
   title: string;
   lang: string;
   article: any;
-  articles?: any[];
+  articles: any[];
 }
 
-const { title, lang, article, articles = [] } = Astro.props;
-const ogImage = `/og/${lang}/${article.slug}.png`;
+const { title, lang, article, articles } = Astro.props;
 
+const sortedArticles = [...articles].sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const currentIndex = sortedArticles.findIndex(
+  (item) => item.slug === article.slug
+);
+
+const previousArticle =
+  currentIndex > 0 ? sortedArticles[currentIndex - 1] : null;
+
+const nextArticle =
+  currentIndex >= 0 && currentIndex < sortedArticles.length - 1
+    ? sortedArticles[currentIndex + 1]
+    : null;
+
+const { Content } = await article.render();
+
+const articlePath = (item: any) =>
+  `/${lang === 'ru' ? '' : `${lang}/`}article/${item.slug}/`;
+
+const ogImage = `/og/${lang}/${article.slug}.png`;
+const { Content } = await article.render();
 
 function formatDate(date: Date | string, language: string = 'ru'): string {
   const d = typeof date === 'string' ? new Date(date) : date;
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
+
   const locales: Record<string, string> = {
     ru: 'ru-RU',
     en: 'en-US',
     pl: 'pl-PL',
     by: 'be-BY',
   };
-  return d.toLocaleDateString(locales[language] || 'ru-RU', options);
+
+  return d.toLocaleDateString(locales[language] || 'ru-RU', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
-const readMoreText: Record<string, string> = {
-  ru: 'Читать полностью →',
-  en: 'Read full text →',
-  pl: 'Czytaj całość →',
-  by: 'Чытаць поўнасцю →',
+const sourcesText: Record<string, string> = {
+  ru: 'Sources and links',
+  en: 'Sources and references',
+  pl: 'Zrodla i odniesienia',
+  by: 'Krynicy i spasylki',
 };
 
-const sourcesText: Record<string, string> = {
-  ru: 'Источники и ссылки',
-  en: 'Sources and references',
-  pl: 'Źródła i odniesienia',
-  by: 'Крыніцы і спасылкі',
+const navigationText: Record<string, { previous: string; next: string }> = {
+  ru: { previous: 'Previous', next: 'Next' },
+  by: { previous: 'Paparedniaja', next: 'Nastupnaja' },
+  en: { previous: 'Previous', next: 'Next' },
+  pl: { previous: 'Poprzednia', next: 'Nastepna' },
 };
 
 const t = {
-  readMore: readMoreText[lang] || readMoreText['ru'],
-  sources: sourcesText[lang] || sourcesText['ru'],
-  navigation: {
-    previous: { ru: 'Предыдущая', en: 'Previous', pl: 'Poprzednia', by: 'Папярэдняя' }[lang] || 'Предыдущая',
-    next: { ru: 'Следующая', en: 'Next', pl: 'Następna', by: 'Наступная' }[lang] || 'Следующая',
-  },
+  sources: sourcesText[lang] || sourcesText.ru,
+  navigation: navigationText[lang] || navigationText.ru,
 };
 ---
 
@@ -64,12 +83,36 @@ const t = {
 >
   <article class="article-page">
     <header class="article-header">
-  <link rel="stylesheet" href="/global.css" />
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={`/${lang === 'ru' ? '' : `${lang}/`}`}>
+          {lang === 'ru'
+            ? 'Materialy'
+            : lang === 'by'
+              ? 'Materyjaly'
+              : lang === 'en'
+                ? 'Materials'
+                : 'Materialy'}
+        </a>
+        <span aria-hidden="true">/</span>
+        <a href={`/${lang === 'ru' ? '' : `${lang}/`}archive/`}>
+          {lang === 'ru'
+            ? 'Arkhiv'
+            : lang === 'by'
+              ? 'Arkhiu'
+              : lang === 'en'
+                ? 'Archive'
+                : 'Archiwum'}
+        </a>
+        <span aria-hidden="true">/</span>
+        <span class="current">{article.data.title}</span>
+      </nav>
+
       <div class="article-meta-header">
         <span class="article-category">{article.data.category}</span>
         <time class="article-date">{formatDate(article.data.date, lang)}</time>
         <span class="article-read-time">{article.data.readTime} min</span>
       </div>
+
       <h1 class="article-title">{article.data.title}</h1>
       <p class="article-subtitle">{article.data.subtitle}</p>
     </header>
@@ -78,6 +121,10 @@ const t = {
       <div class="article-main">
         <div class="prose article-body">
           <Content />
+
+          <div class="author-monastic" style="margin-top: 3rem;">
+            <span class="initial">K</span>Kliment Vileysky
+          </div>
         </div>
 
         {article.data.sources && (
@@ -98,161 +145,261 @@ const t = {
         </aside>
       )}
     </div>
-  
+
     {(previousArticle || nextArticle) && (
       <nav class="article-nav" aria-label="Article navigation">
         <div class="article-nav-grid">
           {previousArticle ? (
-            <a href={articlePath(previousArticle)} class="article-nav-card article-nav-prev">
-              <span class="article-nav-label">{t.navigation.previous}</span>
-              <span class="article-nav-title">{previousArticle.data.title}</span>
+            <a
+              href={articlePath(previousArticle)}
+              class="article-nav-card article-nav-prev"
+            >
+              <span class="article-nav-label">
+                {t.navigation.previous}
+              </span>
+              <span class="article-nav-title">
+                {previousArticle.data.title}
+              </span>
             </a>
-          ) : <span aria-hidden="true"></span>}
+          ) : (
+            <span aria-hidden="true"></span>
+          )}
 
           {nextArticle ? (
-            <a href={articlePath(nextArticle)} class="article-nav-card article-nav-next">
-              <span class="article-nav-label">{t.navigation.next}</span>
-              <span class="article-nav-title">{nextArticle.data.title}</span>
+            <a
+              href={articlePath(nextArticle)}
+              class="article-nav-card article-nav-next"
+            >
+              <span class="article-nav-label">
+                {t.navigation.next}
+              </span>
+              <span class="article-nav-title">
+                {nextArticle.data.title}
+              </span>
             </a>
-          ) : <span aria-hidden="true"></span>}
+          ) : (
+            <span aria-hidden="true"></span>
+          )}
         </div>
       </nav>
     )}
+
   </article>
 </Base>
 
 <style is:global>
-  .article-page {
-    padding: var(--space-xl) 0;
-  }
+.article-page {
+  padding: var(--space-xl) 0;
+}
 
-  .article-header {
-    max-width: 720px;
-    margin: 0 auto var(--space-xl);
-  }
+.article-header {
+  max-width: 720px;
+  margin: 0 auto var(--space-xl);
+}
 
-  .article-meta-header {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: center;
-    margin-bottom: var(--space-md);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
 
-  .article-category {
-    color: var(--color-accent);
-    font-weight: 500;
-  }
+.breadcrumbs a {
+  color: inherit;
+}
 
-  .article-date,
-  .article-read-time {
-    color: var(--color-text-secondary);
-  }
+.breadcrumbs a:hover {
+  color: var(--color-accent);
+}
 
-  .article-title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 600;
-    line-height: 1.15;
-    color: var(--color-text);
-    margin-bottom: var(--space-md);
-  }
+.article-meta-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+  margin-bottom: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
 
-  .article-subtitle {
-    font-family: var(--font-serif);
-    font-size: 1.15rem;
-    font-style: italic;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-  }
+.article-category {
+  color: var(--color-accent);
+  font-weight: 500;
+}
 
+.article-date,
+.article-read-time {
+  color: var(--color-text-secondary);
+}
+
+.article-title {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+}
+
+.article-subtitle {
+  color: var(--color-text-secondary);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: var(--space-xl);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.article-main {
+  min-width: 0;
+}
+
+.article-body {
+  max-width: 65ch;
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.article-body h2 {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.article-body p {
+  margin-bottom: var(--space-md);
+}
+
+.article-sources {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.article-sources h2 {
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+}
+
+.article-sources ul {
+  list-style: none;
+  padding: 0;
+}
+
+.article-sources li {
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+
+.article-marginalia {
+  padding-top: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.article-marginalia p {
+  padding-left: var(--space-sm);
+  border-left: 2px solid var(--color-accent);
+}
+
+.article-nav {
+  max-width: 960px;
+  margin: var(--space-xl) auto 0;
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.article-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.article-nav-card {
+  display: block;
+  min-height: 96px;
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.article-nav-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.article-nav-label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.article-nav-title {
+  display: block;
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.article-nav-next {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
   .article-layout {
-    display: grid;
-    grid-template-columns: 1fr 200px;
-    gap: var(--space-xl);
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  .article-main {
-    min-width: 0;
-  }
-
-  .article-body {
-    font-family: var(--font-serif);
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: var(--color-text);
-  }
-
-  .article-body h2 {
-    font-family: var(--font-serif);
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-top: var(--space-xl);
-    margin-bottom: var(--space-md);
-    color: var(--color-text);
-  }
-
-  .article-body p {
-    margin-bottom: var(--space-md);
-  }
-
-  .article-sources {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .article-sources h2 {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-md);
-  }
-
-  .article-sources ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .article-sources li {
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    padding: var(--space-xs) 0;
-    border-bottom: 1px solid var(--color-border);
+    grid-template-columns: 1fr;
   }
 
   .article-marginalia {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-    padding-top: var(--space-lg);
+    order: -1;
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+    background: rgba(155, 74, 74, 0.05);
+    border-radius: 4px;
   }
 
-  .article-marginalia p {
-    border-left: 2px solid var(--color-accent);
-    padding-left: var(--space-sm);
+  .article-nav-grid {
+    grid-template-columns: 1fr;
   }
 
-  @media (max-width: 768px) {
-    .article-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .article-marginalia {
-      order: -1;
-      padding: var(--space-md);
-      background: rgba(155, 74, 74, 0.05);
-      border-radius: 4px;
-      margin-bottom: var(--space-lg);
-    }
+  .article-nav-next {
+    text-align: left;
   }
+}
 </style>
