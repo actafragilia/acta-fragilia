@@ -1,5 +1,6 @@
-﻿---
+---
 import Base from './Base.astro';
+import { getCollection } from 'astro:content';
 
 export interface Props {
   title: string;
@@ -33,6 +34,43 @@ const articlePath = (item: any) =>
 
 const ogImage = `/og/${lang}/${article.slug}.png`;
 
+// Build hreflang URLs by matching articles across languages by date
+async function buildArticleHreflangUrls(currentDate: Date, currentLang: string): Promise<Record<string, string>> {
+  const siteURL = 'https://acta-fragilia.com';
+  const langCollections: Record<string, string> = {
+    ru: 'articles',
+    by: 'articlesBy',
+    en: 'articlesEn',
+    pl: 'articlesPl',
+  };
+  const langPrefixes: Record<string, string> = { ru: '', by: '/by', en: '/en', pl: '/pl' };
+  const urls: Record<string, string> = {};
+
+  for (const [l, coll] of Object.entries(langCollections)) {
+    try {
+      const allArticles = await getCollection(coll);
+      const match = allArticles.find(
+        (a) => new Date(a.data.date).getTime() === new Date(currentDate).getTime()
+      );
+      if (match) {
+        const path = `${langPrefixes[l]}/article/${match.slug}/`;
+        urls[l] = new URL(path, siteURL).href;
+      }
+    } catch (e) {
+      // Collection might not exist
+    }
+  }
+
+  // Fallback: if no matches found, use current article
+  if (Object.keys(urls).length === 0) {
+    urls[currentLang] = new URL(articlePath({ slug: article.slug }), siteURL).href;
+  }
+
+  return urls;
+}
+
+const hreflangUrls = await buildArticleHreflangUrls(article.data.date, lang);
+
 function formatDate(date: Date | string, language: string = 'ru'): string {
   const d = typeof date === 'string' ? new Date(date) : date;
 
@@ -51,17 +89,17 @@ function formatDate(date: Date | string, language: string = 'ru'): string {
 }
 
 const sourcesText: Record<string, string> = {
-  ru: 'Sources and links',
+  ru: 'Источники и ссылки',
   en: 'Sources and references',
-  pl: 'Zrodla i odniesienia',
-  by: 'Krynicy i spasylki',
+  pl: 'Źródła i odniesienia',
+  by: 'Крыніцы і спасылкі',
 };
 
 const navigationText: Record<string, { previous: string; next: string }> = {
-  ru: { previous: 'Previous', next: 'Next' },
-  by: { previous: 'Paparedniaja', next: 'Nastupnaja' },
+  ru: { previous: 'Предыдущая', next: 'Следующая' },
+  by: { previous: 'Папярэдняя', next: 'Наступная' },
   en: { previous: 'Previous', next: 'Next' },
-  pl: { previous: 'Poprzednia', next: 'Nastepna' },
+  pl: { previous: 'Poprzednia', next: 'Następna' },
 };
 
 const t = {
@@ -74,30 +112,27 @@ const t = {
   title={title}
   lang={lang}
   description={article.data.subtitle}
-  image={ogImage}
-  type="article"
-  publishedTime={article.data.date}
-  author={article.data.author}
-  section={article.data.category}
+  ogImage={ogImage}
+  hreflangUrls={hreflangUrls}
 >
   <article class="article-page">
     <header class="article-header">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href={`/${lang === 'ru' ? '' : `${lang}/`}`}>
           {lang === 'ru'
-            ? 'Materialy'
+            ? 'Материалы'
             : lang === 'by'
-              ? 'Materyjaly'
+              ? 'Матэрыялы'
               : lang === 'en'
                 ? 'Materials'
-                : 'Materialy'}
+                : 'Materiały'}
         </a>
         <span aria-hidden="true">/</span>
         <a href={`/${lang === 'ru' ? '' : `${lang}/`}archive/`}>
           {lang === 'ru'
-            ? 'Arkhiv'
+            ? 'Архив'
             : lang === 'by'
-              ? 'Arkhiu'
+              ? 'Архіў'
               : lang === 'en'
                 ? 'Archive'
                 : 'Archiwum'}

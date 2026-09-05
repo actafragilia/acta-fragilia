@@ -6,9 +6,10 @@ export interface Props {
   lang?: string;
   description?: string;
   ogImage?: string;
+  hreflangUrls?: Record<string, string>;
 }
 
-const { title, lang = 'ru', description, ogImage } = Astro.props;
+const { title, lang = 'ru', description, ogImage, hreflangUrls } = Astro.props;
 
 const nav = {
   ru: { materials: 'Материалы', about: 'О проекте', contacts: 'Контакты', archive: 'Архив', pseudonym: 'О псевдониме' },
@@ -43,6 +44,29 @@ const pageURL = new URL(Astro.url.pathname, siteURL).href;
 const metaDescription = description || defaultDescriptions[htmlLang] || defaultDescriptions.ru;
 const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
 const ogImageAbsolute = ogImage ? new URL(ogImage, siteURL).href : new URL('/og-default.jpg', siteURL).href;
+
+// Build hreflang URLs
+const langPrefixes: Record<string, string> = { ru: '', by: '/by', en: '/en', pl: '/pl' };
+
+function buildHreflangUrls(): Record<string, string> {
+  if (hreflangUrls) return hreflangUrls;
+  let basePath = Astro.url.pathname;
+  for (const [l, p] of Object.entries(langPrefixes)) {
+    if (p && basePath.startsWith(p + '/')) {
+      basePath = basePath.slice(p.length);
+      break;
+    }
+  }
+  if (basePath.endsWith('/') && basePath !== '/') basePath = basePath.slice(0, -1);
+  const urls: Record<string, string> = {};
+  for (const [l, p] of Object.entries(langPrefixes)) {
+    const path = p + basePath + (basePath !== '/' ? '/' : '');
+    urls[l] = new URL(path, siteURL).href;
+  }
+  return urls;
+}
+
+const allHreflangUrls = buildHreflangUrls();
 ---
 <!DOCTYPE html>
 <html lang={htmlLang}>
@@ -58,51 +82,40 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteURL).href : new URL('/og-
   <meta property="og:type" content="website" />
   <meta property="og:locale" content={ogLocale} />
   <meta property="og:image" content={ogImageAbsolute} />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={metaDescription} />
-  <meta name="twitter:image" content={ogImageAbsolute} />
-  <meta name="description" content={metaDescription} />  <meta name="license" content="https://creativecommons.org/licenses/by-nc/4.0/" />  <meta name="license" content="https://creativecommons.org/licenses/by-nc/4.0/" />
-  <meta name="theme-color" content="#f0ece0" />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={metaDescription} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={pageURL} />
-  <meta property="og:locale" content={ogLocale} />
-  <meta property="og:image" content={`${siteURL}/og-image.svg`} />
   <meta property="og:site_name" content="ACTA FRAGILIA" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={metaDescription} />
-  <meta name="twitter:image" content={`${siteURL}/og-image.svg`} />
-  <link rel="canonical" href={pageURL} />
+  <meta name="twitter:image" content={ogImageAbsolute} />
+  <meta name="license" content="https://creativecommons.org/licenses/by-nc/4.0/" />
+  <meta name="theme-color" content="#f0ece0" />
+  <link rel="alternate" hreflang="ru" href={allHreflangUrls.ru} />
+  <link rel="alternate" hreflang="be" href={allHreflangUrls.by} />
+  <link rel="alternate" hreflang="en" href={allHreflangUrls.en} />
+  <link rel="alternate" hreflang="pl" href={allHreflangUrls.pl} />
+  <link rel="alternate" hreflang="x-default" href={allHreflangUrls.ru} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="stylesheet" href="/global.css" />
 </head>
 <body>
-  <a href="#main" class="skip-link">{lang === 'ru' ? 'К содержанию' : lang === 'by' ? 'Да зместу' : lang === 'en' ? 'Skip to content' : 'Przejdź do treści'}</a>
-
   <header class="site-header">
     <div class="header-inner">
       <a href={`${prefix}/`} class="logo">ACTA FRAGILIA</a>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
-      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Сменить тему" title="Сменить тему">
-        <span class="theme-icon-light" aria-hidden="true">◐</span>
-        <span class="theme-icon-dark" aria-hidden="true">◑</span>
-      </button>
-      <label for="nav-toggle" class="nav-burger" aria-label="Меню">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+      <label for="nav-toggle" class="nav-burger" aria-label="Menu">
         <span></span><span></span><span></span>
       </label>
-      <nav class="main-nav" aria-label="main">
+      <nav class="main-nav">
         <a href={`${prefix}/`}>{t.materials}</a>
-        <a href={`${prefix}/archive`}>{t.archive}</a>
+        <a href={`${prefix}/archive/`}>{t.archive}</a>
         <a href={`${prefix}/about`}>{t.about}</a>
-        <a href={`${prefix}/contacts`}>{t.contacts}</a>
+        <a href={`${prefix}/about#contacts`}>{t.contacts}</a>
         <a href={`${prefix}/pseudonym`}>{t.pseudonym}</a>
         <LanguageSwitcher currentLang={lang} />
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <span class="theme-icon-light">☀</span>
+          <span class="theme-icon-dark">☾</span>
+        </button>
       </nav>
     </div>
   </header>
@@ -118,7 +131,7 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteURL).href : new URL('/og-
         <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a>
         <a href={`${prefix}/rss.xml`}>RSS</a>
         <a href={`${prefix}/license`}>{lang === "ru" ? "Условия использования" : lang === "by" ? "Умовы выкарыстання" : lang === "en" ? "Terms of Use" : "Warunki użytkowania"}</a>
-      <a href={`${prefix}/privacy`}>{f.privacy}</a>
+        <a href={`${prefix}/privacy`}>{f.privacy}</a>
       </div>
       <div class="footer-copy">&copy; 2026 ACTA FRAGILIA. {f.rights}</div>
     </div>
