@@ -10,7 +10,7 @@ export async function GET(context) {
   return rss({
     title: 'ACTA FRAGILIA — Беларуская',
     description: 'Незалежная журналістыка і аналіз: права, эканоміка, карпаратыўныя канфлікты і грамадскія працэсы.',
-    site: context.site ?? 'https://acta-fragilia.pages.dev',
+    site: context.site ?? 'https://acta-fragilia.com',
     customData: '<language>be</language>',
     items: sortedArticles.map((article) => ({
       title: article.data.title,

@@ -10,7 +10,7 @@ export async function GET(context) {
   return rss({
     title: 'ACTA FRAGILIA — English',
     description: 'Independent journalism and analysis: law, economics, corporate conflicts and social processes.',
-    site: context.site ?? 'https://acta-fragilia.pages.dev',
+    site: context.site ?? 'https://acta-fragilia.com',
     customData: '<language>en</language>',
     items: sortedArticles.map((article) => ({
       title: article.data.title,

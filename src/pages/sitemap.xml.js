@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 export const prerender = true;
 
 export async function GET() {
-  const site = 'https://acta-fragilia.pages.dev';
+  const site = 'https://acta-fragilia.com';
 
   const staticPaths = [
     '', 'about/', 'archive/', 'contacts/', 'editorial-policy/', 'privacy/',

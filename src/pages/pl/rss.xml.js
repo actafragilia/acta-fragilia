@@ -10,7 +10,7 @@ export async function GET(context) {
   return rss({
     title: 'ACTA FRAGILIA — Polski',
     description: 'Niezależne dziennikarstwo i analiza: prawo, gospodarka, konflikty korporacyjne i procesy społeczne.',
-    site: context.site ?? 'https://acta-fragilia.pages.dev',
+    site: context.site ?? 'https://acta-fragilia.com',
     customData: '<language>pl</language>',
     items: sortedArticles.map((article) => ({
       title: article.data.title,

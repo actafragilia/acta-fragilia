@@ -1,4 +1,4 @@
-﻿---
+---
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 export interface Props {
@@ -38,7 +38,7 @@ const f = footer[lang] || footer.ru;
 const prefix = lang === 'ru' ? '' : `/${lang}`;
 const htmlLang = lang === 'by' ? 'be' : lang;
 
-const siteURL = 'https://acta-fragilia.pages.dev';
+const siteURL = 'https://acta-fragilia.com';
 const pageURL = new URL(Astro.url.pathname, siteURL).href;
 const metaDescription = description || defaultDescriptions[htmlLang] || defaultDescriptions.ru;
 const ogLocale = ogLocales[htmlLang] || ogLocales.ru;

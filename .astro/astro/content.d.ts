@@ -155,9 +155,23 @@ declare module 'astro:content' {
   collection: "articles";
   data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
+"molodezh-vyhodit-iz-opk.md": {
+	id: "molodezh-vyhodit-iz-opk.md";
+  slug: "molodezh-vyhodit-iz-opk";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
 "novye-religioznye-dvizheniya.md": {
 	id: "novye-religioznye-dvizheniya.md";
   slug: "novye-religioznye-dvizheniya";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
+"povedencheskie-modeli-vlasti-i-travmy.md": {
+	id: "povedencheskie-modeli-vlasti-i-travmy.md";
+  slug: "povedencheskie-modeli-vlasti-i-travmy";
   body: string;
   collection: "articles";
   data: InferEntrySchema<"articles">
@@ -178,9 +192,23 @@ declare module 'astro:content' {
   collection: "articlesBy";
   data: InferEntrySchema<"articlesBy">
 } & { render(): Render[".md"] };
+"moladz-vykhodzits-z-opk.md": {
+	id: "moladz-vykhodzits-z-opk.md";
+  slug: "moladz-vykhodzits-z-opk";
+  body: string;
+  collection: "articlesBy";
+  data: InferEntrySchema<"articlesBy">
+} & { render(): Render[".md"] };
 "novyya-religijnyya-ruhi.md": {
 	id: "novyya-religijnyya-ruhi.md";
   slug: "novyya-religijnyya-ruhi";
+  body: string;
+  collection: "articlesBy";
+  data: InferEntrySchema<"articlesBy">
+} & { render(): Render[".md"] };
+"pavadzinnnyya-madeli-vlady-i-traumy.md": {
+	id: "pavadzinnnyya-madeli-vlady-i-traumy.md";
+  slug: "pavadzinnnyya-madeli-vlady-i-traumy";
   body: string;
   collection: "articlesBy";
   data: InferEntrySchema<"articlesBy">
@@ -190,6 +218,13 @@ declare module 'astro:content' {
 "bankruptcy-as-a-system.md": {
 	id: "bankruptcy-as-a-system.md";
   slug: "bankruptcy-as-a-system";
+  body: string;
+  collection: "articlesEn";
+  data: InferEntrySchema<"articlesEn">
+} & { render(): Render[".md"] };
+"behavioral-models-of-power-and-trauma.md": {
+	id: "behavioral-models-of-power-and-trauma.md";
+  slug: "behavioral-models-of-power-and-trauma";
   body: string;
   collection: "articlesEn";
   data: InferEntrySchema<"articlesEn">
@@ -208,8 +243,29 @@ declare module 'astro:content' {
   collection: "articlesEn";
   data: InferEntrySchema<"articlesEn">
 } & { render(): Render[".md"] };
+"youth-leaving-upc.md": {
+	id: "youth-leaving-upc.md";
+  slug: "youth-leaving-upc";
+  body: string;
+  collection: "articlesEn";
+  data: InferEntrySchema<"articlesEn">
+} & { render(): Render[".md"] };
 };
 "articlesPl": {
+"mlodziez-opuszcza-opk.md": {
+	id: "mlodziez-opuszcza-opk.md";
+  slug: "mlodziez-opuszcza-opk";
+  body: string;
+  collection: "articlesPl";
+  data: InferEntrySchema<"articlesPl">
+} & { render(): Render[".md"] };
+"modele-behawioralne-wladzy-i-traumy.md": {
+	id: "modele-behawioralne-wladzy-i-traumy.md";
+  slug: "modele-behawioralne-wladzy-i-traumy";
+  body: string;
+  collection: "articlesPl";
+  data: InferEntrySchema<"articlesPl">
+} & { render(): Render[".md"] };
 "nowe-ruchy-religijne.md": {
 	id: "nowe-ruchy-religijne.md";
   slug: "nowe-ruchy-religijne";
