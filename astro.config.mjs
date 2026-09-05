@@ -4,7 +4,7 @@ export default defineConfig({
   site: 'https://acta-fragilia.com',
   i18n: {
     defaultLocale: 'ru',
-    locales: ['ru', 'en', 'pl', 'by'],
+    locales: ['ru', 'en', 'pl', 'by', 'uk'],
     routing: {
       prefixDefaultLocale: false,
     },

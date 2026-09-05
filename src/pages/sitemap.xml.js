@@ -10,6 +10,7 @@ export async function GET() {
     'en/', 'en/about/', 'en/archive/', 'en/contacts/', 'en/editorial-policy/', 'en/privacy/',
     'pl/', 'pl/about/', 'pl/archive/', 'pl/contacts/', 'pl/editorial-policy/', 'pl/privacy/',
     'by/', 'by/about/', 'by/archive/', 'by/contacts/', 'by/editorial-policy/', 'by/privacy/',
+    'uk/', 'uk/about/', 'uk/archive/', 'uk/contacts/', 'uk/editorial-policy/', 'uk/privacy/',
   ];
 
   const articles = await getCollection('articles');

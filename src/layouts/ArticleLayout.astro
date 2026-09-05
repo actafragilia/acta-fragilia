@@ -42,8 +42,9 @@ async function buildArticleHreflangUrls(currentDate: Date, currentLang: string):
     by: 'articlesBy',
     en: 'articlesEn',
     pl: 'articlesPl',
+    uk: 'articlesUk',
   };
-  const langPrefixes: Record<string, string> = { ru: '', by: '/by', en: '/en', pl: '/pl' };
+  const langPrefixes: Record<string, string> = { ru: '', by: '/by', en: '/en', pl: '/pl', uk: '/uk' };
   const urls: Record<string, string> = {};
 
   for (const [l, coll] of Object.entries(langCollections)) {
@@ -79,6 +80,7 @@ function formatDate(date: Date | string, language: string = 'ru'): string {
     en: 'en-US',
     pl: 'pl-PL',
     by: 'be-BY',
+    uk: 'uk-UA',
   };
 
   return d.toLocaleDateString(locales[language] || 'ru-RU', {
@@ -93,6 +95,7 @@ const sourcesText: Record<string, string> = {
   en: 'Sources and references',
   pl: 'Źródła i odniesienia',
   by: 'Крыніцы і спасылкі',
+  uk: 'Джерела та посилання',
 };
 
 const navigationText: Record<string, { previous: string; next: string }> = {
@@ -100,6 +103,7 @@ const navigationText: Record<string, { previous: string; next: string }> = {
   by: { previous: 'Папярэдняя', next: 'Наступная' },
   en: { previous: 'Previous', next: 'Next' },
   pl: { previous: 'Poprzednia', next: 'Następna' },
+  uk: { previous: 'Попередня', next: 'Наступна' },
 };
 
 const t = {
@@ -125,7 +129,9 @@ const t = {
               ? 'Матэрыялы'
               : lang === 'en'
                 ? 'Materials'
-                : 'Materiały'}
+                : lang === 'uk'
+                  ? 'Матеріали'
+                  : 'Materiały'}
         </a>
         <span aria-hidden="true">/</span>
         <a href={`/${lang === 'ru' ? '' : `${lang}/`}archive/`}>
@@ -135,7 +141,9 @@ const t = {
               ? 'Архіў'
               : lang === 'en'
                 ? 'Archive'
-                : 'Archiwum'}
+                : lang === 'uk'
+                  ? 'Архів'
+                  : 'Archiwum'}
         </a>
         <span aria-hidden="true">/</span>
         <span class="current">{article.data.title}</span>

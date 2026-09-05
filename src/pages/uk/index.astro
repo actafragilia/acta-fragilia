@@ -1,0 +1,143 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articlesUk');
+const sortedArticles = [...articles].sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Base title="ACTA FRAGILIA" lang="uk" description="Незалежна авторська майданчик для довгих текстів, аналізу документів, розслідувань та пояснення складних тем.">
+  <section class="home-page">
+    <div class="home-hero">
+      <h1>ACTA FRAGILIA</h1>
+      <p class="home-tagline">Незалежна авторська майданчик для довгих текстів, аналізу документів, розслідувань та пояснення складних тем.</p>
+    </div>
+
+    <section class="home-latest">
+      <h2>Останні матеріали</h2>
+      <ul class="article-list">
+        {sortedArticles.map((article) => (
+          <li>
+            <a href={`/uk/article/${article.slug}/`}>
+              <span class="article-category">{article.data.category}</span>
+              <h3>{article.data.title}</h3>
+              <p>{article.data.subtitle}</p>
+              <span class="article-meta">{new Date(article.data.date).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' })} · {article.data.readTime} хв</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="home-categories-section">
+      <h2>Рубрики</h2>
+    <ul class="category-list home-categories">
+      <li><a href="/uk/archive?category=Право">Право</a> — Аналіз законодавства, судової практики та правових конфліктів.</li>
+      <li><a href="/uk/archive?category=Економіка">Економіка</a> — Аналіз корпоративних конфліктів, банкрутств, податків та фінансових механізмів.</li>
+      <li><a href="/uk/archive?category=Суспільство">Суспільство</a> — Соціальні процеси, інституції та їхня трансформація.</li>
+      <li><a href="/uk/archive?category=Медіа">Медіа</a> — Інформаційні потоки, журналістика та медіаграмотність.</li>
+      <li><a href="/uk/archive?category=Інституційний аналіз">Інституційний аналіз</a> — Як політичні, державні, корпоративні та громадські структури працюють насправді.</li>
+      <li><a href="/uk/archive?category=Конфлікт">Конфлікт</a> — Корпоративні та економічні суперечки детально.</li>
+      <li><a href="/uk/archive?category=Документ">Документ</a> — Аналіз одного конкретного документа з коментарями.</li>
+    </ul>
+  </section>
+  </section>
+</Base>
+
+<style>
+  .home-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .home-hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+  .home-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .home-tagline {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary, #666);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .home-latest {
+    margin-top: 3rem;
+  }
+  .home-latest h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  .article-list {
+    list-style: none;
+    padding: 0;
+  }
+  .article-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border, #e0e0e0);
+  }
+  .article-list a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .article-list a:hover h3 {
+    color: var(--color-accent, #3d5a80);
+  }
+  .article-list .article-category {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent, #3d5a80);
+    margin-bottom: 0.25rem;
+  }
+  .article-list h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    transition: color 0.2s;
+  }
+  .article-list p {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary, #666);
+    margin-bottom: 0.5rem;
+  }
+  .article-meta {
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #999);
+  }
+  .home-categories-section {
+    margin-top: 3rem;
+  }
+  .home-categories-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  .category-list {
+    list-style: none;
+    padding: 0;
+  }
+  .category-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border, #e0e0e0);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .category-list a {
+    color: var(--color-accent, #3d5a80);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .category-list a:hover {
+    text-decoration: underline;
+  }
+</style>

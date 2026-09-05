@@ -16,6 +16,7 @@ const nav = {
   en: { materials: 'Materials', about: 'About', contacts: 'Contacts', archive: 'Archive', pseudonym: 'About the pseudonym' },
   pl: { materials: 'Materiały', about: 'O projekcie', contacts: 'Kontakt', archive: 'Archiwum', pseudonym: 'O pseudonimie' },
   by: { materials: 'Матэрыялы', about: 'Пра праект', contacts: 'Кантакты', archive: 'Архіў', pseudonym: 'Пра псеўданім' },
+  uk: { materials: 'Матеріали', about: 'Про проект', contacts: 'Контакти', archive: 'Архів', pseudonym: 'Про псевдонім' },
 };
 
 const footer = {
@@ -23,6 +24,7 @@ const footer = {
   en: { privacy: 'Privacy Policy', rights: 'Independent Journalism' },
   pl: { privacy: 'Polityka prywatności', rights: 'Niezależne dziennikarstwo' },
   by: { privacy: 'Палітыка прыватнасці', rights: 'Незалежная журналістыка' },
+  uk: { privacy: 'Політика конфіденційності', rights: 'Незалежна журналістика' },
 };
 
 const defaultDescriptions = {
@@ -30,9 +32,10 @@ const defaultDescriptions = {
   be: 'ACTA FRAGILIA — незалежнае выданне пра палітыку, эканоміку і грамадства.',
   en: 'ACTA FRAGILIA — independent journalism on politics, economics, and society.',
   pl: 'ACTA FRAGILIA — niezależne dziennikarstwo o polityce, ekonomii i społeczeństwie.',
+  uk: 'ACTA FRAGILIA — незалежне видання про політику, економіку та суспільство.',
 };
 
-const ogLocales = { ru: 'ru_RU', be: 'be_BY', en: 'en_US', pl: 'pl_PL' };
+const ogLocales = { ru: 'ru_RU', be: 'be_BY', en: 'en_US', pl: 'pl_PL', uk: 'uk_UA' };
 
 const t = nav[lang] || nav.ru;
 const f = footer[lang] || footer.ru;
@@ -46,7 +49,7 @@ const ogLocale = ogLocales[htmlLang] || ogLocales.ru;
 const ogImageAbsolute = ogImage ? new URL(ogImage, siteURL).href : new URL('/og-default.jpg', siteURL).href;
 
 // Build hreflang URLs
-const langPrefixes: Record<string, string> = { ru: '', by: '/by', en: '/en', pl: '/pl' };
+const langPrefixes: Record<string, string> = { ru: '', by: '/by', en: '/en', pl: '/pl', uk: '/uk' };
 
 function buildHreflangUrls(): Record<string, string> {
   if (hreflangUrls) return hreflangUrls;
@@ -93,6 +96,7 @@ const allHreflangUrls = buildHreflangUrls();
   <link rel="alternate" hreflang="be" href={allHreflangUrls.by} />
   <link rel="alternate" hreflang="en" href={allHreflangUrls.en} />
   <link rel="alternate" hreflang="pl" href={allHreflangUrls.pl} />
+  <link rel="alternate" hreflang="uk" href={allHreflangUrls.uk} />
   <link rel="alternate" hreflang="x-default" href={allHreflangUrls.ru} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -130,7 +134,7 @@ const allHreflangUrls = buildHreflangUrls();
       <div class="footer-links">
         <a href="mailto:acta_fragilia@proton.me">acta_fragilia@proton.me</a>
         <a href={`${prefix}/rss.xml`}>RSS</a>
-        <a href={`${prefix}/license`}>{lang === "ru" ? "Условия использования" : lang === "by" ? "Умовы выкарыстання" : lang === "en" ? "Terms of Use" : "Warunki użytkowania"}</a>
+        <a href={`${prefix}/license`}>{lang === "ru" ? "Условия использования" : lang === "by" ? "Умовы выкарыстання" : lang === "en" ? "Terms of Use" : lang === "uk" ? "Умови використання" : "Warunki użytkowania"}</a>
         <a href={`${prefix}/privacy`}>{f.privacy}</a>
       </div>
       <div class="footer-copy">&copy; 2026 ACTA FRAGILIA. {f.rights}</div>

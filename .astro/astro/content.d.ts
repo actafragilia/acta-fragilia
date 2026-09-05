@@ -288,6 +288,14 @@ declare module 'astro:content' {
   data: InferEntrySchema<"articlesPl">
 } & { render(): Render[".md"] };
 };
+"articlesUk": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "articlesUk";
+  data: InferEntrySchema<"articlesUk">;
+  render(): Render[".md"];
+}>;
 
 	};
 

@@ -1,19 +1,20 @@
-﻿---
+---
 const currentPath = Astro.url.pathname;
 
-// Языки в нужном порядке: RU, BY, PL, EN
+// Языки в нужном порядке: RU, BY, PL, EN, UK
 const langMap = [
   { lang: 'ru', label: 'RU', prefix: '' },
   { lang: 'by', label: 'BY', prefix: '/by' },
   { lang: 'pl', label: 'PL', prefix: '/pl' },
-  { lang: 'en', label: 'EN', prefix: '/en' }
+  { lang: 'en', label: 'EN', prefix: '/en' },
+  { lang: 'uk', label: 'UK', prefix: '/uk' }
 ];
 
 // Определяем текущий язык
 let currentLang = 'ru';
 for (const entry of langMap) {
   const prefix = entry.prefix;
-  if (prefix === '' && !currentPath.startsWith('/en/') && !currentPath.startsWith('/pl/') && !currentPath.startsWith('/by/')) {
+  if (prefix === '' && !currentPath.startsWith('/en/') && !currentPath.startsWith('/pl/') && !currentPath.startsWith('/by/') && !currentPath.startsWith('/uk/')) {
     currentLang = 'ru';
     break;
   }
@@ -27,8 +28,8 @@ for (const entry of langMap) {
 const links = langMap.map(({ lang, label, prefix }) => {
   let href = prefix || '/';
   // Если мы не на главной, добавляем путь после префикса
-  if (currentPath !== '/' && currentPath !== '/en/' && currentPath !== '/pl/' && currentPath !== '/by/') {
-    const suffix = currentPath.replace(/^\/(en|pl|by)/, '');
+  if (currentPath !== '/' && currentPath !== '/en/' && currentPath !== '/pl/' && currentPath !== '/by/' && currentPath !== '/uk/') {
+    const suffix = currentPath.replace(/^\/(en|pl|by|uk)/, '');
     href = (prefix || '') + suffix;
     // удаляем двойные слэши
     href = href.replace(/\/\//g, '/');

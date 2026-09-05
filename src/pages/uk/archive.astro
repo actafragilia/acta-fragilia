@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articlesUk');
+const sortedArticles = [...articles].sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Base title="Архів — ACTA FRAGILIA" lang="uk">
+  <main class="archive-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumbs">
+      <a href="/uk/">Головна</a>
+      <span class="breadcrumbs-separator">/</span>
+      <span class="breadcrumbs-current">Архів</span>
+    </nav>
+
+    <h1>Архів</h1>
+    <p class="archive-intro">Повний список матеріалів.</p>
+
+    <ul class="archive-list">
+      {sortedArticles.map((article) => (
+        <li><a href={`/uk/article/${article.slug}/`}>{article.data.title}</a></li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  .archive-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #666);
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+  }
+  .breadcrumbs a {
+    color: var(--color-link, #005a9c);
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .breadcrumbs-separator {
+    margin: 0 0.4rem;
+    color: var(--color-text-muted, #999);
+  }
+  .breadcrumbs-current {
+    color: var(--color-text, #333);
+    font-weight: 500;
+  }
+  .archive-intro {
+    color: var(--color-text-muted, #666);
+    margin-bottom: 1.5rem;
+  }
+  .archive-list {
+    list-style: none;
+    padding: 0;
+  }
+  .archive-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border, #e0e0e0);
+  }
+  .archive-list a {
+    color: var(--color-link, #005a9c);
+    text-decoration: none;
+  }
+  .archive-list a:hover {
+    text-decoration: underline;
+  }
+</style>
