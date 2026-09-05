@@ -28,3 +28,6 @@ Thumbs.db
 
 # Astro
 .astro/
+
+# Cloned translation repos
+acta-fragilia-*/
